@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="css/responsive.css">
 
     <?php 
-      include 'header.html';
+      include 'header.php';
     ?>
 
     <!-------------------------------------- para lang alam ko ------------------------------------------------ -->
