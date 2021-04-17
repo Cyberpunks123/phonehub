@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2021 at 04:42 AM
+-- Generation Time: Apr 17, 2021 at 09:59 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -37,9 +37,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cat_id`, `cat_desc`) VALUES
-(1, 'Vivo'),
+(1, 'vivo'),
 (2, 'Samsung'),
-(3, 'Realme');
+(3, 'Real Me'),
+(4, 'Iphone'),
+(5, 'HTC');
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,7 @@ CREATE TABLE `item` (
 
 INSERT INTO `item` (`item_id`, `cat_id`, `item_name`, `item_image`, `item_code`, `item_price`, `item_desc`, `item_stat`, `supp_id`) VALUES
 (1, 1, 'Vivo Y11', 'vivo y11.png', 1, 7000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Y11', '', 2, 7000, 'this phone is a ……….', 'A', 1),
+(1, 1, 'Vivo Y11', 'product-1.jpg', 2, 7000, 'this phone is a ……….', 'A', 1),
 (1, 1, 'Vivo Y11', '', 3, 7000, 'this phone is a ……….', 'A', 1),
 (1, 1, 'Vivo Spro', '', 4, 10000, 'this phone is a ……….', 'A', 1),
 (1, 1, 'Vivo Spro', '', 5, 10000, 'this phone is a ……….', 'A', 1),
@@ -202,7 +204,7 @@ CREATE TABLE `suppliers` (
   `supp_mun` varchar(30) NOT NULL,
   `supp_prov` varchar(30) NOT NULL,
   `supp_pass` varchar(15) NOT NULL,
-  `supp_stat` enum('A','B','','') NOT NULL
+  `supp_stat` enum('A','B','','') NOT NULL COMMENT 'A = Active , B = Blocked'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -304,6 +306,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `currentstock`
