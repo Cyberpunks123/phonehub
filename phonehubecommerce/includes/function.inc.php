@@ -2,6 +2,179 @@
     include_once "db_connect.php";
     include_once "function.inc.php";
 
+
+
+function getPrice($conn, $price_start = "all"){
+     $err;
+     if($supp_muni == "all"){
+        $sql = "SELECT * FROM `suppliers`;";
+         
+         $stmt=mysqli_stmt_init($conn);
+         if(!mysqli_stmt_prepare($stmt, $sql)){
+            return false;
+            exit;
+         }  
+     }else{
+        $sql = "SELECT * FROM `suppliers` where supp_mun = ? ;";
+        $stmt=mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql)){
+            return false;
+            exit;
+         } 
+        mysqli_stmt_bind_param($stmt, "s" , $supp_muni);
+     }
+     
+         mysqli_stmt_execute($stmt);
+        
+         $resultData = mysqli_stmt_get_result($stmt);
+      if(!empty($resultData)){
+        $arr = array();
+         while($row = mysqli_fetch_assoc($resultData)){
+            array_push($arr,$row);
+         }
+          return $arr;
+      } else
+      {
+          return false;
+      }
+         mysql_stmt_close($stmt);
+ }
+
+// ---------------------------------------------------------------
+function getItemListperCategory($conn, $cat = "X", $item = "X" ){
+     $err;
+     if($cat == "X"){
+          if($item == "X"){
+             $sql = "SELECT * FROM `item`;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+          }
+          else {
+             $sql = "SELECT * FROM `item` WHERE item_id = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $item);
+          }
+     }
+     else
+     {
+          if($item == "X"){
+             $sql = "SELECT * 
+                       FROM `item`
+                      WHERE cat_id = ?";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $cat);
+          }
+          else {
+             $sql = "SELECT * FROM `item` 
+                   WHERE 
+                   ( item_id = ?
+                         OR item_name = ? )
+                   AND cat_id = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "sss" , $item, $item, $cat);
+          }
+     }
+         mysqli_stmt_execute($stmt);
+        
+      $resultData = mysqli_stmt_get_result($stmt);
+      if(!empty($resultData)){
+        $arr = array();
+         while($row = mysqli_fetch_assoc($resultData)){
+            array_push($arr,$row);
+         }
+          return $arr;
+      } else
+      {
+          return false;
+      }
+         mysql_stmt_close($stmt);
+ }
+
+
+
+// ----------------------------------------------------------------
+function allitemList($conn, $item_stat = "X", $item_code = "all", ){
+     $err;
+     if($item_code == "all"){
+          if($item_stat == "X"){
+             $sql = "SELECT * FROM `item`;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+          }
+          else {
+             $sql = "SELECT * FROM `item` WHERE item_stat = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $item_stat);
+          }
+     }
+     else
+     {
+          if($item_stat == "X"){
+             $sql = "SELECT * 
+                       FROM `item`
+                      WHERE item_code = ?
+                         OR item_stat = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "ss" , $item_code, $item_code);
+          }
+          else {
+             $sql = "SELECT * FROM `item` 
+                   WHERE 
+                   ( item_code = ?
+                         OR item_stat = ? )
+                   AND item_stat = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "sss" , $item_code, $item_code, $item_stat);
+          }
+     }
+         mysqli_stmt_execute($stmt);
+        
+      $resultData = mysqli_stmt_get_result($stmt);
+      if(!empty($resultData)){
+        $arr = array();
+         while($row = mysqli_fetch_assoc($resultData)){
+            array_push($arr,$row);
+         }
+          return $arr;
+      } else
+      {
+          return false;
+      }
+         mysql_stmt_close($stmt);
+ }
+
+
+// ------------------------------------------------------------
 function getSuppliers($conn, $supp_stat = "X", $supp = "all", ){
      $err;
      if($supp == "all"){
@@ -168,110 +341,39 @@ function getItemListperSupplier($conn, $supp = "X", $item = "X" ){
          mysql_stmt_close($stmt);
  }
 
-// function createUser($conn,$username,$firstname,$lastname,$useraddress,$usermuni,$userprov,$usergender,$password){
-//     $err;
-//     $sql = "SELECT * FROM `user` WHERE `user_name` = ?; ";
+function usrnametaken ($conn, $username){
+    $err;
+    $sql = "SELECT * FROM `user` WHERE `user_name` = ?; ";
     
-//     $stmt = mysqli_stmt_init($conn);
-//     if(!mysqli_stmt_prepare($stmt, $sql)){
-//      header("Location: ../signup.php?error=stmtfailed");
-//         exit();
-//     }
-//     else{
-//         mysqli_stmt_bind_param($stmt, "s" ,$username);
-//         mysqli_stmt_execute($stmt);
-//         mysqli_stmt_store_result($stmt);
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: ../signup.php?error=stmtfailed");
+        exit();
+    }
+    else{
+        mysqli_stmt_bind_param($stmt, "s" ,$username);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
         
         
-//         $resultcheck = mysqli_stmt_num_rows($stmt);
-//         if($resultcheck > 0){
-//             header("Location: signup.php?error=usernametaken");
-//             exit();
-//         }
-//         else{
-//             $sql = "INSERT INTO `user` (`user_name`,`first_name`,`last_name`,`user_address`,`user_muni`,`user_prov`,`user_gender`,`user_pass`) 
-//             VALUES(?,?,?,?,?,?,?,?);";
-    
-//     $stmt=mysqli_stmt_init($conn);
-    
-//     if(!mysqli_stmt_prepare($stmt, $sql)){
-//      return false;
-//         exit();
-    
-//     }
-//     mysqli_stmt_bind_param($stmt, "ssssssss" ,$username, $firstname, $lastname, $useraddress,$usermuni,$userprov,$usergender, $password);
-//         mysqli_stmt_execute($stmt);
-//         header("Location: ..signup.php?signin=success");
-//          mysqli_stmt_close($stmt);
-//     return true;
-//         }
-
-//     }
-//     mysqli_stmt_close($stmt);   
-// }
-
-
-
-// function usrnametaken ($conn, $username){
-//     $err;
-//     $sql = "SELECT * FROM `user` WHERE `user_name` = ?; ";
-    
-//     $stmt = mysqli_stmt_init($conn);
-//     if(!mysqli_stmt_prepare($stmt, $sql)){
-//      header("Location: ../signup.php?error=stmtfailed");
-//         exit();
-//     }
-//     else{
-//         mysqli_stmt_bind_param($stmt, "s" ,$username);
-//         mysqli_stmt_execute($stmt);
-//         mysqli_stmt_store_result($stmt);
-        
-        
-//         $resultcheck = mysqli_stmt_num_rows($stmt);
-//         if($resultcheck > 0){
-//             header("Location: signup.php?error=usernametaken");
-//             exit();
-//         }
-//         else if ($resultcheck == $username) {
-//             header("Location: ../accnt.php?signin=success");
-//              return $resultcheck;
-//             exit();
-//         }
-//         else{
-//              echo "bubu";
-//         }
-//     }
-//     mysqli_stmt_close($stmt);
-// }
-    
-    
-    
- function uidExists($conn, $username, $password){
-     $err;
-     $sql = "SELECT * FROM `user` 
-             WHERE `user_name` = ? 
-             AND `user_pass` = ?;";
-     $stmt=mysqli_stmt_init($conn);
-  
-     if(!mysqli_stmt_prepare($stmt, $sql)){
-      header("location: accnt.php?error=stmtfailed");
-         exit();
-       }  
-         mysqli_stmt_bind_param($stmt, "ss" ,$username,$password);
-         mysqli_stmt_execute($stmt);
-      
-         $resultData = mysqli_stmt_get_result($stmt);
-      
-         if($row = mysqli_fetch_assoc($resultData)){
-            return $row;
+        $resultcheck = mysqli_stmt_num_rows($stmt);
+        if($resultcheck > 0){
+            header("Location: signup.php?error=usernametaken");
             exit();
-             }
-         else{
-             $err=false;
-             return $err;
-         }
-         mysql_stmt_close($stmt);
-     }
+        }
+        else if ($resultcheck == $username) {
+            header("Location: ../accnt.php?signin=success");
+             return $resultcheck;
+            exit();
+        }
+        else{
+             echo "bubu";
+        }
+    }
+    mysqli_stmt_close($stmt);
+}
+    
+    
 //----------------sign in---------------------//
 
     function emptyFields($username,$firstname,$lastname,$useraddress,$usermuni,$userprov,$usergender,$password){
@@ -329,18 +431,6 @@ function getItemListperSupplier($conn, $supp = "X", $item = "X" ){
     return $err;
 }
 
-// function usrnametaken($username){
-//     $err;
-
-//     if ($resultcheck == $_POST['username']){
-//        $err = true;
-//     }
-//     else{
-//         $err = false;
-//     }
-
-// }
-
 function invaPass($password){
     $err;
     if (!preg_match("/^[a-zA-Z0-9]*$/", $password) ) {
@@ -390,4 +480,6 @@ function invaPass($password){
 
 
 
+
 ?>
+<!-- change 4-18-21 -->
