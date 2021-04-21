@@ -37,23 +37,38 @@
                 if (isset($_GET['error'])) {
 
                     if ($_GET['error'] == "loggedempty") {
-                        echo "<p class='error'>Please input all of the fields</p>";}
+                        echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Please input all of the fields!</strong> 
+                                    </div>';
+                                }
 
                     else if ($_GET['error'] == "loggedinvaname") {
-                        echo "<p class='error'>Input a valid Username</p>"; }
+                        echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Username!</strong> 
+                                    </div>'; 
+                                }
 
                     else if ($_GET['error'] == "loggedinvapassw") {
-                        echo "<p class='error'>Input a valid Password</p>"; }
+                        echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Password!</strong> 
+                                    </div>';
+                                }
 
                     else if ($_GET['error'] == "Usernotfound") {
-                        echo "<p class='error'>User not Found</p>"; }
+                        echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>User not found!</strong> 
+                                    </div>';
+                                }
                 }
-
-                    else if (isset($_GET['login']) == "success") {
-                        echo "<p class='login'>Log In Successful</p>";
-                } 
                     else if (isset($_GET['signin']) == "success") {
-                        echo "<p class='signin'>Sign In Successful</p>";
+                          echo '<div class="alert alert-success alert-dismissible fade in text-center">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong class="alert-text-success">Sign up Successful!</strong>
+</div>';
                 }
 
 
@@ -72,7 +87,7 @@
 
                 <div class="col-md-6">
                     <div class="logincon">
-                        <form action="includes/login.php" method="POST">
+                        <form action="includes/login.inc.php" method="POST">
                             <div class="form-group">
                                 <label>Username:</label>
                                 <input type="text" name="username" class="form-control">
@@ -100,7 +115,7 @@
 
 
     <?php 
-      include 'footer.html';
+      include 'footer.php';
     ?>
 
 </body>

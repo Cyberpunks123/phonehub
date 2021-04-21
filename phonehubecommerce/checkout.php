@@ -28,7 +28,7 @@
 
 <body>
     <?php
-    include 'header.html';
+    include 'header.php';
     ?>
 
     <div class="product-big-title-area">
@@ -900,7 +900,7 @@
     </div>
 
     <?php
-    include 'footer.html';
+    include 'footer.php';
     ?>
    
     <!-- Latest jQuery form server -->

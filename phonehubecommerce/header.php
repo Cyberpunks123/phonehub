@@ -50,7 +50,7 @@ session_start();
                     else{
                         echo '     <a href="accnt.php"><i class="fa fa-user"></i> Log in</a>';
                           
-                         echo '  <a href="signup.php"><i class="fa fa-sign-in"></i> Sign in</a>';
+                         echo '  <a href="signup.php"><i class="fa fa-sign-in"></i> Sign up</a>';
                     }
                 ?>
 
@@ -98,7 +98,7 @@ session_start();
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="shop.php">Shop page</a></li>
+                        <li><a href="shop.php">Item page</a></li>
                         <li><a href="singleproduct.php">Single product</a></li>
                         <li><a href="cart.php">Cart</a></li>
                         <li><a href="checkout.php">Checkout</a></li>
@@ -123,6 +123,8 @@ session_start();
         <?php include "style.css"?>
 
     </style>
+
+    
 
     <script>
         function myFunction() {

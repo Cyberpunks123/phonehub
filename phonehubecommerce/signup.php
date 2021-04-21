@@ -37,26 +37,52 @@
             if (isset($_GET['error'])) {
                                
                         if ($_GET['error'] == "emptyFields") {
-                             echo "<p class='error'>Please input all of the fields</p>";}
+                             echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Please input all of the fields!</strong> 
+                                    </div>';
+                                    }
                     
                                 else if ($_GET['error'] == "invaUname") {
-                                       echo "<p class='error'>Input a valid Username</p>";          
+                                       echo  ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Username!</strong> 
+                                    </div>';          
                                    }
 
                                  else if ($_GET['error']  == "invaFName") {
-                                       echo "<p class='error'>Input a valid Firstname</p>";          
+                                       echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Firstname!</strong> 
+                                    </div>';          
                                    }
                                     
                                   else if ($_GET['error']  == "invaLName") {
-                                       echo "<p class='error'>Input a valid Lastname</p>";          
+                                       echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Lastname!</strong> 
+                                    </div>';          
                                    }
 
                                  else if ($_GET['error']  == "invaAddress") {
-                                       echo "<p class='error'>Input a valid Address</p>";          
+                                       echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Address!</strong> 
+                                    </div>';          
                                    } 
 
                                  else if ($_GET['error']  == "invaPass") {
-                                       echo "<p class='error'>Input a valid Password</p>";          
+                                       echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Input a valid Password!</strong> 
+                                    </div>';          
+                                   } 
+                                
+                                else if ($_GET['error']  == "usernametaken") {
+                                       echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                     <strong>Username already taken!</strong> 
+                                    </div>';          
                                    }  
                                }
                                
@@ -111,7 +137,7 @@
 
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label> Province:</label>
                                 <select name="userprov">
@@ -133,7 +159,7 @@
                                     <option value="F" required>Female</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label> Password:</label>
                                 <input type="password" name="password" class="form-control" name="address" id="size">
@@ -155,7 +181,7 @@
 
 
     <?php 
-      include 'footer.html';
+      include 'footer.php';
     ?>
 
 </body>
