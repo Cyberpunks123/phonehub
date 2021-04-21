@@ -41,11 +41,6 @@ include_once "function.inc.php";
         $resultData = mysqli_stmt_get_result($stmt);
       
          if($row = mysqli_fetch_assoc($resultData)){
-            // $passcheck = password_verify($password, $row['user_pass']);
-        //     if ($passcheck == false) {
-        //          header("location: accnt.php?error=Usernotfound");
-        // exit();
-        //     }
              if ( $row == true) {
                 session_start();
                 $_SESSION['USER'] = $row['user_id'];
@@ -55,13 +50,13 @@ include_once "function.inc.php";
             }
             else if ($row  == false)
             {
-                  header("location: accnt.php?error=wrongpass");
+                  header("location: ../accnt.php?error=wrongpass");
         exit();
             }
          }
 
          else{
-            header("location: accnt.php?error=Usernotfound");
+            header("location: ../accnt.php?error=Usernotfound");
         exit();
          }
 
@@ -69,25 +64,8 @@ include_once "function.inc.php";
 
     
     }
-        
-
-
-     //    else if (uidExists($conn, $username, $password) !== false) {
-				 // $sesscheck = $row;
-
-     //             if ($sesscheck == $resultData) {
-     //               echo "hello";
-     //             }
-
-     //            // header("Location: ../shop.php?login=success");
-     //            // exit();
-     //        }
-        // else {
-        //     echo "User Not Found";
-        //     header("Location: ../accnt.php?error=Usernotfound");
-        //         exit();
-        // }
     }
 
 
 ?>
+<!-- change 4-18-21 -->
