@@ -559,7 +559,7 @@
     </div>
 
     <?php
-    include 'footer.html';
+    include 'footer.php';
     ?>
 
     <!-- Latest jQuery form server -->

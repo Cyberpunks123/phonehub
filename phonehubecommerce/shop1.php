@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Item</h2>
+                        <h2>Shop</h2>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,6 @@
                     <div class="navbar-col-sort collapse in" id="shopsort">
                         <div class="container">
                             <ul class="nav navbar-nav">
-                                <li><a href="shop.php">All Items</a></li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" id="shopsort" data-toggle="dropdown" href="#">Brand Name
                                         <span class="caret"></span></a>
@@ -95,8 +94,19 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="shop.php?supplier_id">Shop</a></li>
-                              
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" id="shopsort" data-toggle="dropdown" href="#">Prices
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"> 5k - 10k </a></li>
+                                        <li><a href="#"> 11k - 20k </a></li>
+                                        <li><a href="#"> 21k - 40k</a></li>
+                                        <li><a href="#"> 41k - 80k</a></li>
+                                        <li><a href="#"> 81k - up</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Gaming</a></li>
+                                <li><a href="#">Camera Resulotion</a></li>
                             </ul>
 
                         </div>
@@ -112,38 +122,7 @@
         <div class="container">
             <div class="row">
                <?php
-                if(isset($_GET['brandname'])){
-                  $CATEGORY=htmlentities($_GET['brandname']);    
-                  
-                  $item_list = getItemListperCategory($conn,$CATEGORY);
-                  foreach($item_list as $key => $i){ ?>
-                  <div class="col-md-3 col-sm-6">
-                       <div class="single-shop-product">
-                          <div class="product-upper">
-                              <img src="img/<?php echo $i['item_image']?>" alt="">
-                          </div>
-                          <h2><a href=""> <?php echo $i['item_name'] ; ?> </a></h2>
-                          <div class="product-carousel-price">
-                              <ins>  <span class="glyphicon glyphicon-ruble"></span> 
-                                  <?php echo number_format($i['item_price'],2) ; ?>
-                             </ins>
-                          </div>
-  
-                          <div class="product-option-shop">
-                              <a class="add_to_cart_button" 
-                          data-quantity="1" 
-                       data-product_sku="" 
-                        data-product_id="70" 
-                                     rel="nofollow"
-                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $i['item_id']; ?>">Add to cart</a>
-                                   
-                          </div>
-                      </div>
-                  </div>
-                    
-                <?php }
-                }  
-                else if(isset($_GET['supplier_id'])) {
+            if(!isset($_GET['supplier_id']) && !isset($_GET['brandname'])){
                 $supplist = getSuppliers($conn,'A');
                 foreach($supplist as $key => $supp){ ?>
                        <div class="col-md-3 col-sm-6">
@@ -159,16 +138,14 @@
                         </div>
 
                         <div class="product-option-shop">
-                            <a href="shop.php?shop_id=<?php echo $supp['supp_id'] ; ?>" class="add_to_cart_button" >Visit Shop</a>
+                            <a href="shop.php?supplier_id=<?php echo $supp['supp_id'] ; ?>" class="add_to_cart_button" >Visit Shop</a>
                         </div>
                     </div>
                 </div>
              <?php }
-            }
-
-            else if 
-                (isset($_GET['shop_id'])){
-                  $SUPPLIER=htmlentities($_GET['shop_id']);    
+            } else {
+                if(isset($_GET['supplier_id'])){
+                  $SUPPLIER=htmlentities($_GET['supplier_id']);    
                   
                   $item_list = getItemListperSupplier($conn,$SUPPLIER);
                   foreach($item_list as $key => $i){ ?>
@@ -199,39 +176,8 @@
                 <?php }
                 }
                 
-            
-
-                else{
-                    if(!isset($_GET['item_code'])){
-                $itemslist = allitemList($conn,'A');
-                foreach($itemslist as $key => $item_code){ ?>
-                       <div class="col-md-3 col-sm-6">
-                    <div class="single-shop-product">
-                        <div class="product-upper">
-                            <img src="img/<?php echo $item_code['item_image']?>" alt="">
-                        </div>
-                        <h2><a href=""> <?php echo $item_code['item_name'] ; ?> </a></h2>
-                        <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
-                                <?php echo number_format($item_code['item_price']) ?>
-                           </ins>
-                        </div>
-
-                      <div class="product-option-shop">
-                              <a class="add_to_cart_button" 
-                          data-quantity="1" 
-                       data-product_sku="" 
-                        data-product_id="70" 
-                                     rel="nofollow"
-                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $item_code['item_code']; ?>">Add to cart</a>
-                                   
-                          </div>
-                    </div>
-                </div>
-             <?php }
-             
-            }
-                }?>
+            }?>
+               
              
                 
                 

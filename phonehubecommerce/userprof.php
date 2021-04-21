@@ -23,7 +23,7 @@
     <!-- dipa po tapos ito sir -->
 
     <?php
-    include 'header.html';
+    include 'header.php';
     ?>
     <div class="accounts-profile">
         <div class="container">
@@ -81,18 +81,18 @@
                     <div class="box">
                         <h2 class="boxTitle"> User Profile</h2>
                         <!-- Tabs -->
-                        <ul class="nav nav-tabs userProfileTabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#tab-item-1" aria-controls="tab-item-1" role="tab" data-toggle="tab" aria-expanded="true">Purchased History</a></li>
-                            <li role="presentation" class=""><a href="#tab-item-2" aria-controls="tab-item-2" role="tab" data-toggle="tab" aria-expanded="false">Posted Items</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <!-- Purchase History -->
-                            <div role="tabpanel" class="tab-pane fade active in" id="tab-item-1">
-                                <div class="container bootdey">
+                                    <div role="tabpanel">
+                                        <ul class="product-tab" role="tablist">
+                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Order History</a></li>
+                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Posted items</a></li>
+                                        </ul>
+                                        
+                                    <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                <div class="container bootdey">
                                     <div class="panel panel-default panel-order">
                                         <div class="panel-heading">
-                                            <strong>Order history</strong>
+                                          
                                             <div class="btn-group pull-right">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Filter history <i class="fa fa-filter"></i></button>
@@ -176,23 +176,41 @@
                                        
                                     </div>
                                 </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <h2>Reviews</h2>
+                                                <div class="submit-review">
+                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                                    <div class="rating-chooser">
+                                                        <p>Your rating</p>
 
-                                <!-- Show more -->
-                            </div>
+                                                        <div class="rating-wrap-post">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><input type="submit" value="Submit"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <!-- Photos -->
-                            <div role="tabpanel" class="tab-pane fade" id="tab-item-2">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel sapien at risus commodo varius vel ut sapien. Aenean sodales non ex et venenatis. In hac habitasse platea dictumst. Donec vitae tellus non erat dapibus hendrerit. Class aptent taciti <strong>bold text lorem ipsum</strong> per conubia nostra, per inceptos himenaeos. Sed ornare vestibulum aliquet. Suspendisse quis massa ac turpis euismod lacinia eget a lorem. Curabitur at ornare augue. Sed condimentum dolor nec neque fringilla, non consequat mauris lobortis. Ut nec eros sem.</p>
-                                <p>Cras et lacus vel turpis auctor dapibus eu non dui. Sed scelerisque, ligula quis consequat lacinia, odio velit lacinia arcu, et volutpat enim magna ut sapien. Nunc eget sem laoreet, condimentum enim eu, convallis eros.</p>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <?php
-    include 'footer.html';
+    include 'footer.php';
     ?>
 
     <script>
