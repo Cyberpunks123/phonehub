@@ -1027,11 +1027,12 @@ button[type=submit]:hover {
 }
 
 .product-name {
-    font-size: 25px;
+    font-size: 35px;
     margin-bottom: 20px;
 }
 
 .product-inner-price {
+    font-size: 20px;
     margin-bottom: 25px;
 }
 
@@ -1073,6 +1074,7 @@ form.cart {
 
 .product-inner-category {
     margin-bottom: 30px;
+    font-size: 18px;
 }
 
 .product-tab {
@@ -1449,12 +1451,16 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button {
     margin: 10px 0;
 }
 
+.single-shop-product img{
+    height: 300px;
+}
+
 .product-option-shop {
     margin-top: 15px;
 }
 
-.single-shop-product {
-    margin-bottom: 50px
+.single-shop-product{
+    margin-bottom: 50px;
 }
 
 .pagination > li > a,
@@ -2077,7 +2083,7 @@ textarea {
 .sortingproduct ul.navbar-nav li a {
     color: #6e6a6a;
     font-size: 14px;
-    padding: 20px 50px;
+    padding: 20px 90px;
     cursor: pointer;
 }
 
@@ -2091,6 +2097,11 @@ textarea {
     color: #FFF;
 }
 
+.sortingproduct ul{
+    margin-left: 15%;
+    align-items: center;
+
+}
 .navbar-col-sort .dropdown .dropdown-menu li a:hover {
     background: #4c73e6;
     cursor: pointer;
@@ -2156,3 +2167,56 @@ textarea {
 
 
 /*-------------------------------------------------------------------------------------*/
+#topheader .navbar-nav li > a {
+    text-transform: capitalize;
+    color: #333;
+    transition: background-color .2s, color .2s;
+    
+    &:hover,
+    &:focus {
+        background-color: #333;
+        color: #fff;
+    }
+}
+
+#topheader .navbar-nav li.active > a {
+    background-color: #333;
+    color: #fff;
+}
+/*-------------------------------------------------------------------*/
+
+.box ul li a{
+    padding: 20px 100px;
+}
+
+/*--------------------------------------------------------------*/
+.scrollable, .scrollable-cart{
+    height: 580px;
+    overflow: scroll;
+}
+/*------------------------------------------------------------*/
+.product-upper img{
+    height: 300px;
+}
+
+.product-single img{
+    height: 80px;
+}
+/*----------------------------------------------------------------*/
+.product-main-img img{
+    margin-top: 50px;
+    height: 400px;
+    padding-left: 50px;
+    width: 400px;
+    align-items: center;
+    justify-content: center;   
+}
+
+.product-inner{
+    margin-top: 60px;
+    padding-left: 50px;
+}
+
+.product-inner p{
+    padding-right: 10px;
+}

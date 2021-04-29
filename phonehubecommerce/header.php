@@ -103,7 +103,7 @@ session_start();
                         <li><a href="cart.php">Cart</a></li>
                         <li><a href="checkout.php">Checkout</a></li>
                         <li>
-                            <form action="shop.php" method="GET">
+                            <form action="shop1.php" method="GET">
                                 <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
