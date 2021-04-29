@@ -210,7 +210,7 @@
                         <div class="product-inner-category">
                                         <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a> 
 
-
+                                                <br>
                                             Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
                                         </p>
                         </div>
@@ -293,7 +293,7 @@
 
                         <div class="product-inner-category">
                                 <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a> 
-
+                                        <br>
 
                                             Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
                                 </p>

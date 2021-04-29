@@ -41,18 +41,45 @@ session_start();
                 
                 <?php
                     if (isset($_SESSION['USER'])) {
-                   echo ' <a href="userprof.php"><i class="fa fa-user"></i> My Account</a>';    
-                   echo '  <a href="cart.php"><i class="fa fa-user"></i> My Cart</a>';    
-                   echo '    <a href="checkout.php"><i class="fa fa-user"></i> Checkout</a>';
-                    echo '<a href="includes/logout.inc.php"><i class="fa fa-user"></i> Log out</a>';  
-                    }
+                     $row['user_id'] = $_SESSION['USER'];?>
+
+                    <a href="userprof.php?disuser=<?php echo $row['user_id'];?>"><i class="fa fa-user"></i> My Account</a>
+
+                    <a href="cart.php"><i class="fa fa-user"></i> My Cart</a>
+                    <a href="checkout.php"><i class="fa fa-user"></i> Checkout</a>
+                    <a href="includes/logout.inc.php"><i class="fa fa-user"></i> Log out</a>
+                                
+                             <?php    }
+
 
                     else{
-                        echo '     <a href="accnt.php"><i class="fa fa-user"></i> Log in</a>';
+                        echo '   <a href="accnt.php"><i class="fa fa-user"></i> Log in</a>';
                           
                          echo '  <a href="signup.php"><i class="fa fa-sign-in"></i> Sign up</a>';
                     }
+                    
                 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                           
+                      
+                 
 
                 </div>
             </div>
@@ -63,6 +90,9 @@ session_start();
     </div>
 
     <!-- End header area  -->
+
+
+
 
 
 
