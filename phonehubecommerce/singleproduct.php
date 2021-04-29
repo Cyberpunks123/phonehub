@@ -1,3 +1,5 @@
+<?php include_once "includes/db_connect.php"; ?>
+<?php include_once "includes/function.inc.php"; ?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -14,6 +16,7 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <!-- Font Awesome -->
@@ -45,142 +48,315 @@
 
 
     <div class="single-product-area">
-        <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Search Products</h2>
-                        <form action="">
-                            <input type="text" placeholder="Search products...">
-                            <input type="submit" value="Search">
+                        <form action="singleproduct.php" method="GET">
+                             <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
+                             <input type="submit" value="Search">
                         </form>
                     </div>
 
-                    <div class="single-sidebar">
+       <!-- --------------------------------------------              -->
+
+        <div class="single-sidebar">
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div>
+                            <div class="scrollable">
+                                
+                          
+                 <?php 
+                       $searchkey="";
+                    if (isset($_GET['searchkey'])){
+                 $searchkey=htmlentities($_GET['searchkey']);     
+                      
+                      $arr = searching($conn, $searchkey);                         
+                           
+                  if(!empty($arr)){
+    
+      foreach($arr as $key => $val){  ?>
+            <div class="col-md-12 col-sm-12">
+                    <div class="single-shop-product">
+                        <div class="product-single">
+                            <img src="img/<?php echo $val['item_image']?>" class="recent-thumb" alt="">
                         </div>
-                        <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_code']?>"> <?php echo $val['item_name'] ; ?> </a></h2>
+                        <div class="product-carousel-price">
+                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
+                                <?php echo number_format($val['item_price']) ?>
+                           </ins>
                         </div>
-                        <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div>
-                        </div>
-                        <div class="thubmnail-recent">
-                            <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
-                        <ul>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                        </ul>
+                    </div>
+                </div>
+    <?php
+   }
+   }
+         else{
+       echo "<h4> No Records Found.</h4>";
+             }
+   }
+             else if (!isset($_GET['item_code'])){
+                $itemslist = allitemList($conn,'A');
+                foreach($itemslist as $key => $item_code){ ?>
+                       <div class="col-md-12 col-sm-12">
+                    <div class="single-shop-product">
+                        <div class="product-single">
+                            <img src="img/<?php echo $item_code['item_image']?>" class="recent-thumb" alt="">
+                        </div>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                        <div class="product-carousel-price">
+                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
+                                <?php echo number_format($item_code['item_price']) ?>
+                           </ins>
+                        </div>
+
                     </div>
                 </div>
 
+             <?php }
+                } 
+   
+   
+   ?>
+                 </div>
+            </div>
+         </div>
+    </div>
+     <!-- end of the side-bar -->
+
+
+<!-- ------------------------------------------------------------------------ -->
                 <div class="col-md-8">
                     <div class="product-content-right">
-                        <div class="product-breadcroumb">
-                            <a href="">Home</a>
-                            <a href="">Category Name</a>                         
-                            <a href="">Sony Smart TV - 2015</a>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="product-images">
-                                    <div class="product-main-img">
-                                        <img src="img/product-2.jpg" alt="">
-                                    </div>
+                         <div class="row">
+                            <!-- <div class="col-sm-6"> -->
+                                
+                    <?php $disitem="";
+                            if (isset($_GET['disitem'])){
+                                $disitem=htmlentities($_GET['disitem']);     
+                                $arr = DisplayEachItem($conn, $disitem);                         
+                           
+                                if(!empty($arr)){
+                                    foreach($arr as $key => $val){  ?>
+                                        <div class="product-images">
+                                            <div class="product-main-img" align="center">
+                                                <img src="img/<?php echo $val['item_image']?>" alt="">
+                                            </div>
+                                        </div>
+                    <?php
+                                                                }
+                                                }
+                            else{
+                                echo "<h4> No Records Found.</h4>";
+                                }
+                }
 
-                                    <div class="product-gallery">
-                                        <img src="img/product-thumb-1.jpg" alt="">
-                                        <img src="img/product-thumb-2.jpg" alt="">
-                                        <img src="img/product-thumb-3.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
+                else{
+                        $disitem="";
+                            if (!isset($_GET['disitem'])){
+                                $arr = DisplayEachItem($conn, $disitem);                         
+                           
+                                if(!empty($arr)){
+                                    foreach($arr as $key => $val){  ?>
+                  
+                        <div class="product-images">
+                            <div class="product-main-img" align="center"> 
+                                <img src="img/<?php echo $val['item_image']?>" alt="">
+                            </div>          
+                        </div>
+                   
+                    
+                    <?php
+                                                                }
+                                                }
+                                                            }
+                    } ?>
+                        </div>
+        
+
+<!-- ------------------------ end of the image part  ------------------------------------------------- -->
+
+
+
 
                             <div class="col-sm-6">
                                 <div class="product-inner">
-                                    <h2 class="product-name">Sony Smart TV - 2015</h2>
-                                    <div class="product-inner-price">
-                                        <ins>$700.00</ins> <del>$100.00</del>
-                                    </div>
+                 <?php
+                    $disitem="";
+                        if (isset($_GET['disitem'])){
+                            $disitem=htmlentities($_GET['disitem']);     
+                                $arr = DisplayEachItem($conn, $disitem);                         
+                                    if(!empty($arr)){
+                                        foreach($arr as $key => $val){  ?>
+                                            <h2 class="product-name"> <?php echo $val['item_name'] ; ?> </h2>
+                        
+                    <div class="product-inner-price">
+                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
+                                <?php echo number_format($val['item_price']) ?>
+                           </ins>
+                    </div>
 
-                                    <form action="" class="cart">
-                                        <div class="quantity">
-                                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                                        </div>
-                                        <button class="add_to_cart_button" type="submit">Add to cart</button>
-                                    </form>
+                    <form action="" class="cart">
+                        <div class="quantity">
+                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                        </div>
+                                        
+                        <button class="add_to_cart_button" type="submit">Add to cart</button>
+                    </form>
 
-                                    <div class="product-inner-category">
-                                        <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
-                                    </div>
+                        <div class="product-inner-category">
+                                        <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a> 
 
-                                    <div role="tabpanel">
-                                        <ul class="product-tab" role="tablist">
-                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                                <h2>Product Description</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem lorem, semper bibendum lectus lobortis ac.</p>
 
-                                                <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non malesuada sem accumsan in. Morbi vel sodales libero.</p>
+                                            Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
+                                        </p>
+                        </div>
+                        </div>
+                        </div>
+
+                         <div class="col-sm-6">
+                             <div class="product-inner">
+                        <div role="tabpanel">
+                            <ul class="product-tab" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a>
+                                </li>
+                                 <li role="presentation">
+                                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
+                                </li>
+                            </ul>
+                                        
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                <h2>Product Description</h2>
+                                                
+                                    <p> <?php echo $val['item_desc']?>  </p>
+                            </div>
+                                            
+                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                <h2>Reviews</h2>
+                                    <div class="submit-review">
+                                        <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                        <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                        
+                                        <div class="rating-chooser">
+                                         <p>Your rating</p>
+
+                                            <div class="rating-wrap-post">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Reviews</h2>
-                                                <div class="submit-review">
-                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                    <div class="rating-chooser">
-                                                        <p>Your rating</p>
-
-                                                        <div class="rating-wrap-post">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
+                                        </div>
                                                     <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
                                                     <p><input type="submit" value="Submit"></p>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-
-                                </div>
                             </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+        <?php
+                }
+            }
+        }
+
+        else{
+                $disitem="";
+                    if (!isset($_GET['disitem'])){
+                        $arr = DisplayEachItem($conn, $disitem);                         
+                           
+                            if(!empty($arr)){
+    
+                                foreach($arr as $key => $val){  ?>
+
+                              <h2 class="product-name"> <?php echo $val['item_name'] ; ?> </h2>
+
+                    <div class="product-inner-price">
+                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
+                                <?php echo number_format($val['item_price']) ?>
+                           </ins>
+                    </div>
+
+                    <form action="" class="cart">
+                        <div class="quantity">
+                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                        </div>
+                                <button class="add_to_cart_button" type="submit">Add to cart</button>
+                    </form>
+
+                        <div class="product-inner-category">
+                                <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a> 
+
+
+                                            Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
+                                </p>
+                            </div>
+                         </div>
                         </div>
 
 
+                        <div class="col-sm-6">
+                             <div class="product-inner">
+
+                            <div role="tabpanel">
+                                        <ul class="product-tab" role="tablist">
+                                            <li role="presentation" class="active">
+                                                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
+                                            </li>
+                                        </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                        <h2>Product Description</h2>
+                                                
+                                            <p> <?php echo $val['item_desc']?>  </p>
+                                    </div>
+                                            
+                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                        <h2>Reviews</h2>
+                                            <div class="submit-review">
+                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
+                                                
+                                                <div class="rating-chooser">
+                                                <p>Your rating</p>
+                                                    <div class="rating-wrap-post">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                </div>
+                                        <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                            <p><input type="submit" value="Submit"></p>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                <?php
+                    }
+                }
+            }
+        } ?>
+                </div>
+            </div>
+        </div>
+
+<!-- 
                         <div class="related-products-wrapper">
                             <h2 class="related-products-title">Related Products</h2>
                             <div class="related-products-carousel">
@@ -276,6 +452,18 @@
                             </div>
                         </div>
                     </div>
+                </div> -->
+
+<!-- -------------------------------------------------------------------- -->
+                        </div>
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>

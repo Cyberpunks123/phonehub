@@ -16,6 +16,7 @@
     
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -121,7 +122,10 @@
                                   <img src="img/<?php echo $item_code['item_image']?>" alt="">
                                     <div class="product-hover">
                                         <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                        <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+
+                                        <a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        
+
                                     </div>
                                 </div>
 
@@ -139,36 +143,50 @@
              
             }
                 ?>
-
-
-                   
-                                
-                            </div>
-        
+   
                         </div>
+        
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End main content area -->
+    </div>
+ <!-- End main content area -->
     
     <div class="brands-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+
+<!-- -----------------------------------------------------------------------------------------------                     -->
                     <div class="brand-wrapper">
                         <div class="brand-list">
-                            <img src="img/brand1.png" alt="">
+                <?php
+              $catList = getCategory($conn);
+                                        foreach($catList as $key => $value){ ?>
+                            <ul>
+                                 <li>
+                                     <a href="shop.php?brandname=<?php echo $value['cat_id'];?>"><img src="img/<?php echo $value['cat_image']?>" alt=""></a>
+                                 </li> 
+                            </ul>
+                                           
+
+                         <?php
+                     }
+                      ?>            
+                        </div>
+                    </div>
+<!-- --------------------------------------------------------------------------------------------------                     -->
+                
+                <!--  <img src="img/brand1.png" alt="">
                             <img src="img/brand2.png" alt="">
                             <img src="img/brand3.png" alt="">
                             <img src="img/brand4.png" alt="">
                             <img src="img/brand5.png" alt="">
                             <img src="img/brand6.png" alt="">
                             <img src="img/brand1.png" alt="">
-                            <img src="img/brand2.png" alt="">                            
-                        </div>
-                    </div>
+                            <img src="img/brand2.png" alt="">  --> 
                 </div>
             </div>
         </div>
