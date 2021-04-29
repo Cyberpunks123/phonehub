@@ -3,7 +3,146 @@
     include_once "function.inc.php";
 
 
+function DisplayEachUser($conn, $disuser="X"){
+  $err;
+   if($disuser == ""){
+    $sql = "SELECT * FROM user WHERE user_id = ?;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: userprof.php?error=sqlFailed");
+                exit(); 
+        }          
 
+  }else{ 
+  $sql = "SELECT * FROM user WHERE user_id = ?;";
+
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: userprof.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+        mysqli_stmt_bind_param($stmt, "s",$disuser);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+
+
+// --------------------------------------------------------------------------------------
+function DisplayEachItem($conn, $disitem="X"){
+  $err;
+   if($disitem == ""){
+    $sql = "SELECT * FROM item as i JOIN category as c on i.item_id = c.cat_id JOIN suppliers as s ON i.item_id = s.supp_id WHERE item_code = 1;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }else{ 
+  $sql = "SELECT * FROM item as i JOIN category as c on i.item_id = c.cat_id JOIN suppliers as s ON i.item_id = s.supp_id WHERE item_code = ?;";
+
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+        mysqli_stmt_bind_param($stmt, "s", $disitem);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+
+// ---------------------------------------------------------------
+function searching($conn, $searchkey=""){
+  $err;
+   if($searchkey == ""){
+    $sql = "SELECT i.item_id
+            , i.item_name
+            , i.item_image
+            , c.cat_desc
+            , i.item_price
+         FROM `item` i
+         JOIN `category` c
+           ON i.cat_id = c.cat_id ;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }else{ 
+  $sql = "SELECT i.item_id
+            , i.item_name
+            , i.item_image
+            , i.item_code
+            , c.cat_desc
+            , i.item_price
+         FROM `item` i
+         JOIN `category` c
+           ON i.cat_id = c.cat_id
+         Where  i.item_name LIKE ?
+            OR i.item_name = ?
+            OR c.cat_id = ?
+           OR i.item_code = ?;";
+
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+    $itemname="%{$searchkey}%";
+    mysqli_stmt_bind_param($stmt, "ssss", $itemname, $searchkey, $searchkey, $searchkey);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+// ----------------------------------------------
 function getPrice($conn, $price_start = "all"){
      $err;
      if($supp_muni == "all"){
