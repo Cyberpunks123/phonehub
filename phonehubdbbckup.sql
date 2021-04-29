@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2021 at 03:49 AM
+-- Generation Time: Apr 29, 2021 at 06:34 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -242,26 +242,22 @@ CREATE TABLE `user` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `user_address` varchar(255) NOT NULL,
-  `user_muni` enum('LI','GU','PO','OA','CA','DA') NOT NULL,
-  `user_prov` enum('AL','CA','CS','MA','SS') NOT NULL,
+  `user_muni` enum('Ligao','Guinobatan','Polangui','Oas','Camalig','Daraga') NOT NULL,
+  `user_prov` enum('Albay','Camarines Norte','Camarines Sur','Masbate','Sorsogon') NOT NULL,
   `user_gender` enum('M','F','','') NOT NULL,
   `user_pass` varchar(255) NOT NULL,
   `user_stat` enum('A','B','','') NOT NULL,
-  `user-type` enum('U','S','B','') NOT NULL
+  `user_type` enum('U','S','B','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_address`, `user_muni`, `user_prov`, `user_gender`, `user_pass`, `user_stat`, `user-type`) VALUES
-(337, '@jpmoratalla', 'Jhun Paul', 'Moratalla', 'San Pascual, Nale', 'OA', 'AL', 'M', 'imjp', 'A', 'U'),
-(338, '@arnelgaming', 'Arnel', 'Sta. Romana', 'Sapang Palay', 'GU', 'AL', 'M', 'imarnel', 'A', 'U'),
-(339, '@henrickkkkk01', 'John Henrick', 'Orbase', 'Purok 1 San Roque', 'GU', 'AL', 'M', 'imhenrickkkk', 'A', 'U'),
-(340, '@kimmy', 'Kim', 'Munez', 'Zone 6 Hermosa', 'PO', 'AL', 'F', 'qwerty', 'A', 'U'),
-(341, '@helsi', 'Helsenki', 'Memo', 'Gugua', 'PO', 'AL', 'M', 'taken001', 'A', 'U'),
-(342, '@thorin', 'Thorin', 'Oakenshield', 'Banao', 'GU', 'AL', 'M', 'thorin', 'A', 'U'),
-(343, '@jhunrico', 'Jhun Jhun', 'Rico', 'Nale, Oas, Albay', 'LI', 'AL', 'M', 'qwert', 'A', 'U');
+INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_address`, `user_muni`, `user_prov`, `user_gender`, `user_pass`, `user_stat`, `user_type`) VALUES
+(1, '@jpmoratalla', 'Jhun Paul', 'Moratalla', 'San Pascual, Nale', 'Oas', 'Albay', 'M', 'imjp', 'A', 'U'),
+(2, '@arnelgaming', 'Arnel', 'Sta. Romana', 'Banao', 'Guinobatan', 'Albay', 'M', 'imarnel', 'A', 'U'),
+(3, '@henrickkkkk01', 'John Henrick', 'Orbase', 'GuaGua Street 01', 'Guinobatan', 'Albay', 'M', 'imhenrick', 'A', 'U');
 
 --
 -- Indexes for dumped tables
@@ -365,7 +361,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=344;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
