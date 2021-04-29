@@ -1,3 +1,6 @@
+<?php include_once "includes/db_connect.php"; ?>
+<?php include_once "includes/function.inc.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,21 +41,37 @@
                             </a>
                         </div>
 
-                        <div class="box">
-                            <div class="name"><strong>Jhun Paul
-                                    <span class="lname">Moratalla </span></strong></div>
 
-                            <div class="info">
+
+
+                        <div class="box">
+                     <?php
+                      $disuser="";
+                            if (isset($_GET['disuser'])){
+                                $disuser=htmlentities($_GET['disuser']);     
+                                $arr = DisplayEachUser($conn, $disuser);                         
+                           
+                                if(!empty($arr)){
+                                    foreach($arr as $key => $val){  ?>
+
+                        <div class="name">
+                            <strong> <?php echo $val['first_name'];?>
+                                    <span class="lname"><?php echo $val['last_name'];?></span></strong>
+                        </div>
+
+                         <div class="info">
                                 <div class="usrname">
-                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#">@jpmoratalla</a></span>
+                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#"><?php echo $val['user_name']?></a></span>
                                 </div>
-                                <hr>
-                                <div class="more-info">
+
+                                  <hr>
+
+                                    <div class="more-info">
                                     <div class="address">
                                         <span>
-                                            <i class="fa fa-address-card"></i><span class="street"> Purok 5 San Pascual, Nale</span>
-                                            <span class="muni"> Oas</span>
-                                            <span class="prov">Albay</span>
+                                            <i class="fa fa-address-card"></i><span class="street"> <?php echo $val['user_address']?> , </span>
+                                            <span class="muni"> <?php echo $val['user_muni']?> ,</span>
+                                            <span class="prov"> <?php echo $val['user_prov']?> </span>
                                             <hr>
 
                                             <span id="dots">...</span>
@@ -61,19 +80,61 @@
 
 
                                     <span id="more">
-                                        <p class="gender"> <i class="fa fa-male"></i> Male </p>
+                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
                                         <hr>
-                                        <p class="pwd"> <i class="fa fa-lock"></i> Password </p>
+                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
                                         <hr>
-                                        <p class="usrstat"> <i class="fa fa-male"></i> Active </p>
+                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
                                         <hr>
-                                        <p class="usrtype"> <i class="fa fa-male"></i> Both </p>
+                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
                                         <hr>
                                     </span>
                                     <button onclick="myFunction()" id="myBtn">Read more</button>
                                 </div>
+
+
+
+
+
+                                        
+                    <?php
+                                                                }
+                                                }
+                            else{
+                                echo "<h4> No Records Found.</h4>";
+                                }
+                }?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     
+
+                           
+                              
+                              
                             </div>
                         </div>
+
+
+
+
+
+
+
                     </div>
                 </div>
 

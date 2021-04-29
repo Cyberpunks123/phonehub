@@ -128,12 +128,12 @@
                                 <label> Municipality:</label>
                                 <select name="usermuni">
                                     <option value="">Choose your Municipality</option>
-                                    <option value="LI" required>Ligao</option>
-                                    <option value="GU" required>Guinobatan</option>
-                                    <option value="PO" required>Polangui</option>
-                                    <option value="OA" required>Oas</option>
-                                    <option value="CA" required>Camalig</option>
-                                    <option value="DA" required>Daraga</option>
+                                    <option value="Ligao" required>Ligao</option>
+                                    <option value="Guinobatan" required>Guinobatan</option>
+                                    <option value="Polangui" required>Polangui</option>
+                                    <option value="Oas" required>Oas</option>
+                                    <option value="Camalig" required>Camalig</option>
+                                    <option value="Daraga" required>Daraga</option>
 
                                 </select>
                             </div>
@@ -142,12 +142,12 @@
                                 <label> Province:</label>
                                 <select name="userprov">
                                     <option value="">Choose your Province</option>
-                                    <option value="AL" required>Albay</option>
-                                    <option value="CA" required>Camarines Sur</option>
-                                    <option value="CS" required>Camarines Sur</option>
-                                    <option value="CT" required>Catanduanes</option>
-                                    <option value="MA" required>Masbate</option>
-                                    <option value="SS" required>Sorsogon</option>
+                                    <option value="Albay" required>Albay</option>
+                                    <option value="Camarines Norte" required>Camarines Norte</option>
+                                    <option value="Camarines Sur" required>Camarines Sur</option>
+                                    <option value="Catanduanes" required>Catanduanes</option>
+                                    <option value="Masbate" required>Masbate</option>
+                                    <option value="Sorsogon" required>Sorsogon</option>
                                 </select>
                             </div>
 

@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
 
-                                <h2><a href=""> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                                <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
 
                                  <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
@@ -179,14 +179,6 @@
                     </div>
 <!-- --------------------------------------------------------------------------------------------------                     -->
                 
-                <!--  <img src="img/brand1.png" alt="">
-                            <img src="img/brand2.png" alt="">
-                            <img src="img/brand3.png" alt="">
-                            <img src="img/brand4.png" alt="">
-                            <img src="img/brand5.png" alt="">
-                            <img src="img/brand6.png" alt="">
-                            <img src="img/brand1.png" alt="">
-                            <img src="img/brand2.png" alt="">  --> 
                 </div>
             </div>
         </div>
