@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2021 at 09:59 AM
+-- Generation Time: Apr 29, 2021 at 03:49 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -29,19 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `category` (
   `cat_id` int(11) NOT NULL,
-  `cat_desc` text NOT NULL
+  `cat_desc` text NOT NULL,
+  `cat_image` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`cat_id`, `cat_desc`) VALUES
-(1, 'vivo'),
-(2, 'Samsung'),
-(3, 'Real Me'),
-(4, 'Iphone'),
-(5, 'HTC');
+INSERT INTO `category` (`cat_id`, `cat_desc`, `cat_image`) VALUES
+(1, 'Vivo', 'brand1.png'),
+(2, 'Samsung', 'brand3.png'),
+(3, 'Real Me', ''),
+(4, 'Iphone', 'brand4.png'),
+(5, 'HTC', 'brand5.png');
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `item` (
   `item_code` int(11) NOT NULL,
   `item_price` int(11) NOT NULL,
   `item_desc` text NOT NULL,
-  `item_stat` enum('A','C','','') NOT NULL,
+  `item_stat` enum('A','B','','') NOT NULL COMMENT 'A = "Active" B = "Blocked"',
   `supp_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -93,19 +94,28 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`item_id`, `cat_id`, `item_name`, `item_image`, `item_code`, `item_price`, `item_desc`, `item_stat`, `supp_id`) VALUES
-(1, 1, 'Vivo Y11', 'vivo y11.png', 1, 7000, 'this phone is a ……….', 'A', 1),
+(1, 1, 'Vivo Y11', 'product-1.jpg', 1, 7000, 'this phone is a ………product of creativity', 'A', 1),
 (1, 1, 'Vivo Y11', 'product-1.jpg', 2, 7000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Y11', '', 3, 7000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Spro', '', 4, 10000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Spro', '', 5, 10000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Ultra', '', 6, 15000, 'this phone is a ……….', 'A', 1),
-(2, 2, 'Samsung A5', '', 7, 8000, 'this phone is a ……….', 'A', 2),
-(2, 2, 'Samsung A5', '', 8, 8000, 'this phone is a ……….', 'A', 2),
-(2, 2, 'Samsung S10', '', 9, 16000, 'this phone is a ……….', 'A', 2),
-(2, 3, 'Samsung S10', '', 10, 16000, 'this phone is a ……….', 'A', 2),
-(3, 3, 'Realme C1', '', 11, 4000, 'this phone is a ……….', 'C', 3),
-(3, 3, 'Realme C2', '', 12, 5000, 'this phone is a ……….', 'C', 3),
-(3, 3, 'Realme C3', '', 13, 7000, 'this phone is a ……….', 'C', 3);
+(1, 1, 'Vivo Y11', 'product-1.jpg', 3, 7000, 'this phone is a ……….', 'A', 1),
+(1, 1, 'Vivo Spro', 'product-4.jpg', 4, 10000, 'this phone is a ……….', 'A', 1),
+(1, 1, 'Vivo Spro', 'product-2.jpg', 5, 10000, 'this phone is a ……….', 'A', 1),
+(1, 1, 'Vivo Ultra', 'product-3.jpg', 6, 15000, 'this phone is a ……….', 'A', 1),
+(2, 2, 'Samsung A5', 'product-4.jpg', 7, 8000, 'this phone is a ……….', 'A', 2),
+(2, 2, 'Samsung A5', 'product-5.jpg', 8, 8000, 'this phone is a ……….', 'A', 2),
+(2, 2, 'Samsung S10', 'product-1.jpg', 9, 16000, 'this phone is a ……….', 'A', 2),
+(2, 2, 'Samsung S10', 'product-2.jpg', 10, 16000, 'this phone is a ……….', 'A', 2),
+(3, 3, 'Realme C1', 'product-3.jpg', 11, 4000, 'this phone is a ……….', 'A', 3),
+(3, 3, 'Realme C2', 'product-4.jpg', 12, 5000, 'this phone is a ……….', 'A', 3),
+(3, 3, 'Realme C3', 'product-5.jpg', 13, 7000, 'this phone is a ……….', 'A', 3),
+(3, 3, 'Realme C15', 'product-1.jpg', 14, 15000, 'Brand new', 'A', 3),
+(4, 4, 'Iphone X', 'product-3.jpg', 15, 20000, 'the newest', 'A', 4),
+(4, 4, 'Iphone XXX', 'product-3.jpg', 16, 20000, 'brand new', 'A', 4),
+(5, 5, 'Konckhick 1', 'product-1.jpg', 17, 34000, 'rrrrrrrrrrrrrrr', 'A', 5),
+(5, 5, 'Konckhick 2', 'product-3.jpg', 18, 34000, 'rrrrrrrrrrrrrrr', 'A', 5),
+(5, 5, 'Konckhick 3', 'product-3.jpg', 19, 34000, 'rrrrrrrrrrrrrrr', 'A', 5),
+(3, 3, 'Realme C12', 'product-3.jpg', 20, 4000, 'this phone is a ……….', 'A', 3),
+(1, 1, 'Vivo Y11', 'product-1.jpg', 31, 7000, 'this phone is a ……….', 'A', 1),
+(2, 2, 'Samsung S10', 'product-1.jpg', 32, 16000, 'this phone is a ………. genius', 'A', 2);
 
 -- --------------------------------------------------------
 
@@ -201,6 +211,7 @@ INSERT INTO `stockshistory` (`stock_entry_id`, `stock_date_added`, `stock_qty_ad
 CREATE TABLE `suppliers` (
   `supp_id` int(11) NOT NULL,
   `supp_name` varchar(30) NOT NULL,
+  `supp_image` varchar(256) NOT NULL,
   `supp_mun` varchar(30) NOT NULL,
   `supp_prov` varchar(30) NOT NULL,
   `supp_pass` varchar(15) NOT NULL,
@@ -211,13 +222,13 @@ CREATE TABLE `suppliers` (
 -- Dumping data for table `suppliers`
 --
 
-INSERT INTO `suppliers` (`supp_id`, `supp_name`, `supp_mun`, `supp_prov`, `supp_pass`, `supp_stat`) VALUES
-(1, 'Vivo Shop', 'Guinobatan', 'Albay', 'vivoshop', 'A'),
-(2, 'Samsung Shop', 'Sorsogon', 'Sorsogon', 'samsungshop', 'A'),
-(3, 'Realme Shop', 'Guinobatan', 'Albay', 'realmeshop', 'A'),
-(4, 'Authentic Shop', 'Pasay', 'NCR', 'authenshop', 'B'),
-(9, 'Antic CP Shop', 'Busay', 'Baguio', 'anticshop', 'B'),
-(10, 'Cell Store', 'Busay', 'Baguio', 'cellstore', 'A');
+INSERT INTO `suppliers` (`supp_id`, `supp_name`, `supp_image`, `supp_mun`, `supp_prov`, `supp_pass`, `supp_stat`) VALUES
+(1, 'Vivo Shop', 'brand1.png', 'Guinobatan', 'Albay', 'vivoshop', 'A'),
+(2, 'Samsung Shop', 'brand2.png', 'Sorsogon', 'Sorsogon', 'samsungshop', 'A'),
+(3, 'Realme Shop', 'brand3.png', 'Guinobatan', 'Albay', 'realmeshop', 'A'),
+(4, 'Iphone Shop', 'brand4.png', 'Pasay', 'NCR', 'authenshop', 'B'),
+(5, 'Antic CP Shop', 'brand5.png', 'Busay', 'Baguio', 'anticshop', 'B'),
+(6, 'Cell Store', 'brand1.png', 'Busay', 'Baguio', 'cellstore', 'A');
 
 -- --------------------------------------------------------
 
@@ -249,7 +260,8 @@ INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_add
 (339, '@henrickkkkk01', 'John Henrick', 'Orbase', 'Purok 1 San Roque', 'GU', 'AL', 'M', 'imhenrickkkk', 'A', 'U'),
 (340, '@kimmy', 'Kim', 'Munez', 'Zone 6 Hermosa', 'PO', 'AL', 'F', 'qwerty', 'A', 'U'),
 (341, '@helsi', 'Helsenki', 'Memo', 'Gugua', 'PO', 'AL', 'M', 'taken001', 'A', 'U'),
-(342, '@thorin', 'Thorin', 'Oakenshield', 'Banao', 'GU', 'AL', 'M', 'thorin', 'A', 'U');
+(342, '@thorin', 'Thorin', 'Oakenshield', 'Banao', 'GU', 'AL', 'M', 'thorin', 'A', 'U'),
+(343, '@jhunrico', 'Jhun Jhun', 'Rico', 'Nale, Oas, Albay', 'LI', 'AL', 'M', 'qwert', 'A', 'U');
 
 --
 -- Indexes for dumped tables
@@ -323,7 +335,7 @@ ALTER TABLE `currentstock`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `item_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -353,7 +365,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=343;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=344;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
