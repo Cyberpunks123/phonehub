@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2021 at 06:34 PM
+-- Generation Time: May 01, 2021 at 07:02 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -226,8 +226,8 @@ INSERT INTO `suppliers` (`supp_id`, `supp_name`, `supp_image`, `supp_mun`, `supp
 (1, 'Vivo Shop', 'brand1.png', 'Guinobatan', 'Albay', 'vivoshop', 'A'),
 (2, 'Samsung Shop', 'brand2.png', 'Sorsogon', 'Sorsogon', 'samsungshop', 'A'),
 (3, 'Realme Shop', 'brand3.png', 'Guinobatan', 'Albay', 'realmeshop', 'A'),
-(4, 'Iphone Shop', 'brand4.png', 'Pasay', 'NCR', 'authenshop', 'B'),
-(5, 'Antic CP Shop', 'brand5.png', 'Busay', 'Baguio', 'anticshop', 'B'),
+(4, 'Iphone Shop', 'brand4.png', 'Pasay', 'NCR', 'authenshop', 'A'),
+(5, 'Antic CP Shop', 'brand5.png', 'Busay', 'Baguio', 'anticshop', 'A'),
 (6, 'Cell Store', 'brand1.png', 'Busay', 'Baguio', 'cellstore', 'A');
 
 -- --------------------------------------------------------
@@ -241,6 +241,7 @@ CREATE TABLE `user` (
   `user_name` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
+  `user_image` varchar(256) NOT NULL,
   `user_address` varchar(255) NOT NULL,
   `user_muni` enum('Ligao','Guinobatan','Polangui','Oas','Camalig','Daraga') NOT NULL,
   `user_prov` enum('Albay','Camarines Norte','Camarines Sur','Masbate','Sorsogon') NOT NULL,
@@ -254,10 +255,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_address`, `user_muni`, `user_prov`, `user_gender`, `user_pass`, `user_stat`, `user_type`) VALUES
-(1, '@jpmoratalla', 'Jhun Paul', 'Moratalla', 'San Pascual, Nale', 'Oas', 'Albay', 'M', 'imjp', 'A', 'U'),
-(2, '@arnelgaming', 'Arnel', 'Sta. Romana', 'Banao', 'Guinobatan', 'Albay', 'M', 'imarnel', 'A', 'U'),
-(3, '@henrickkkkk01', 'John Henrick', 'Orbase', 'GuaGua Street 01', 'Guinobatan', 'Albay', 'M', 'imhenrick', 'A', 'U');
+INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_image`, `user_address`, `user_muni`, `user_prov`, `user_gender`, `user_pass`, `user_stat`, `user_type`) VALUES
+(1, '@jpmoratalla', 'Jhun Paul', 'Moratalla', 'paul.jpg', 'San Pascual, Nale', 'Oas', 'Albay', 'M', 'imjp', 'A', 'U'),
+(2, '@arnelgaming', 'Arnel', 'Sta. Romana', '', 'Banao', 'Guinobatan', 'Albay', 'M', 'imarnel', 'A', 'U'),
+(3, '@henrickkkkk01', 'John Henrick', 'Orbase', '', 'GuaGua Street 01', 'Guinobatan', 'Albay', 'M', 'imhenrick', 'A', 'U'),
+(4, '@kimmy', 'Kim', 'Munez', 'profile.jpg', 'Sapang Palay', 'Polangui', 'Albay', 'F', 'imkim', 'B', 'U');
 
 --
 -- Indexes for dumped tables
@@ -361,7 +363,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
