@@ -28,7 +28,7 @@
 
 <body>
     <?php
-    include 'header.php';
+    $page = 'checkout'; include 'header.php';
     ?>
 
     <div class="product-big-title-area">

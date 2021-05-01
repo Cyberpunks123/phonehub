@@ -30,7 +30,7 @@
 
 <body>
     <?php
-        include 'header.php';
+      $page = 'cart'; include 'header.php';
     ?>
 
     <div class="product-big-title-area">
@@ -82,7 +82,7 @@
                         <div class="product-single">
                             <img src="img/<?php echo $val['item_image']?>" class="recent-thumb" alt="">
                         </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $val['item_name'] ; ?> </a></h2>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_code']?>"> <?php echo $val['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
                                 <?php echo number_format($val['item_price']) ?>

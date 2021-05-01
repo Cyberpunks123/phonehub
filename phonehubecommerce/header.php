@@ -18,7 +18,7 @@ session_start();
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 
 <!-- Font Awesome -->
@@ -28,6 +28,10 @@ session_start();
 <link rel="stylesheet" href="css/owl.carousel.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="css/responsive.css">
+
+
+
+
 
 <body>
 
@@ -45,41 +49,37 @@ session_start();
 
                     <a href="userprof.php?disuser=<?php echo $row['user_id'];?>"><i class="fa fa-user"></i> My Account</a>
 
-                    <a href="cart.php"><i class="fa fa-user"></i> My Cart</a>
-                    <a href="checkout.php"><i class="fa fa-user"></i> Checkout</a>
-                    <a href="includes/logout.inc.php"><i class="fa fa-user"></i> Log out</a>
+                    <a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a>
+                    <a href="checkout.php"><span class="glyphicon glyphicon-list-alt"></span> Checkout</a>
+                    <a href="includes/logout.inc.php"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
+                    <form action="shop1.php" method="GET">
+                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+
                                 
                              <?php    }
 
 
-                    else{
-                        echo '   <a href="accnt.php"><i class="fa fa-user"></i> Log in</a>';
+                    else if (!isset($_SESSION['USER'])) {?>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-9">
+                              <a href="accnt.php"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
                           
-                         echo '  <a href="signup.php"><i class="fa fa-sign-in"></i> Sign up</a>';
-                    }
+                      <a href="signup.php"><span class="glyphicon glyphicon-edit"></span> Sign up</a>
+
+                    <form action="shop1.php" method="GET">
+                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+
+                        </div>
+                      
+                   <?php }
                     
                 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                           
-                      
-                 
 
                 </div>
             </div>
@@ -127,17 +127,11 @@ session_start();
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="shop.php">Item page</a></li>
-                        <li><a href="singleproduct.php">Single product</a></li>
-                        <li><a href="cart.php">Cart</a></li>
-                        <li><a href="checkout.php">Checkout</a></li>
-                        <li>
-                            <form action="shop1.php" method="GET">
-                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
-                        </li>
+                        <li class="<?php if ($page == 'index')echo 'active';?>"><a href="index.php">Home</a></li>
+                        <li class="<?php if ($page == 'shop')echo 'active';?>"><a href="shop.php">Item page</a></li>
+                        <li class="<?php if ($page == 'singleproduct')echo 'active';?>"><a href="singleproduct.php">Single product</a></li>
+                        <li class="<?php if ($page == 'cart')echo 'active';?>"><a href="cart.php">Cart</a></li>
+                        <li class="<?php if ($page == 'checkout')echo 'active';?>"><a href="checkout.php">Checkout</a></li>
                     </ul>
                 </div>
             </div>
@@ -153,7 +147,7 @@ session_start();
         <?php include "style.css"?>
 
     </style>
-
+    
     
 
     <script>

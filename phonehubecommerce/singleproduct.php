@@ -31,7 +31,7 @@
 
 <body>
     <?php
-    include 'header.php';
+    $page = 'singleproduct'; include 'header.php';
     ?>
 
     <div class="product-big-title-area">

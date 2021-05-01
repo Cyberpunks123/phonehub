@@ -33,7 +33,7 @@
 <body>
 
     <?php
-    include 'header.php';
+    $page = 'shop'; include 'header.php';
     ?>
 
    <?php
@@ -122,7 +122,7 @@
                           <div class="product-upper">
                               <img src="img/<?php echo $i['item_image']?>" alt="">
                           </div>
-                          <h2><a href=""> <?php echo $i['item_name'] ; ?> </a></h2>
+                          <h2><a href="singleproduct.php?disitem=<?php echo $i['item_code']?>"> <?php echo $i['item_name'] ; ?> </a></h2>
                           <div class="product-carousel-price">
                               <ins>  <span class="glyphicon glyphicon-ruble"></span> 
                                   <?php echo number_format($i['item_price'],2) ; ?>
@@ -151,15 +151,15 @@
                         <div class="product-upper">
                                <img src="img/<?php echo $supp['supp_image']?>" alt="">
                         </div>
-                        <h2><a href=""> <?php echo $supp['supp_name'] ; ?> </a></h2>
+                        <h2><a href="shop.php?shop_id=<?php echo $supp['supp_id']; ?>"> <?php echo $supp['supp_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-globe"></span> 
+                            <ins>  <span class="glyphicon glyphicon-map-marker"></span>
                                 <?php echo $supp['supp_mun'] . ", " . $supp['supp_prov'] ; ?>
                            </ins>
                         </div>
 
                         <div class="product-option-shop">
-                            <a href="shop.php?shop_id=<?php echo $supp['supp_id'] ; ?>" class="add_to_cart_button" >Visit Shop</a>
+                            <a href="shop.php?shop_id=<?php echo $supp['supp_id']; ?>" class="add_to_cart_button" >Visit Shop</a>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                           <div class="product-upper">
                               <img src="img/<?php echo $i['item_image']?>" alt="">
                           </div>
-                          <h2><a href=""> <?php echo $i['item_name'] ; ?> </a></h2>
+                          <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $i['item_name'] ; ?> </a></h2>
                           <div class="product-carousel-price">
                               <ins>  <span class="glyphicon glyphicon-ruble"></span> 
                                   <?php echo number_format($i['item_price'],2) ; ?>
@@ -210,7 +210,7 @@
                         <div class="product-upper">
                             <img src="img/<?php echo $item_code['item_image']?>" alt="">
                         </div>
-                        <h2><a href=""> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
                                 <?php echo number_format($item_code['item_price']) ?>
@@ -243,6 +243,8 @@
    //  include 'includes/product.inc.php';
     include 'footer.php';
     ?>
+
+
 
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>

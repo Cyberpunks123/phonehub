@@ -30,7 +30,7 @@
   <body>
    
     <?php 
-      include 'header.php';
+      $page = 'index'; include 'header.php';
     ?>
 
     <div class="slider-area">

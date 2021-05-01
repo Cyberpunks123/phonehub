@@ -16,7 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 </head>
@@ -34,18 +33,9 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4 col-lg-3">
                     <div class="userProfileInfo">
-                        <div class="image text-center">
-                            <img src="img/useravatar.png" alt="#" class="img-responsive">
-                            <a href="#" title="#" class="editImage">
-                                <i class="fa fa-camera"></i>
-                            </a>
-                        </div>
 
 
-
-
-                        <div class="box">
-                     <?php
+                         <?php
                       $disuser="";
                             if (isset($_GET['disuser'])){
                                 $disuser=htmlentities($_GET['disuser']);     
@@ -53,6 +43,73 @@
                            
                                 if(!empty($arr)){
                                     foreach($arr as $key => $val){  ?>
+
+                        <div class="image text-center">
+                            <?php if (!empty($val['user_image'])) {?>
+                             <img src="img/<?php echo $val['user_image']?>" alt="#" class="img-responsive">
+
+                            <a href="#" title="#" class="editImage">
+                                <i class="fa fa-camera"></i>
+                            </a>
+                        </div>
+
+                            <div class="box">
+                    
+
+                                <div class="name">
+                                     <strong> <?php echo $val['first_name'];?>
+                                             <span class="lname"><?php echo $val['last_name'];?></span></strong>
+                                </div>
+
+                         <div class="info">
+                                <div class="usrname">
+                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#"><?php echo $val['user_name']?></a></span>
+                                </div>
+
+                                  <hr>
+
+                                    <div class="more-info">
+                                    <div class="address">
+                                        <span>
+                                            <i class="fa fa-address-card"></i><span class="street"> <?php echo $val['user_address']?> , </span>
+                                            <span class="muni"> <?php echo $val['user_muni']?> ,</span>
+                                            <span class="prov"> <?php echo $val['user_prov']?> </span>
+                                            <hr>
+
+                                            <span id="dots">...</span>
+                                        </span>
+                                    </div>
+
+
+                                    <span id="more">
+                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
+                                        <hr>
+                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
+                                        <hr>
+                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
+                                        <hr>
+                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
+                                        <hr>
+                                    </span>
+                                    <button onclick="myFunction()" id="myBtn">Read more</button>
+                                </div>
+
+                            <?php }
+
+                            
+                            else{?>
+                                <img src="img/useravatar.png" alt="#" class="img-responsive">
+                            <?php
+
+                             ?>
+
+                            <a href="#" title="#" class="editImage">
+                                <i class="fa fa-camera"></i>
+                            </a>
+                        </div>
+
+                        <div class="box">
+                    
 
                         <div class="name">
                             <strong> <?php echo $val['first_name'];?>
@@ -100,9 +157,8 @@
                     <?php
                                                                 }
                                                 }
-                            else{
-                                echo "<h4> No Records Found.</h4>";
-                                }
+                            
+                }
                 }?>
 
 
@@ -140,7 +196,7 @@
 
                 <div class="col-xs-12 col-md-8 col-lg-9">
                     <div class="box">
-                        <h2 class="boxTitle"> User Profile</h2>
+                        <p class="boxTitle" style="font-size: 20px"> User Profile </p>
                         <!-- Tabs -->
                                     <div role="tabpanel">
                                         <ul class="product-tab" role="tablist">
