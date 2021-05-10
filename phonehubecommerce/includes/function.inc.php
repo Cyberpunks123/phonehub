@@ -2,6 +2,194 @@
     include_once "db_connect.php";
     include_once "function.inc.php";
 
+function SearchingInShop($conn, $searchkey="X", $supp = "X", $suppitem = "X"){
+  $err;
+   if($searchkey == "X"){ 
+       if($supp == "X"){
+           if ($suppitem == "X"){
+                $sql = "SELECT * FROM suppitems;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+           
+       }
+           
+       }
+       else{
+           $sql = "SELECT * FROM `suppitems` WHERE cat_id = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $suppitem);
+       }
+
+  }
+    
+    else{ 
+         if($searchkey == "X"){
+             $sql = "SELECT * 
+                       FROM `suppitems`
+                      WHERE supp_id = ?";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $supp);
+          }
+        else{
+              $sql = "SELECT s.supp_item_id , s.supp_item_name, 
+            s.supp_item_image , s.supp_item_code, 
+            c.cat_desc , s.supp_item_price,
+            s.supp_item_desc, s.supp_item_stat
+            
+            FROM `suppitems` s 
+            JOIN `category` c 
+            ON s.cat_id = c.cat_id 
+            WHERE s.supp_item_name LIKE ?
+            OR supp_item_name = ? 
+            OR s.cat_id = ? 
+            OR s.supp_item_code = ?
+            AND supp_id = ?;";
+        }
+ 
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: shopface.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+    $itemname="%{$searchkey}%";
+    mysqli_stmt_bind_param($stmt, "sssss", $itemname, $searchkey, $searchkey, $searchkey, $supp);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+//----------------------------------------------
+function AllitemsPerSupplier($conn, $supp = "X", $item = "X" ){
+     $err;
+     if($supp == "X"){
+          if($item == "X"){
+             $sql = "SELECT * FROM `suppitems`;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+          }
+          else {
+             $sql = "SELECT * FROM `suppitems` WHERE cat_id = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $item);
+          }
+     }
+     else
+     {
+          if($item == "X"){
+             $sql = "SELECT s.supp_item_id, s.cat_id, s.supp_item_name, 
+             s.supp_item_code, s.supp_item_price, s.supp_item_image, 
+             s.supp_item_desc, s.supp_item_stat, c.cat_desc 
+             FROM suppitems as s 
+             JOIN category as c 
+             on c.cat_id = s.cat_id 
+             WHERE supp_id = ?
+             ORDER BY supp_item_id DESC;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "s" , $supp);
+          }
+          else {
+             $sql = "SELECT * FROM `suppitems` 
+                    WHERE ( cat_id = ? 
+                    OR supp_item_name = ? ) 
+                    AND supp_id = ?;";
+              $stmt=mysqli_stmt_init($conn);
+              if(!mysqli_stmt_prepare($stmt, $sql)){
+                 return false;
+                exit;
+              }
+              mysqli_stmt_bind_param($stmt, "sss" , $item, $item, $supp);
+          }
+     }
+         mysqli_stmt_execute($stmt);
+        
+      $resultData = mysqli_stmt_get_result($stmt);
+      if(!empty($resultData)){
+        $arr = array();
+         while($row = mysqli_fetch_assoc($resultData)){
+            array_push($arr,$row);
+         }
+          return $arr;
+      } else
+      {
+          return false;
+      }
+         mysql_stmt_close($stmt);
+ }
+
+
+//---------------------------------------------
+function DisplayEachShop($conn, $disshop="X"){
+  $err;
+   if($disshop == ""){
+    $sql = "SELECT * FROM suppliers WHERE supp_id = ?;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: shopface.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }else{ 
+  $sql = "SELECT * FROM suppliers WHERE supp_id = ?;";
+
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: shopface.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+        mysqli_stmt_bind_param($stmt, "s",$disshop);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
 
 function DisplayEachUser($conn, $disuser="X"){
   $err;
@@ -46,8 +234,13 @@ function DisplayEachUser($conn, $disuser="X"){
 // --------------------------------------------------------------------------------------
 function DisplayEachItem($conn, $disitem="X"){
   $err;
-   if($disitem == ""){
-    $sql = "SELECT * FROM item as i JOIN category as c on i.item_id = c.cat_id JOIN suppliers as s ON i.item_id = s.supp_id WHERE item_code = 1;";
+   if($disitem == "X"){
+    $sql = "SELECT * FROM item as i 
+            JOIN category as c
+            on i.cat_id = c.cat_id 
+            JOIN suppliers as s
+            ON i.cat_id = s.supp_id 
+            WHERE item_id = 1;";
         $stmt=mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)){
         header("Location: singleproduct.php?error=sqlFailed");
@@ -55,7 +248,12 @@ function DisplayEachItem($conn, $disitem="X"){
         }          
 
   }else{ 
-  $sql = "SELECT * FROM item as i JOIN category as c on i.item_id = c.cat_id JOIN suppliers as s ON i.item_id = s.supp_id WHERE item_code = ?;";
+  $sql = "SELECT * FROM item as i 
+            JOIN category as c
+            on i.cat_id = c.cat_id 
+            JOIN suppliers as s
+            ON i.cat_id = s.supp_id 
+            WHERE item_id = ?;";
 
   $stmt=mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)){
@@ -87,14 +285,7 @@ function DisplayEachItem($conn, $disitem="X"){
 function searching($conn, $searchkey=""){
   $err;
    if($searchkey == ""){
-    $sql = "SELECT i.item_id
-            , i.item_name
-            , i.item_image
-            , c.cat_desc
-            , i.item_price
-         FROM `item` i
-         JOIN `category` c
-           ON i.cat_id = c.cat_id ;";
+    $sql = "SELECT * from item ;";
         $stmt=mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)){
         header("Location: singleproduct.php?error=sqlFailed");
@@ -192,7 +383,7 @@ function getItemListperCategory($conn, $cat = "X", $item = "X" ){
               }
           }
           else {
-             $sql = "SELECT * FROM `item` WHERE item_id = ?;";
+             $sql = "SELECT * FROM `item` WHERE cat_id = ?;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
@@ -215,17 +406,15 @@ function getItemListperCategory($conn, $cat = "X", $item = "X" ){
               mysqli_stmt_bind_param($stmt, "s" , $cat);
           }
           else {
-             $sql = "SELECT * FROM `item` 
-                   WHERE 
-                   ( item_id = ?
-                         OR item_name = ? )
-                   AND cat_id = ?;";
+             $sql = "SELECT * FROM `item`
+             WHERE cat_id = ? 
+             OR item_name = ?;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
                 exit;
               }
-              mysqli_stmt_bind_param($stmt, "sss" , $item, $item, $cat);
+              mysqli_stmt_bind_param($stmt, "ss" , $item, $cat);
           }
      }
          mysqli_stmt_execute($stmt);
@@ -273,7 +462,7 @@ function allitemList($conn, $item_stat = "X", $item_code = "all", ){
           if($item_stat == "X"){
              $sql = "SELECT * 
                        FROM `item`
-                      WHERE item_code = ?
+                      WHERE item_id = ?
                          OR item_stat = ?;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
@@ -283,17 +472,15 @@ function allitemList($conn, $item_stat = "X", $item_code = "all", ){
               mysqli_stmt_bind_param($stmt, "ss" , $item_code, $item_code);
           }
           else {
-             $sql = "SELECT * FROM `item` 
-                   WHERE 
-                   ( item_code = ?
-                         OR item_stat = ? )
-                   AND item_stat = ?;";
+             $sql = "SELECT * FROM `item`
+                    WHERE item_id = ? 
+                    OR item_stat = ?;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
                 exit;
               }
-              mysqli_stmt_bind_param($stmt, "sss" , $item_code, $item_code, $item_stat);
+              mysqli_stmt_bind_param($stmt, "ss" , $item_code, $item_stat);
           }
      }
          mysqli_stmt_execute($stmt);
@@ -420,7 +607,7 @@ function getItemListperSupplier($conn, $supp = "X", $item = "X" ){
      $err;
      if($supp == "X"){
           if($item == "X"){
-             $sql = "SELECT * FROM `item`;";
+             $sql = "SELECT * FROM `suppitems`;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
@@ -428,7 +615,7 @@ function getItemListperSupplier($conn, $supp = "X", $item = "X" ){
               }
           }
           else {
-             $sql = "SELECT * FROM `item` WHERE item_id = ?;";
+             $sql = "SELECT * FROM `suppitems` WHERE cat_id = ?;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
@@ -441,7 +628,7 @@ function getItemListperSupplier($conn, $supp = "X", $item = "X" ){
      {
           if($item == "X"){
              $sql = "SELECT * 
-                       FROM `item`
+                       FROM `suppitems`
                       WHERE supp_id = ?";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
@@ -451,11 +638,10 @@ function getItemListperSupplier($conn, $supp = "X", $item = "X" ){
               mysqli_stmt_bind_param($stmt, "s" , $supp);
           }
           else {
-             $sql = "SELECT * FROM `item` 
-                   WHERE 
-                   ( item_id = ?
-                         OR item_name = ? )
-                   AND supp_id = ?;";
+             $sql = "SELECT * FROM `suppitems` 
+                    WHERE ( cat_id = ? 
+                    OR supp_item_name = ? ) 
+                    AND supp_id = ?;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
@@ -620,5 +806,6 @@ function invaPass($password){
 
 
 
+
+
 ?>
-<!-- change 4-18-21 -->
