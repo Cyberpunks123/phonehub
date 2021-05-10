@@ -3,39 +3,52 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Userprofile - Phonehub</title>
-   
-    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+        
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">-->
 
+<!-- jQuery library -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
 </head>
-
 <body>
-
-    <!-- dipa po tapos ito sir -->
-
-    <?php
-    include 'header.php';
-    ?>
-    <div class="accounts-profile">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-xs-12 col-md-4 col-lg-3">
-                    <div class="userProfileInfo">
-
-
-                         <?php
+  
+  <?php include 'header.php'?>
+   <div class="profile-acc">
+    <div class="container-fluid">
+    <div class="main-body">
+    
+          <!-- Breadcrumb -->
+         
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-3 mb-3">
+              <div class="card">
+                <div class="card-body">
+                 
+                 <div class="col-md-10 col-xs-6">
+                           <div class="photouser d-flex flex-column align-items-center text-center">
+                   
+                      <?php
                       $disuser="";
                             if (isset($_GET['disuser'])){
                                 $disuser=htmlentities($_GET['disuser']);     
@@ -43,312 +56,225 @@
                            
                                 if(!empty($arr)){
                                     foreach($arr as $key => $val){  ?>
+                                    
+                      <?php if (!empty($val['user_image'])) {?>
 
-                        <div class="image text-center">
-                            <?php if (!empty($val['user_image'])) {?>
-                             <img src="img/<?php echo $val['user_image']?>" alt="#" class="img-responsive">
-
-                            <a href="#" title="#" class="editImage">
-                                <i class="fa fa-camera"></i>
-                            </a>
-                        </div>
-
-                            <div class="box">
+                    <img src="img/<?php echo $val['user_image']?>" alt="Admin" class="rounded-circle">
                     
+                     <?php }
 
-                                <div class="name">
-                                     <strong> <?php echo $val['first_name'];?>
-                                             <span class="lname"><?php echo $val['last_name'];?></span></strong>
-                                </div>
-
-                         <div class="info">
-                                <div class="usrname">
-                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#"><?php echo $val['user_name']?></a></span>
-                                </div>
-
-                                  <hr>
-
-                                    <div class="more-info">
-                                    <div class="address">
-                                        <span>
-                                            <i class="fa fa-address-card"></i><span class="street"> <?php echo $val['user_address']?> , </span>
-                                            <span class="muni"> <?php echo $val['user_muni']?> ,</span>
-                                            <span class="prov"> <?php echo $val['user_prov']?> </span>
-                                            <hr>
-
-                                            <span id="dots">...</span>
-                                        </span>
-                                    </div>
-
-
-                                    <span id="more">
-                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
-                                        <hr>
-                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
-                                        <hr>
-                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
-                                        <hr>
-                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
-                                        <hr>
-                                    </span>
-                                    <button onclick="myFunction()" id="myBtn">Read more</button>
-                                </div>
-
-                            <?php }
-
-                            
-                            else{?>
-                                <img src="img/useravatar.png" alt="#" class="img-responsive">
+                            else {?>
+                                <img src="img/useravatar.png" alt="Admin" class="edit-your-photo">
                             <?php
 
-                             ?>
+                          }  }
+                                } }?>
 
-                            <a href="#" title="#" class="editImage">
-                                <i class="fa fa-camera"></i>
-                            </a>
-                        </div>
-
-                        <div class="box">
+                  </div>
+                 </div>
+        
+                   <div class="col-md-1 col-xs-6">
+                    <div class="editpics">
+                         <i class="fa fa-camera" style="font-size:24px"></i>
+                    </div>
+                    </div>
                     
-
-                        <div class="name">
-                            <strong> <?php echo $val['first_name'];?>
-                                    <span class="lname"><?php echo $val['last_name'];?></span></strong>
-                        </div>
-
-                         <div class="info">
-                                <div class="usrname">
-                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#"><?php echo $val['user_name']?></a></span>
-                                </div>
-
-                                  <hr>
-
-                                    <div class="more-info">
-                                    <div class="address">
-                                        <span>
-                                            <i class="fa fa-address-card"></i><span class="street"> <?php echo $val['user_address']?> , </span>
-                                            <span class="muni"> <?php echo $val['user_muni']?> ,</span>
-                                            <span class="prov"> <?php echo $val['user_prov']?> </span>
-                                            <hr>
-
-                                            <span id="dots">...</span>
-                                        </span>
-                                    </div>
-
-
-                                    <span id="more">
-                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
-                                        <hr>
-                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
-                                        <hr>
-                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
-                                        <hr>
-                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
-                                        <hr>
-                                    </span>
-                                    <button onclick="myFunction()" id="myBtn">Read more</button>
-                                </div>
-
-
-
-
-
-                                        
-                    <?php
-                                                                }
-                                                }
-                            
-                }
-                }?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                     
-
-                           
-                              
-                              
-                            </div>
-                        </div>
-
-
-
-
-
-
-
+                </div>
+              </div>
+              
+               
+                <div class="card mb-3">
+                <div class="card-body">
+                 <div class="d-flex flex-column align-items-center text-center">
+                     <div class="mt-3">
+                      <button class="btn btn-primary">Ordered Items</button>
+                      <button class="btn btn-primary">Posted Items</button>
                     </div>
                 </div>
-
-                <div class="col-xs-12 col-md-8 col-lg-9">
-                    <div class="box">
-                        <p class="boxTitle" style="font-size: 20px"> User Profile </p>
-                        <!-- Tabs -->
-                                    <div role="tabpanel">
-                                        <ul class="product-tab" role="tablist">
-                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Order History</a></li>
-                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Posted items</a></li>
-                                        </ul>
-                                        
-                                    <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                                <div class="container bootdey">
-                                    <div class="panel panel-default panel-order">
-                                        <div class="panel-heading">
-                                          
-                                            <div class="btn-group pull-right">
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Filter history <i class="fa fa-filter"></i></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#">Approved orders</a></li>
-                                                        <li><a href="#">Pending orders</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-danger">rejected</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 2, cost: $323.13 <br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 05/31/2014 by <a href="#">Jane Doe </a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_1.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-info">pending</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 12, cost: $12623.13<br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 06/12/2014 by <a href="#">Jane Doe </a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-success">Approved</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 4, cost: $523.13<br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 06/20/2014 by <a href="#">Jane Doe</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_2.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-info">pending</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 4, cost: $523.13<br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 06/20/2014 by <a href="#">Jane Doe</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Reviews</h2>
-                                                <div class="submit-review">
-                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                    <div class="rating-chooser">
-                                                        <p>Your rating</p>
-
-                                                        <div class="rating-wrap-post">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Submit"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
+                 <hr>
+                  <div class="row">
+                    <div class="col-sm-5">
+                      <h5 class="mb-0">Full Name</h5>
                     </div>
+                    <div class="col-sm-7 text-secondary">
+                      <span><?php echo $val['first_name'];?> <?php echo $val['last_name'];?></span> 
+                    </div>
+                  </div>
+                  <hr>
+                  
+                  <div class="row">
+                    <div class="col-sm-5">
+                       <h5 class="mb-0">Username </h5>
+                    </div>
+                    <div class="col-sm-7 text-secondary">
+                      <p class="text-secondary mb-1"><?php echo $val['user_name']?></p>
+                    </div>
+                  </div>
+                  <hr>
+                   
+                    <div class="row">
+                    <div class="col-sm-5">
+                       <h5 class="mb-0">Gender </h5>
+                    </div>
+                    <div class="col-sm-7 text-secondary">
+                    <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-5">
+                       <h5 class="mb-0">Address </h5>
+                    </div>
+                    <div class="col-sm-7 text-secondary">
+                   <p><span> <?php echo $val['user_address']?></span> ,<span> <?php echo $val['user_muni']?></span>, <span> <?php echo $val['user_prov']?> </span></p>
+                    </div>
+                  </div>
+                  <hr>
+                  
+                   <div class="row">
+                    <div class="col-sm-5">
+                       <h5 class="mb-0">Password </h5>
+                    </div>
+                    <div class="col-sm-7 text-secondary">
+                       <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
+                    </div>
+                  </div>
+                  <hr>
+                   
+                    <div class="row">
+                    <div class="col-sm-5">
+                       <h5 class="mb-0">Status </h5>
+                    </div>
+                    <div class="col-sm-7 text-secondary">
+                       <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
+                    </div>
+                  </div>
+                  <hr>
+                  
+                  <div class="row">
+                    <div class="col-sm-5">
+                       <h5 class="mb-0">User Type </h5>
+                    </div>
+                    <div class="col-sm-7 text-secondary">
+                     <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
+                    </div>
+                  </div>
+                  
                 </div>
+              </div>
+              
             </div>
+            
+            
+            <div class="col-md-9">
+            
+              <div class="row gutters-sm">
+                <div class="col-sm-12 mb-3">
+                 <div class="title-table">
+                     <h2>Items Posted / Ordered items ......</h2>
+                 </div>
+                  <div class="card h-100">
+                   
+<!--    ------------------------------------------------------------------               -->
+                   
+                    <div class="card-body">
+                    <div class="scrollable-usertable">
+                    <table class="table table-striped showtable" style="width:100%">
+							<thead>
+								<tr>
+									<th>Image</th>
+									<th>Item Name</th>
+									<th>Category</th>
+									<th>Item Code</th>
+									<th>Price</th>
+									<th>Description</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+									<td>Garrett Winters</td>
+									<td>Good Guys</td>
+									<td>garrett@winters.com</td>
+									<td>Good Guys</td>
+									<td>garrett@winters.com</td>
+									<td><span class="badge bg-success">Active</span></td>
+								</tr>
+								<tr>
+									<td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+									<td>Ashton Cox</td>
+									<td>Levitz Furniture</td>
+									<td>ashton@cox.com</td>
+									<td>Levitz Furniture</td>
+									<td>ashton@cox.com</td>
+									<td><span class="badge bg-success">Active</span></td>
+								</tr>
+								<tr>
+									<td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+									<td>Sonya Frost</td>
+									<td>Child World</td>
+									<td>sonya@frost.com</td>
+									<td>Child World</td>
+									<td>sonya@frost.com</td>
+									<td><span class="badge bg-danger">Deleted</span></td>
+								</tr>
+								<tr>
+									<td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+									<td>Jena Gaines</td>
+									<td>Helping Hand</td>
+									<td>jena@gaines.com</td>
+									<td>Helping Hand</td>
+									<td>jena@gaines.com</td>
+									<td><span class="badge bg-warning">Inactive</span></td>
+								</tr>
+								<tr>
+									<td><img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+									<td>Charde Marshall</td>
+									<td>Price Savers</td>
+									<td>charde@marshall.com</td>
+									<td>Price Savers</td>
+									<td>charde@marshall.com</td>
+									<td><span class="badge bg-success">Active</span></td>
+								</tr>
+								
+							</tbody>
+						</table>
+                        </div>
+                        </div>
+                        
+<!--    ------------------------------------------------------------                -->
+                    
+                    
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
         </div>
     </div>
-    <?php
-    include 'footer.php';
-    ?>
+    
+    <?php include 'footer.php'?>
+    
+      <!-- Latest jQuery form server -->
+    <script src="https://code.jquery.com/jquery.min.js"></script>
 
-    <script>
-        function myFunction() {
-            var dots = document.getElementById("dots");
-            var moreText = document.getElementById("more");
-            var btnText = document.getElementById("myBtn");
+    <!-- Bootstrap JS form CDN -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-            if (dots.style.display === "none") {
-                dots.style.display = "inline";
-                btnText.innerHTML = "Read more";
-                moreText.style.display = "none";
-            } else {
-                dots.style.display = "none";
-                btnText.innerHTML = "Read less";
-                moreText.style.display = "inline";
-            }
-        }
+    <!-- jQuery sticky menu -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
 
-    </script>
+    <!-- jQuery easing -->
+    <script src="js/jquery.easing.1.3.min.js"></script>
 
+    <!-- Main Script -->
+    <script src="js/main.js"></script>
 </body>
-
 </html>

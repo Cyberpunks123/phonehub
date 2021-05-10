@@ -37,23 +37,107 @@ session_start();
 
     <div class="topnav" id="myTopnav">
         <div class="container-fluid">
-            <div class="col-md-6">
+            <div class="col-md-6 col-xs-4">
+                    <?php if (isset($_SESSION['USER'])) {
+                     $row['user_id'] = $_SESSION['USER'];?>
+
+               <div class="row text-center collapsible">
+              <a href="#" class="collapsible" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-plus-sign"></span> Add Items</a>
+                  </div>
+                  
+                  
+                <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add New Items</h4>
+                        
+                    
+  <form action="includes/addnewitem.inc.php" method="POST">
+  
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+            <input class="form-control" type="text" name="additemname" placeholder="Name of Item.." required>
+        </div>
+      </div>
+      
+       <div class="col-md-6">
+           
+          <div class="form-group">
+          <label for="iemPrice">Price</label>
+             <input class="form-control" type="text" name="additemprice" placeholder="Input item price.." required>
+        </div>
+     </div>
+     
+     <div class="col-md-6">
+           
+          <div class="form-group">
+          <label for="iemPrice">Itemcode</label>
+             <input class="form-control" type="text" name="additemcode" placeholder="Input item code.." required>
+        </div>
+     </div>
+     
+     
+      <div class="col-md-6">
+         <div class="form-group">
+          <label for="">Item image</label>
+             <input class="form-control" type="file" name="additemimage" required>
+        </div>
+     </div>
+     
+     <input type="hidden" name="additemsUid" value="<?php echo $_SESSION['USER']?>">
+      
+     <div class="col-md-6">
+        <div class="form-group">
+          <label for="itemCat">Category</label>
+             <select name="additemcategory" class="selectadditem" required>
+               <?php 
+                  $catList = getCategory($conn);
+                  foreach($catList as $key => $value){ ?>
+                    <option value="<?php echo $value['cat_id'];?>"> <?php echo $value['cat_desc'];?></option>
+                  <?php } 
+                  ?>
+             </select>
+        </div>
+  
+     </div>
+
+         <div class="form-group">
+        <label for="subject">Description</label>
+    <textarea id="subject" name="additemdesc" placeholder="Write description of the item.." style="height:200px" required></textarea>
+   </div>
+
+    <input type="submit" name="addnewItem" value="Submit">
+  </form>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+            <?php    }
+                        else{?>
+            <a href="shopaccnt.php"><span class="glyphicon glyphicon-log-in"></span> Log in to Store</a>
+                       <?php }?>
 
             </div>
-            <div class="col-md-6">
+            
+            
+            <div class="col-md-6 col-xs-6">
             <div class="search-container">
-                
                 <?php
                     if (isset($_SESSION['USER'])) {
                      $row['user_id'] = $_SESSION['USER'];?>
-
                     <a href="userprof.php?disuser=<?php echo $row['user_id'];?>"><i class="fa fa-user"></i> My Account</a>
 
                     <a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a>
                     <a href="checkout.php"><span class="glyphicon glyphicon-list-alt"></span> Checkout</a>
                     <a href="includes/logout.inc.php"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
-                    <form action="shop1.php" method="GET">
-                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
+                    <form action="shop.php" method="GET">
+                                <input id="searchbar" name="searchkeys" type="text" placeholder="Search..">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
 
@@ -69,8 +153,8 @@ session_start();
                           
                       <a href="signup.php"><span class="glyphicon glyphicon-edit"></span> Sign up</a>
 
-                    <form action="shop1.php" method="GET">
-                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
+                       <form action="shop.php" method="GET">
+                                <input id="searchbar" name="searchkeys" type="text" placeholder="Search..">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
 
@@ -147,6 +231,23 @@ session_start();
         <?php include "style.css"?>
 
     </style>
+
+    <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    });
+}
+</script>
     
     
 
