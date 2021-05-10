@@ -6,21 +6,24 @@ if (isset($_GET['searchkey'])){
 }
 ?>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="font/bootstrap-icons.css">
     <style>
-      img{
-        width: 200px
-      }
+        img {
+            width: 200px
+        }
+
     </style>
 </head>
-<body>      
-<div class="container-fluid">
 
-  <?php
+<body>
+    <div class="container-fluid">
+
+        <?php
   //declare the SQL
   //Scenario: I wanted to show item_id, item_name, item_short_code
   //          category description, price
@@ -102,11 +105,12 @@ if (isset($_GET['searchkey'])){
        echo "<h4> No Records Found.</h4>";
    }
   ?>
-  </div>
-</div>
-</div>
-     
+    </div>
+    </div>
+    </div>
+
 </body>
 <?php mysqli_close($conn);?>
 <script src="js/bootstrap.min.js"></script>
+
 </html>

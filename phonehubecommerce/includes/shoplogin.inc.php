@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['login'])){
+if(isset($_POST['shoplogin'])){
 include_once "db_connect.php";
 include_once "function.inc.php";
 
@@ -8,17 +8,17 @@ include_once "function.inc.php";
     
 
         if (loggedempty($username, $password)  !== false) {
-			header("Location: ../accnt.php?error=loggedempty");
+			header("Location: ../shopaccnt.php?error=loggedempty");
 			exit();
 		}
 
 		else if (loggedinvaname($username)  !== false) {
-			header("Location: ../accnt.php?error=loggedinvaname");
+			header("Location: ../shopaccnt.php?error=loggedinvaname");
 			exit();
 		}	
     
         else if (loggedinvapassw($password)  !== false) {
-			header("Location: ../accnt.php?error=loggedinvapassw");
+			header("Location: ../shopaccnt.php?error=loggedinvapassw");
 			exit();
 		}
 
@@ -26,13 +26,13 @@ include_once "function.inc.php";
         else {
             
     $err;
-    $sql = "SELECT * FROM `user` 
-            WHERE `user_name` = ? 
-            AND `user_pass` = ?;";
+    $sql = "SELECT * FROM `suppliers` 
+            WHERE `supp_username` = ? 
+            AND `supp_pass` = ?;";
     $stmt=mysqli_stmt_init($conn);
     
     if(!mysqli_stmt_prepare($stmt, $sql)){
-     header("location: accnt.php?error=stmtfailed");
+     header("location: shopaccnt.php?error=stmtfailed");
         exit();
       }  
       else{
@@ -43,20 +43,22 @@ include_once "function.inc.php";
          if($row = mysqli_fetch_assoc($resultData)){
              if ( $row == true) {
                 session_start();
-                $_SESSION['USER'] = $row['user_id'];
+                $_SESSION['SUPID'] = $row['supp_id'];
+                 $myshopid = $_SESSION['SUPID'];
 
-                  header("location: ../shop.php?login=success");
+
+                  header("location: ../shopface.php?disshop=$myshopid");
         exit();
             }
             else if ($row  == false)
             {
-                  header("location: ../accnt.php?error=wrongpass");
+                  header("location: ../shopaccnt.php?error=wrongpass");
         exit();
             }
          }
 
          else{
-            header("location: ../accnt.php?error=Usernotfound");
+            header("location: ../shopaccnt.php?error=Usernotfound");
         exit();
          }
 

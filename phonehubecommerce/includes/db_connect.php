@@ -3,7 +3,7 @@
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "";
-$dbname = "phonehubdbbckup";
+$dbname = "phonehubdbbckupp";
 
 $conn = mysqli_connect($servername,$dbusername,$dbpassword,$dbname);
 
