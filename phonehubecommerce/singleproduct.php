@@ -50,6 +50,8 @@
     <div class="single-product-area">
         <div class="container">
             <div class="row">
+               
+               
                 <div class="col-md-4">
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Search Products</h2>
@@ -80,9 +82,9 @@
             <div class="col-md-12 col-sm-12">
                     <div class="single-shop-product">
                         <div class="product-single">
-                            <img src="img/<?php echo $val['item_image']?>" class="recent-thumb" alt="">
+                            <img src="img/<?php echo $val['item_image'];?>" class="recent-thumb" alt="">
                         </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_code']?>"> <?php echo $val['item_name'] ; ?> </a></h2>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_id'];?>"> <?php echo $val['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
                                 <?php echo number_format($val['item_price']) ?>
@@ -94,9 +96,9 @@
     <?php
    }
    }
-         else{
-       echo "<h4> No Records Found.</h4>";
-             }
+             else{?>
+           <h2><span class="glyphicon glyphicon-warning-sign"></span> Record not found</h2>
+                <?php     }
    }
              else if (!isset($_GET['item_code'])){
                 $itemslist = allitemList($conn,'A');
@@ -104,9 +106,9 @@
                        <div class="col-md-12 col-sm-12">
                     <div class="single-shop-product">
                         <div class="product-single">
-                            <img src="img/<?php echo $item_code['item_image']?>" class="recent-thumb" alt="">
+                            <img src="img/<?php echo $item_code['item_image'];?>" class="recent-thumb" alt="">
                         </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id'];?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
                                 <?php echo number_format($item_code['item_price']) ?>
@@ -117,9 +119,7 @@
                 </div>
 
              <?php }
-                } 
-   
-   
+                }
    ?>
                  </div>
             </div>
@@ -143,7 +143,7 @@
                                     foreach($arr as $key => $val){  ?>
                                         <div class="product-images">
                                             <div class="product-main-img" align="center">
-                                                <img src="img/<?php echo $val['item_image']?>" alt="">
+                                                <img src="img/<?php echo $val['item_image'];?>" alt="">
                                             </div>
                                         </div>
                     <?php
@@ -155,7 +155,7 @@
                 }
 
                 else{
-                        $disitem="";
+                        $disitem="X";
                             if (!isset($_GET['disitem'])){
                                 $arr = DisplayEachItem($conn, $disitem);                         
                            
@@ -164,7 +164,7 @@
                   
                         <div class="product-images">
                             <div class="product-main-img" align="center"> 
-                                <img src="img/<?php echo $val['item_image']?>" alt="">
+                                <img src="img/<?php echo $val['item_image'];?>" alt="">
                             </div>          
                         </div>
                    
@@ -204,7 +204,7 @@
                             <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
                         </div>
                                         
-                        <button class="add_to_cart_button" type="submit">Add to cart</button>
+                        <button class="add_to_cart_button" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</button>
                     </form>
 
                         <div class="product-inner-category">
@@ -233,7 +233,7 @@
                             <div role="tabpanel" class="tab-pane fade in active" id="home">
                                 <h2>Product Description</h2>
                                                 
-                                    <p> <?php echo $val['item_desc']?>  </p>
+                                    <p> <?php echo $val['item_desc'];?>  </p>
                             </div>
                                             
                             <div role="tabpanel" class="tab-pane fade" id="profile">
@@ -268,7 +268,7 @@
         }
 
         else{
-                $disitem="";
+                $disitem="X";
                     if (!isset($_GET['disitem'])){
                         $arr = DisplayEachItem($conn, $disitem);                         
                            
@@ -288,7 +288,7 @@
                         <div class="quantity">
                             <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
                         </div>
-                                <button class="add_to_cart_button" type="submit">Add to cart</button>
+                                <button class="add_to_cart_button" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</button>
                     </form>
 
                         <div class="product-inner-category">
@@ -299,10 +299,11 @@
                                 </p>
                             </div>
                          </div>
-                        </div>
+            </div>
 
 
                         <div class="col-sm-6">
+                            <div class="row">
                              <div class="product-inner">
 
                             <div role="tabpanel">
@@ -319,7 +320,7 @@
                                     <div role="tabpanel" class="tab-pane fade in active" id="home">
                                         <h2>Product Description</h2>
                                                 
-                                            <p> <?php echo $val['item_desc']?>  </p>
+                                            <p> <?php echo $val['item_desc'];?>  </p>
                                     </div>
                                             
                                     <div role="tabpanel" class="tab-pane fade" id="profile">
@@ -346,7 +347,7 @@
                             </div>
                             </div>
                             </div>
-                        </div>
+                            </div>
                 <?php
                     }
                 }
@@ -354,120 +355,18 @@
         } ?>
                 </div>
             </div>
-        </div>
+               </div>
+               </div>
+    </div>
+        
 
-<!-- 
-                        <div class="related-products-wrapper">
-                            <h2 class="related-products-title">Related Products</h2>
-                            <div class="related-products-carousel">
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/product-1.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">Sony Smart TV - 2015</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>$700.00</ins> <del>$100.00</del>
-                                    </div>
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/product-2.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                                    <div class="product-carousel-price">
-                                        <ins>$899.00</ins> <del>$999.00</del>
-                                    </div>
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/product-3.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">Apple new i phone 6</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>$400.00</ins> <del>$425.00</del>
-                                    </div>
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/product-4.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">Sony playstation microsoft</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>$200.00</ins> <del>$225.00</del>
-                                    </div>
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/product-5.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">Sony Smart Air Condtion</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>$1200.00</ins> <del>$1355.00</del>
-                                    </div>
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/product-6.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">Samsung gallaxy note 4</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>$400.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
 <!-- -------------------------------------------------------------------- -->
-                        </div>
+                        
 
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
+                
+            
+     
 
 
     <?php

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2021 at 07:02 PM
+-- Generation Time: May 14, 2021 at 06:56 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `phonehubdbbckup`
+-- Database: `phonehubdbbckupp`
 --
 
 -- --------------------------------------------------------
@@ -81,41 +81,22 @@ CREATE TABLE `item` (
   `item_id` int(11) NOT NULL,
   `cat_id` int(11) NOT NULL,
   `item_name` varchar(20) NOT NULL,
-  `item_image` varchar(256) NOT NULL,
   `item_code` int(11) NOT NULL,
+  `item_image` varchar(256) NOT NULL,
   `item_price` int(11) NOT NULL,
   `item_desc` text NOT NULL,
   `item_stat` enum('A','B','','') NOT NULL COMMENT 'A = "Active" B = "Blocked"',
-  `supp_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`item_id`, `cat_id`, `item_name`, `item_image`, `item_code`, `item_price`, `item_desc`, `item_stat`, `supp_id`) VALUES
-(1, 1, 'Vivo Y11', 'product-1.jpg', 1, 7000, 'this phone is a ………product of creativity', 'A', 1),
-(1, 1, 'Vivo Y11', 'product-1.jpg', 2, 7000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Y11', 'product-1.jpg', 3, 7000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Spro', 'product-4.jpg', 4, 10000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Spro', 'product-2.jpg', 5, 10000, 'this phone is a ……….', 'A', 1),
-(1, 1, 'Vivo Ultra', 'product-3.jpg', 6, 15000, 'this phone is a ……….', 'A', 1),
-(2, 2, 'Samsung A5', 'product-4.jpg', 7, 8000, 'this phone is a ……….', 'A', 2),
-(2, 2, 'Samsung A5', 'product-5.jpg', 8, 8000, 'this phone is a ……….', 'A', 2),
-(2, 2, 'Samsung S10', 'product-1.jpg', 9, 16000, 'this phone is a ……….', 'A', 2),
-(2, 2, 'Samsung S10', 'product-2.jpg', 10, 16000, 'this phone is a ……….', 'A', 2),
-(3, 3, 'Realme C1', 'product-3.jpg', 11, 4000, 'this phone is a ……….', 'A', 3),
-(3, 3, 'Realme C2', 'product-4.jpg', 12, 5000, 'this phone is a ……….', 'A', 3),
-(3, 3, 'Realme C3', 'product-5.jpg', 13, 7000, 'this phone is a ……….', 'A', 3),
-(3, 3, 'Realme C15', 'product-1.jpg', 14, 15000, 'Brand new', 'A', 3),
-(4, 4, 'Iphone X', 'product-3.jpg', 15, 20000, 'the newest', 'A', 4),
-(4, 4, 'Iphone XXX', 'product-3.jpg', 16, 20000, 'brand new', 'A', 4),
-(5, 5, 'Konckhick 1', 'product-1.jpg', 17, 34000, 'rrrrrrrrrrrrrrr', 'A', 5),
-(5, 5, 'Konckhick 2', 'product-3.jpg', 18, 34000, 'rrrrrrrrrrrrrrr', 'A', 5),
-(5, 5, 'Konckhick 3', 'product-3.jpg', 19, 34000, 'rrrrrrrrrrrrrrr', 'A', 5),
-(3, 3, 'Realme C12', 'product-3.jpg', 20, 4000, 'this phone is a ……….', 'A', 3),
-(1, 1, 'Vivo Y11', 'product-1.jpg', 31, 7000, 'this phone is a ……….', 'A', 1),
-(2, 2, 'Samsung S10', 'product-1.jpg', 32, 16000, 'this phone is a ………. genius', 'A', 2);
+INSERT INTO `item` (`item_id`, `cat_id`, `item_name`, `item_code`, `item_image`, `item_price`, `item_desc`, `item_stat`, `user_id`) VALUES
+(7, 2, 'Samsung Galaxy 12', 11990, '', 23000, 'kkkkkkkkkkkkkk', 'A', 3),
+(23, 2, 'Samsung Galaxy 111', 1016, 'vivo y11.png', 55, 'efsdf', 'A', 1),
+(24, 1, 'Realme C2', 1016, 'vivo y11.png', 123, 'ujtyjy', 'A', 1);
 
 -- --------------------------------------------------------
 
@@ -126,10 +107,11 @@ INSERT INTO `item` (`item_id`, `cat_id`, `item_name`, `item_image`, `item_code`,
 CREATE TABLE `order` (
   `order_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `item_name` varchar(255) NOT NULL,
   `item_code` int(11) NOT NULL,
   `order_qty` int(11) NOT NULL,
   `net_amt` int(11) NOT NULL,
-  `order_date` date NOT NULL,
+  `order_date` date NOT NULL DEFAULT current_timestamp(),
   `order_status` enum('A','P','D','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -137,18 +119,18 @@ CREATE TABLE `order` (
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`order_id`, `user_id`, `item_code`, `order_qty`, `net_amt`, `order_date`, `order_status`) VALUES
-(1, 1, 1, 0, 0, '2021-03-01', 'A'),
-(2, 1, 1, 0, 0, '2021-03-01', 'A'),
-(3, 1, 1, 0, 0, '2021-02-01', 'A'),
-(4, 2, 1, 0, 0, '2021-02-01', 'A'),
-(5, 3, 2, 0, 0, '2021-02-21', 'A'),
-(6, 3, 4, 0, 0, '2021-02-14', 'P'),
-(7, 2, 3, 0, 0, '2021-01-01', 'P'),
-(8, 6, 1, 2, 0, '2021-02-21', 'D'),
-(9, 5, 3, 2, 0, '2021-02-25', 'P'),
-(10, 5, 3, 2, 0, '2021-02-25', 'P'),
-(11, 4, 2, 1, 0, '2021-02-25', 'A');
+INSERT INTO `order` (`order_id`, `user_id`, `item_name`, `item_code`, `order_qty`, `net_amt`, `order_date`, `order_status`) VALUES
+(1, 1, '', 1, 0, 0, '2021-03-01', 'A'),
+(2, 1, '', 1, 0, 0, '2021-03-01', 'A'),
+(3, 1, '', 1, 0, 0, '2021-02-01', 'A'),
+(4, 2, '', 1, 0, 0, '2021-02-01', 'A'),
+(5, 3, '', 2, 0, 0, '2021-02-21', 'A'),
+(6, 3, '', 4, 0, 0, '2021-02-14', 'P'),
+(7, 2, '', 3, 0, 0, '2021-01-01', 'P'),
+(8, 6, '', 1, 2, 0, '2021-02-21', 'D'),
+(9, 5, '', 3, 2, 0, '2021-02-25', 'P'),
+(10, 5, '', 3, 2, 0, '2021-02-25', 'P'),
+(11, 4, '', 2, 1, 0, '2021-02-25', 'A');
 
 -- --------------------------------------------------------
 
@@ -205,11 +187,42 @@ INSERT INTO `stockshistory` (`stock_entry_id`, `stock_date_added`, `stock_qty_ad
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `suppitems`
+--
+
+CREATE TABLE `suppitems` (
+  `supp_item_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `supp_item_name` varchar(20) NOT NULL,
+  `supp_item_code` int(11) NOT NULL,
+  `supp_item_image` varchar(256) NOT NULL,
+  `supp_item_price` int(11) NOT NULL,
+  `supp_item_desc` text NOT NULL,
+  `supp_item_stat` enum('A','B','','') NOT NULL COMMENT 'A = "Active" B = "Blocked"',
+  `supp_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `suppitems`
+--
+
+INSERT INTO `suppitems` (`supp_item_id`, `cat_id`, `supp_item_name`, `supp_item_code`, `supp_item_image`, `supp_item_price`, `supp_item_desc`, `supp_item_stat`, `supp_id`) VALUES
+(27, 1, 'Realme CC', 12245, 'product-1.jpg', 33000, 'vvv', 'A', 6),
+(29, 1, 'Vivo V2', 1222, 'product-1.jpg', 12000, 'dddddd', 'A', 1),
+(30, 1, 'Vivo V24', 1222, 'product-1.jpg', 12000, 'dddddd', 'A', 1),
+(40, 1, 'Vivo V99v', 12245, 'vivo y11.png', 23000, 'dddddddd', 'A', 11),
+(41, 1, 'Vivo V234', 12245, 'product-4.jpg', 12000, 'qww', 'A', 1),
+(42, 1, 'Vivo V99', 1224, 'product-thumb-2.jpg', 34000, 'rrr', 'A', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `suppliers`
 --
 
 CREATE TABLE `suppliers` (
   `supp_id` int(11) NOT NULL,
+  `supp_username` varchar(255) NOT NULL,
   `supp_name` varchar(30) NOT NULL,
   `supp_image` varchar(256) NOT NULL,
   `supp_mun` varchar(30) NOT NULL,
@@ -222,13 +235,15 @@ CREATE TABLE `suppliers` (
 -- Dumping data for table `suppliers`
 --
 
-INSERT INTO `suppliers` (`supp_id`, `supp_name`, `supp_image`, `supp_mun`, `supp_prov`, `supp_pass`, `supp_stat`) VALUES
-(1, 'Vivo Shop', 'brand1.png', 'Guinobatan', 'Albay', 'vivoshop', 'A'),
-(2, 'Samsung Shop', 'brand2.png', 'Sorsogon', 'Sorsogon', 'samsungshop', 'A'),
-(3, 'Realme Shop', 'brand3.png', 'Guinobatan', 'Albay', 'realmeshop', 'A'),
-(4, 'Iphone Shop', 'brand4.png', 'Pasay', 'NCR', 'authenshop', 'A'),
-(5, 'Antic CP Shop', 'brand5.png', 'Busay', 'Baguio', 'anticshop', 'A'),
-(6, 'Cell Store', 'brand1.png', 'Busay', 'Baguio', 'cellstore', 'A');
+INSERT INTO `suppliers` (`supp_id`, `supp_username`, `supp_name`, `supp_image`, `supp_mun`, `supp_prov`, `supp_pass`, `supp_stat`) VALUES
+(1, '@vivoshop', 'Vivo Edge Store235', 'product-thumb-4.jpg', 'Ligao-ligo', 'Wakanda', 'vivo', 'A'),
+(2, '@samsungshop', 'Samsung Shop', 'brand2.png', 'Sorsogon', 'Sorsogon', 'samsung', 'A'),
+(3, '@realmeshop', 'Realme Shop', 'brand3.png', 'Guinobatan', 'Albay', 'realme', 'A'),
+(4, '@iphoneshop', 'Iphone Shop', 'brand4.png', 'Pasay', 'NCR', 'iphone', 'A'),
+(5, '@anticshop', 'Antic CP Shop', 'brand5.png', 'Busay', 'Baguio', 'antic', 'A'),
+(6, '@cellstore', 'Cell Store', 'brand1.png', 'Busay', 'Baguio', 'cell', 'A'),
+(11, '@eternity', 'Eternity Shop', 'brand5.png', 'Ligao', 'Wakanda', 'qwerty', 'A'),
+(12, '@cpcapital22', 'The CP Capital', '', 'Ligao', 'Wakanda', 'qwe', 'A');
 
 -- --------------------------------------------------------
 
@@ -258,8 +273,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_image`, `user_address`, `user_muni`, `user_prov`, `user_gender`, `user_pass`, `user_stat`, `user_type`) VALUES
 (1, '@jpmoratalla', 'Jhun Paul', 'Moratalla', 'paul.jpg', 'San Pascual, Nale', 'Oas', 'Albay', 'M', 'imjp', 'A', 'U'),
 (2, '@arnelgaming', 'Arnel', 'Sta. Romana', '', 'Banao', 'Guinobatan', 'Albay', 'M', 'imarnel', 'A', 'U'),
-(3, '@henrickkkkk01', 'John Henrick', 'Orbase', '', 'GuaGua Street 01', 'Guinobatan', 'Albay', 'M', 'imhenrick', 'A', 'U'),
-(4, '@kimmy', 'Kim', 'Munez', 'profile.jpg', 'Sapang Palay', 'Polangui', 'Albay', 'F', 'imkim', 'B', 'U');
+(3, '@jhonhenrick', 'John Henrick', 'Orbase', '', 'GuaGua Street 01', 'Guinobatan', 'Albay', 'M', 'imhenrick', 'A', 'U'),
+(4, '@kimmy', 'Kemmy', 'Menez', 'profile.jpg', 'Ligao, al', 'Ligao', 'Albay', 'F', 'qw44', 'B', 'U');
 
 --
 -- Indexes for dumped tables
@@ -281,7 +296,7 @@ ALTER TABLE `currentstock`
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
-  ADD PRIMARY KEY (`item_code`);
+  ADD PRIMARY KEY (`item_id`);
 
 --
 -- Indexes for table `order`
@@ -300,6 +315,12 @@ ALTER TABLE `reports`
 --
 ALTER TABLE `stockshistory`
   ADD PRIMARY KEY (`stock_entry_id`);
+
+--
+-- Indexes for table `suppitems`
+--
+ALTER TABLE `suppitems`
+  ADD PRIMARY KEY (`supp_item_id`);
 
 --
 -- Indexes for table `suppliers`
@@ -333,7 +354,7 @@ ALTER TABLE `currentstock`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -354,10 +375,16 @@ ALTER TABLE `stockshistory`
   MODIFY `stock_entry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `suppitems`
+--
+ALTER TABLE `suppitems`
+  MODIFY `supp_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `supp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `supp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`

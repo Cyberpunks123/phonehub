@@ -37,46 +37,143 @@ session_start();
 
     <div class="topnav" id="myTopnav">
         <div class="container-fluid">
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
-            <div class="search-container">
-                
-                <?php
-                    if (isset($_SESSION['USER'])) {
+            <div class="col-md-6 col-xs-4">
+                <?php if (isset($_SESSION['USER'])) {
                      $row['user_id'] = $_SESSION['USER'];?>
 
+
+                <a href="#" class="collapsible" data-toggle="modal" data-target="#CreateShop"><span class="glyphicon glyphicon-home"></span> Create Shop</a>
+                <a href="#" class="collapsible" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-plus-sign"></span> Add Items</a>
+                
+                
+                
+                
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="includes/addnewitem.inc.php" method="POST">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add New Items</h4>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="itemName">Item Name</label>
+                                <input class="form-control" type="text" name="additemname" placeholder="Name of Item.." required pattern="[A-Za-z 0-9]+">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="iemPrice">Price</label>
+                                <input class="form-control" type="text" name="additemprice" placeholder="Input item price.." required pattern="[0-9]+">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="iemPrice">Itemcode</label>
+                                <input class="form-control" type="text" name="additemcode" placeholder="Input item code.." required pattern="[0-9]+">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Item image</label>
+                                <input class="form-control" type="file" name="additemimage" required accept="image/x-png,image/image/jpeg">
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="additemsUid" value="<?php echo $_SESSION['USER']?>">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="itemCat">Category</label>
+                                <select name="additemcategory" class="selectadditem" required>
+                                    <?php 
+                  $catList = getCategory($conn);
+                  foreach($catList as $key => $value){ ?>
+                                    <option value="<?php echo $value['cat_id'];?>"> <?php echo $value['cat_desc'];?></option>
+                                    <?php } 
+                  ?>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Description</label>
+                            <textarea id="subject" name="additemdesc" placeholder="Write description of the item.." style="height:200px" required></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" name="addnewItem" value="Submit">
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+                
+                
+                
+                
+
+
+                <?php    }
+                        else{?>
+                <a href="shopaccnt.php"><span class="glyphicon glyphicon-log-in"></span> Log in to Store</a>
+                <?php }?>
+
+            </div>
+
+
+            <div class="col-md-6 col-xs-6">
+                <div class="search-container">
+                    <?php
+                    if (isset($_SESSION['USER'])) {
+                     $row['user_id'] = $_SESSION['USER'];?>
                     <a href="userprof.php?disuser=<?php echo $row['user_id'];?>"><i class="fa fa-user"></i> My Account</a>
 
                     <a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a>
                     <a href="checkout.php"><span class="glyphicon glyphicon-list-alt"></span> Checkout</a>
                     <a href="includes/logout.inc.php"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
-                    <form action="shop1.php" method="GET">
-                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
+                    <form action="shop.php" method="GET">
+                        <input id="searchbar" name="searchkeys" type="text" placeholder="Search..">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
 
-                                
-                             <?php    }
+
+                    <?php    }
 
 
                     else if (!isset($_SESSION['USER'])) {?>
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-9">
-                              <a href="accnt.php"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
-                          
-                      <a href="signup.php"><span class="glyphicon glyphicon-edit"></span> Sign up</a>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9">
+                        <a href="accnt.php"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
 
-                    <form action="shop1.php" method="GET">
-                                <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
+                        <a href="signup.php"><span class="glyphicon glyphicon-edit"></span> Sign up</a>
 
-                        </div>
-                      
-                   <?php }
+                        <form action="shop.php" method="GET">
+                            <input id="searchbar" name="searchkeys" type="text" placeholder="Search..">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+
+                    </div>
+
+                    <?php }
                     
                 ?>
 
@@ -142,13 +239,93 @@ session_start();
     <!-- End mainmenu area -->
 
 
+    <!--    ------------------- modals--------------------------------------->
+
+
+    <div class="modal fade" id="CreateShop" tabindex="-1" role="dialog" aria-labelledby="CreateShop" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="includes/addingNewShop.inc.php" method="POST">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Create New Shop</h4>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="itemName">Shop Name</label>
+                                <input class="form-control" type="text" name="suppsUpName" placeholder="Enter New Shop Name" required pattern="[A-Za-z 0-9]+">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="itemName">Shop Username</label>
+                                <input class="form-control" type="text" name="suppsUpUsrName" placeholder="Enter New Shop Name" required pattern="[A-Za-z @ 0-9]+">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="itemName">Shop Municipality</label>
+                                <input class="form-control" type="text" name="suppsUpMun" placeholder="Enter New Shop Municipality" required pattern="[A-Za-z ,- 0-9]+">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="itemName">Shop Province</label>
+                                <input class="form-control" type="text" name="suppsUpProv" placeholder="Enter New Shop Province" required pattern="[A-Za-z ,- 0-9]+">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="itemName">Enter Password</label>
+                            <input class="form-control" type="password" name="suppsUpPass" placeholder="Enter New Password" required pattern="[A-Za-z 0-9]+">
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" name="createNwShop" value="Submit">
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
     <!--   para lang makita ko kung ano na piga edit sa css-->
     <style>
         <?php include "style.css"?>
-
     </style>
-    
-    
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+
+
 
     <script>
         function myFunction() {
@@ -159,7 +336,6 @@ session_start();
                 x.className = "topnav";
             }
         }
-
     </script>
 </body>
 

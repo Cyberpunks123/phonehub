@@ -1451,7 +1451,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button {
     margin: 10px 0;
 }
 
-.single-shop-product img{
+.single-shop-product img {
     height: 300px;
 }
 
@@ -1459,7 +1459,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button {
     margin-top: 15px;
 }
 
-.single-shop-product{
+.single-shop-product {
     margin-bottom: 50px;
 }
 
@@ -2097,11 +2097,12 @@ textarea {
     color: #FFF;
 }
 
-.sortingproduct ul{
+.sortingproduct ul {
     margin-left: 15%;
     align-items: center;
 
 }
+
 .navbar-col-sort .dropdown .dropdown-menu li a:hover {
     background: #4c73e6;
     cursor: pointer;
@@ -2121,6 +2122,15 @@ textarea {
         float: right;
         display: block;
     }
+
+    .topnav input {
+        width: 150px;
+    }
+
+    .topnav button {
+        float: right;
+        display: inline-block;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -2136,7 +2146,7 @@ textarea {
 
     .topnav.responsive a {
         float: none;
-        display: block;
+        display: inline-block;
         text-align: left;
     }
 }
@@ -2171,7 +2181,7 @@ textarea {
     text-transform: capitalize;
     color: #333;
     transition: background-color .2s, color .2s;
-    
+
     &:hover,
     &:focus {
         background-color: #333;
@@ -2183,40 +2193,272 @@ textarea {
     background-color: #333;
     color: #fff;
 }
+
 /*-------------------------------------------------------------------*/
 
-.box ul li a{
+.box ul li a {
     padding: 20px 100px;
 }
 
 /*--------------------------------------------------------------*/
-.scrollable, .scrollable-cart{
+.scrollable {
     height: 580px;
     overflow: scroll;
 }
+
+.scrollable-cart {
+    height: 740px;
+    overflow: scroll;
+}
+
+.scrollable-checkout {
+    height: 1470px;
+    overflow: scroll;
+}
+
+.scrollable-usertable {
+    height: 725px;
+    overflow: scroll;
+    border: 1px solid #b4b4b4;
+}
+
 /*------------------------------------------------------------*/
-.product-upper img{
+.product-upper img {
     height: 300px;
 }
 
-.product-single img{
+.product-single img {
     height: 80px;
 }
+
 /*----------------------------------------------------------------*/
-.product-main-img img{
+.product-main-img img {
     margin-top: 50px;
     height: 400px;
     padding-left: 50px;
     width: 400px;
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
 }
 
-.product-inner{
+.product-inner {
     margin-top: 60px;
     padding-left: 50px;
 }
 
-.product-inner p{
+.product-inner p {
     padding-right: 10px;
+}
+
+/*----------------------------------------------------------------*/
+
+
+.modal-header h4 {
+    margin-bottom: 20px;
+}
+
+.itemadding input[type=text],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+.itemadding input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.itemaddinginput[type=submit]:hover {
+    background-color: #45a049;
+}
+
+/*-----------------------------------------------------*/
+
+.profile-acc {
+    margin-top: 30px;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm > .col,
+.gutters-sm > [class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.mb-3,
+.my-3 {
+    margin-bottom: 1rem !important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+
+.h-100 {
+    height: 100% !important;
+}
+
+.shadow-none {
+    box-shadow: none !important;
+}
+
+.photouser img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid #b4b4b4;
+}
+
+/*------------------ userprof.php table for postIt or OrderedIt-----------------------------------*/
+
+.card {
+    margin-bottom: 24px;
+    box-shadow: 0 0 0.875rem 0 rgba(33, 37, 41, .05);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: initial;
+    border: 0 solid transparent;
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-header:first-child {
+    border-radius: .25rem .25rem 0 0;
+}
+
+.card-header {
+    border-bottom-width: 1px;
+}
+
+.pb-0 {
+    padding-bottom: 0 !important;
+}
+
+.card-header {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 0 solid transparent;
+}
+
+.card-body .showtable td {
+    margin-bottom: 20px;
+}
+
+.card-body .showtable tbody td,
+.showtable tbody td img {
+    height: 100px;
+    width: 100px;
+    background: #e6e6e6;
+}
+
+.showtable tbody td img {
+    height: 100px;
+    width: 100px;
+}
+
+.scrollable-usertable .table .tr{
+    width: 700px;
+}
+
+.editpics i {
+    width: 80px;
+    height: 80px;
+    padding-top: 180px;
+
+}
+
+.editProff i {
+    width: 80px;
+    height: 80px;
+    padding-top: 180px;
+
+}
+
+.shpfacecontent{
+    margin-top: 40px;
+    text-align: center;
+    align-content: center;
+}
+
+.title-table{
+    margin-bottom: 20px;
+}
+/*---------------------------------------*/
+.shopface ul.navbar-nav li a {
+    color: #6e6a6a;
+    font-size: 14px;
+    padding: 20px 130px;
+    font-size: 16px;
+}
+.shopface li form{
+    padding: 10px;
+}
+.card-body .table thead, .card-body .table thead th{
+    text-align: center;
+}
+
+.shopface ul.navbar-nav {
+    margin-left: 200px;
+}
+
+.shphead hr{
+    border: 15px solid #e6e6e6;
+    
+}
+/*---------------------------------------------*/
+#grad1 {
+  height: 50px;
+  background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 56%, #4c4cb9 100%);
+   
+
 }

@@ -26,7 +26,7 @@
 	}
 	mysqli_stmt_bind_param($stmt_ins, "sssssss", $additemcategory,$additemname,$additemimage,$additemprice,$additemdesc,$additemcode,$additemsUid);
 	mysqli_stmt_execute($stmt_ins);
-	echo "Record has been Added";
+    header("location: ../userprof.php?record");
 	}
         
 	

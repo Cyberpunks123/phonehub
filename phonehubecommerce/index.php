@@ -123,13 +123,13 @@
                                     <div class="product-hover">
                                         <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
 
-                                        <a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        <a href="singleproduct.php?disitem=<?php echo $item_code['item_id']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                         
 
                                     </div>
                                 </div>
 
-                                <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                                <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
 
                                  <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
@@ -339,6 +339,7 @@
     <?php
       include 'footer.php';
       ?>
+   <script src="bootstrap.min.js" ></script>
    
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>

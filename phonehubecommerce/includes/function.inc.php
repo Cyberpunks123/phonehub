@@ -2,6 +2,111 @@
     include_once "db_connect.php";
     include_once "function.inc.php";
 
+function DisplayEachItemPerUser($conn, $disitem="X"){
+  $err;
+   if($disitem == "X"){
+    $sql = "SELECT * FROM item;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }else{ 
+          $sql = "SELECT * FROM item as i
+          JOIN category as c 
+          on i.cat_id = c.cat_id 
+          WHERE user_id = ?;";
+
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+        mysqli_stmt_bind_param($stmt, "s", $disitem);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+
+//-----------------------------------------------
+
+function DisplayEachShopItem($conn, $disitem="X"){
+  $err;
+   if($disitem == "X"){
+    $sql = "SELECT * FROM suppitems;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }else{ 
+  $sql = "SELECT * FROM suppitems
+            WHERE supp_item_id = ?;";
+
+  $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }  
+        mysqli_stmt_bind_param($stmt, "s", $disitem);  
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+
+//---------------------------------------------
+
+function deleteShpItem($conn,$shpitemid){
+    $err;
+    $sql="DELETE FROM `suppitems` 
+           WHERE supp_item_id = ?";
+
+    $stmt=mysqli_stmt_init($conn);
+     if (!mysqli_stmt_prepare($stmt, $sql)){
+        return false;
+        exit();
+     }
+        mysqli_stmt_bind_param($stmt, "s" ,$shpitemid);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return true;
+    
+}
+
+//--------------------------------------------------------
+
 function SearchingInShop($conn, $searchkey="X", $supp = "X", $suppitem = "X"){
   $err;
    if($searchkey == "X"){ 
@@ -53,8 +158,7 @@ function SearchingInShop($conn, $searchkey="X", $supp = "X", $suppitem = "X"){
             WHERE s.supp_item_name LIKE ?
             OR supp_item_name = ? 
             OR s.cat_id = ? 
-            OR s.supp_item_code = ?
-            AND supp_id = ?;";
+            OR s.supp_item_code = ?;";
         }
  
   $stmt=mysqli_stmt_init($conn);
@@ -64,7 +168,7 @@ function SearchingInShop($conn, $searchkey="X", $supp = "X", $suppitem = "X"){
      exit();
    }  
     $itemname="%{$searchkey}%";
-    mysqli_stmt_bind_param($stmt, "sssss", $itemname, $searchkey, $searchkey, $searchkey, $supp);  
+    mysqli_stmt_bind_param($stmt, "ssss", $itemname, $searchkey, $searchkey, $searchkey);  
   }
   //it will execute the statement 
    mysqli_stmt_execute($stmt);
@@ -800,7 +904,6 @@ function invaPass($password){
         }
         return $err;
     }
-
 
 
 
