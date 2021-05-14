@@ -6,36 +6,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Userprofile - Phonehub</title>
-   
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
 
+    <!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">-->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+    <!-- Latest compiled JavaScript -->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
 </head>
 
 <body>
 
-    <!-- dipa po tapos ito sir -->
+    <?php include 'header.php'?>
+    <div class="profile-acc">
+        <div class="container-fluid">
+            <div class="main-body">
 
-    <?php
-    include 'header.php';
-    ?>
-    <div class="accounts-profile">
-        <div class="container">
+                <!-- Breadcrumb -->
 
-            <div class="row">
-                <div class="col-xs-12 col-md-4 col-lg-3">
-                    <div class="userProfileInfo">
+                <!-- /Breadcrumb -->
+
+                <div class="row gutters-sm">
 
 
-                         <?php
+                    <?php
                       $disuser="";
                             if (isset($_GET['disuser'])){
                                 $disuser=htmlentities($_GET['disuser']);     
@@ -44,274 +54,535 @@
                                 if(!empty($arr)){
                                     foreach($arr as $key => $val){  ?>
 
-                        <div class="image text-center">
-                            <?php if (!empty($val['user_image'])) {?>
-                             <img src="img/<?php echo $val['user_image']?>" alt="#" class="img-responsive">
+                    <div class="col-md-3 mb-3">
+                        <div class="card">
 
-                            <a href="#" title="#" class="editImage">
-                                <i class="fa fa-camera"></i>
-                            </a>
-                        </div>
+                            <div class="card-body">
 
-                            <div class="box">
-                    
-
-                                <div class="name">
-                                     <strong> <?php echo $val['first_name'];?>
-                                             <span class="lname"><?php echo $val['last_name'];?></span></strong>
-                                </div>
-
-                         <div class="info">
-                                <div class="usrname">
-                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#"><?php echo $val['user_name']?></a></span>
-                                </div>
-
-                                  <hr>
-
-                                    <div class="more-info">
-                                    <div class="address">
-                                        <span>
-                                            <i class="fa fa-address-card"></i><span class="street"> <?php echo $val['user_address']?> , </span>
-                                            <span class="muni"> <?php echo $val['user_muni']?> ,</span>
-                                            <span class="prov"> <?php echo $val['user_prov']?> </span>
-                                            <hr>
-
-                                            <span id="dots">...</span>
-                                        </span>
+                                <div class="col-md-1 col-xs-6">
+                                    <div class="editProff">
+                                        <div class="editProff">
+                                            <a href="" data-toggle="modal" data-target="#editallUsrprofile"> <i class="fa fa-plus" style="font-size:24px"></i> </a>
+                                        </div>
                                     </div>
 
 
-                                    <span id="more">
-                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
-                                        <hr>
-                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
-                                        <hr>
-                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
-                                        <hr>
-                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
-                                        <hr>
-                                    </span>
-                                    <button onclick="myFunction()" id="myBtn">Read more</button>
                                 </div>
 
-                            <?php }
 
-                            
-                            else{?>
-                                <img src="img/useravatar.png" alt="#" class="img-responsive">
-                            <?php
+                                <div class="col-md-9 col-xs-6">
+                                    <div class="photouser d-flex flex-column align-items-center text-center">
 
-                             ?>
 
-                            <a href="#" title="#" class="editImage">
-                                <i class="fa fa-camera"></i>
-                            </a>
-                        </div>
+                                        <?php if (!empty($val['user_image'])) {?>
 
-                        <div class="box">
-                    
+                                        <img src="img/<?php echo $val['user_image']?>" alt="Admin" class="rounded-circle">
 
-                        <div class="name">
-                            <strong> <?php echo $val['first_name'];?>
-                                    <span class="lname"><?php echo $val['last_name'];?></span></strong>
-                        </div>
+                                        <?php }
 
-                         <div class="info">
-                                <div class="usrname">
-                                    <span><i class="fa fa-fw fa-list-alt"></i> <a href="#" title="#"><?php echo $val['user_name']?></a></span>
+                            else {?>
+                                        <img src="img/useravatar.png" alt="Admin" class="edit-your-photo">
+                                        <?php
+
+                          }  
+                                                                 }
+                                
+                                }?>
+
+
+                                    </div>
                                 </div>
 
-                                  <hr>
-
-                                    <div class="more-info">
-                                    <div class="address">
-                                        <span>
-                                            <i class="fa fa-address-card"></i><span class="street"> <?php echo $val['user_address']?> , </span>
-                                            <span class="muni"> <?php echo $val['user_muni']?> ,</span>
-                                            <span class="prov"> <?php echo $val['user_prov']?> </span>
-                                            <hr>
-
-                                            <span id="dots">...</span>
-                                        </span>
+                                <div class="col-md-1 col-xs-6">
+                                    <div class="editpics">
+                                        <a href="" data-toggle="modal" data-target="#editpicUserModal"> <i class="fa fa-camera" style="font-size:24px"></i> </a>
                                     </div>
 
 
-                                    <span id="more">
-                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
-                                        <hr>
-                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
-                                        <hr>
-                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
-                                        <hr>
-                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
-                                        <hr>
-                                    </span>
-                                    <button onclick="myFunction()" id="myBtn">Read more</button>
                                 </div>
 
-
-
-
-
-                                        
-                    <?php
-                                                                }
-                                                }
-                            
-                }
-                }?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                     
-
-                           
-                              
-                              
                             </div>
                         </div>
 
 
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <div class="mt-3">
+                                        <button class="btn btn-primary">Ordered Items</button>
+                                        <button class="btn btn-primary">Posted Items</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">Full Name</h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <span><?php echo $val['first_name'];?> <?php echo $val['last_name'];?></span>
+                                    </div>
+                                </div>
+                                <hr>
 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">Username </h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <p class="text-secondary mb-1"><?php echo $val['user_name']?></p>
+                                    </div>
+                                </div>
+                                <hr>
 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">Gender </h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
+                                    </div>
+                                </div>
 
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">Address </h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <p><span> <?php echo $val['user_address']?></span> ,<span> <?php echo $val['user_muni']?></span>, <span> <?php echo $val['user_prov']?> </span></p>
+                                    </div>
+                                </div>
+                                <hr>
 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">Password </h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">Status </h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h5 class="mb-0">User Type </h5>
+                                    </div>
+                                    <div class="col-sm-7 text-secondary">
+                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
-                </div>
 
-                <div class="col-xs-12 col-md-8 col-lg-9">
-                    <div class="box">
-                        <p class="boxTitle" style="font-size: 20px"> User Profile </p>
-                        <!-- Tabs -->
-                                    <div role="tabpanel">
-                                        <ul class="product-tab" role="tablist">
-                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Order History</a></li>
-                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Posted items</a></li>
-                                        </ul>
-                                        
-                                    <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                                <div class="container bootdey">
-                                    <div class="panel panel-default panel-order">
-                                        <div class="panel-heading">
-                                          
-                                            <div class="btn-group pull-right">
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Filter history <i class="fa fa-filter"></i></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#">Approved orders</a></li>
-                                                        <li><a href="#">Pending orders</a></li>
-                                                    </ul>
-                                                </div>
+
+
+
+                    <!--    ------------------------------------------------------------------               -->
+
+                    <div class="col-md-9">
+                        <div class="shpfacecontent">
+                            <div class="title-table">
+                            </div>
+
+                            <div class="row gutters-sm">
+                                <div class="col-sm-12 mb-3">
+
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="scrollable-usertable">
+                                                <table class="table table-striped showtable text-center" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Image</th>
+                                                            <th>Item Name</th>
+                                                            <th>Category</th>
+                                                            <th>Item Code</th>
+                                                            <th>Price</th>
+                                                            <th>Description</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <?php 
+                                 if (isset($_GET['disuser'])){
+                                  $SUPPLIER=htmlentities($_GET['disuser']);    
+
+                                  $item_list = DisplayEachItemPerUser($conn,$SUPPLIER);
+                                  foreach($item_list as $key => $value){ ?>
+
+                                                        <tr>
+                                                            <td><img src="img/<?php echo $value['item_image']?>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                                            <td><?php echo $value['item_name']?></td>
+                                                            <td><?php echo $value['cat_desc']?></td>
+                                                            <td><?php echo $value['item_code']?></td>
+                                                            <td><?php echo $value['item_price']?></td>
+                                                            <td><?php echo $value['item_desc']?></td>
+                                                            <td><?php echo $value['item_stat']?></td>
+                                                            <td>
+
+                                                                <form action="includes/deleteUsrPstItms.inc.php" method="POST">
+                                                                    <input type="hidden" name="delUseritem" value="<?php echo $value['item_id']?>">
+
+                                                                    <button type="submit" name="usrdeleteIt" class='btn btn-danger btn-sm'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> </button>
+                                                                </form>
+
+
+
+
+                                                            </td>
+                                                        </tr>
+                                                        <?php } }?>
+
+
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-danger">rejected</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 2, cost: $323.13 <br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 05/31/2014 by <a href="#">Jane Doe </a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_1.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-info">pending</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 12, cost: $12623.13<br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 06/12/2014 by <a href="#">Jane Doe </a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-success">Approved</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 4, cost: $523.13<br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 06/20/2014 by <a href="#">Jane Doe</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_2.jpg" class="media-object img-thumbnail" /></div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="pull-right"><label class="label label-info">pending</label></div>
-                                                            <span><strong>Order name</strong></span> <span class="label label-info">group name</span><br />
-                                                            Quantity : 4, cost: $523.13<br />
-                                                            <a data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="#" title="View"></a>
-                                                            <a data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="#" title="Danger"></a>
-                                                            <a data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" href="#" title="Danger"></a>
-                                                        </div>
-                                                        <div class="col-md-12">order made on: 06/20/2014 by <a href="#">Jane Doe</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
                                     </div>
-                                </div>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Reviews</h2>
-                                                <div class="submit-review">
-                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                    <div class="rating-chooser">
-                                                        <p>Your rating</p>
 
-                                                        <div class="rating-wrap-post">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
+
+
+
+
+
+
+
+                                    <?php  }
+
+                      
+                        else if (isset($_GET['default'])){
+                                
+                                $arr = DisplayEachUser($conn, $_SESSION['USER']);                         
+                           
+                                if(!empty($arr)){
+                                    foreach($arr as $key => $val){  ?>
+
+                                    <div class="col-md-3 mb-3">
+                                        <div class="card">
+
+                                            <div class="card-body">
+
+                                                <div class="col-md-1 col-xs-6">
+                                                    <div class="editProff">
+                                                        <div class="editProff">
+                                                            <a href="" data-toggle="modal" data-target="#editallUsrprofile"> <i class="fa fa-plus" style="font-size:24px"></i> </a>
                                                         </div>
                                                     </div>
-                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Submit"></p>
+
+
+                                                </div>
+
+
+                                                <div class="col-md-9 col-xs-6">
+                                                    <div class="photouser d-flex flex-column align-items-center text-center">
+
+
+                                                        <?php if (!empty($val['user_image'])) {?>
+
+                                                        <img src="img/<?php echo $val['user_image']?>" alt="Admin" class="rounded-circle">
+
+                                                        <?php }
+
+                            else {?>
+                                                        <img src="img/useravatar.png" alt="Admin" class="edit-your-photo">
+                                                        <?php
+
+                          }  
+                                                                 }
+                                
+                                }?>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-1 col-xs-6">
+                                                    <div class="editpics">
+                                                        <a href="" data-toggle="modal" data-target="#editpicUserModal"> <i class="fa fa-camera" style="font-size:24px"></i> </a>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-column align-items-center text-center">
+                                                    <div class="mt-3">
+                                                        <button class="btn btn-primary">Ordered Items</button>
+                                                        <button class="btn btn-primary">Posted Items</button>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">Full Name</h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <span><?php echo $val['first_name'];?> <?php echo $val['last_name'];?></span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">Username </h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <p class="text-secondary mb-1"><?php echo $val['user_name']?></p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">Gender </h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <p class="gender"> <i class="fa fa-male"></i> <?php echo $val['user_gender']?> </p>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">Address </h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <p><span> <?php echo $val['user_address']?></span> ,<span> <?php echo $val['user_muni']?></span>, <span> <?php echo $val['user_prov']?> </span></p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">Password </h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <p class="pwd"> <i class="fa fa-lock"></i> <?php echo $val['user_pass']?> </p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">Status </h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <p class="usrstat"> <i class="fa fa-male"></i> <?php echo $val['user_stat']?> </p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <h5 class="mb-0">User Type </h5>
+                                                    </div>
+                                                    <div class="col-sm-7 text-secondary">
+                                                        <p class="usrtype"> <i class="fa fa-male"></i> <?php echo $val['user_type']?> </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <!--    ------------------------------------------------------------------               -->
+
+                                    <div class="col-md-9">
+                                        <div class="shpfacecontent">
+                                            <div class="title-table">
+                                            </div>
+
+                                            <div class="row gutters-sm">
+                                                <div class="col-sm-12 mb-3">
+
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <div class="scrollable-usertable">
+                                                                <table class="table table-striped showtable text-center" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Image</th>
+                                                                            <th>Item Name</th>
+                                                                            <th>Category</th>
+                                                                            <th>Item Code</th>
+                                                                            <th>Price</th>
+                                                                            <th>Description</th>
+                                                                            <th>Status</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                        <?php 
+                                 if (isset($_GET['disuser'])){
+                                  $SUPPLIER=htmlentities($_GET['disuser']);    
+
+                                  $item_list = DisplayEachItemPerUser($conn,$SUPPLIER);
+                                  foreach($item_list as $key => $value){ ?>
+
+                                                                        <tr>
+                                                                            <td><img src="img/<?php echo $value['item_image']?>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                                                            <td><?php echo $value['item_name']?></td>
+                                                                            <td><?php echo $value['cat_desc']?></td>
+                                                                            <td><?php echo $value['item_code']?></td>
+                                                                            <td><?php echo $value['item_price']?></td>
+                                                                            <td><?php echo $value['item_desc']?></td>
+                                                                            <td><?php echo $value['item_stat']?></td>
+                                                                            <td>
+
+                                                                                <form action="includes/deleteUsrPstItms.inc.php" method="POST">
+                                                                                    <input type="hidden" name="delUseritem" value="<?php echo $value['item_id']?>">
+
+                                                                                    <button type="submit" name="usrdeleteIt" class='btn btn-danger btn-sm'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> </button>
+                                                                                </form>
+
+
+
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php } }?>
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+                                                    <?php  }
+
+
+                                  
+
+                                     
+                   else if(isset($_GET['record'])){
+                        if(isset($_GET['record']) !== false){?>
+
+                                                    <div class="profile-acc">
+                                                        <div class="container">
+                                                            <div class="main-body">
+                                                                <div class="shpfacecontent">
+                                                                    <div class="title-table">
+
+
+                                                                    </div>
+
+                                                                    <div class="row gutters-sm">
+                                                                        <div class="col-sm-12 mb-3">
+
+                                                                            <div class="card h-100">
+                                                                                <div class="card-body">
+
+                                                                                    <table class="table table-striped showtable text-center" style="width:100%">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Image</th>
+                                                                                                <th>Item Name</th>
+                                                                                                <th>Category</th>
+                                                                                                <th>Item Code</th>
+                                                                                                <th>Price</th>
+                                                                                                <th>Description</th>
+                                                                                                <th>Status</th>
+                                                                                                <th>Action</th>
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            <?php 
+                            
+                                                                                              $item_list = DisplayEachItemPerUser($conn, $_SESSION['USER']);
+                                                                                              foreach($item_list as $key => $value){ ?>
+
+                                                                                            <tr>
+                                                                                                <td><img src="img/<?php echo $value['item_image']?>" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                                                                                <td><?php echo $value['item_name']?></td>
+                                                                                                <td><?php echo $value['cat_desc']?></td>
+                                                                                                <td><?php echo $value['item_code']?></td>
+                                                                                                <td><?php echo $value['item_price']?></td>
+                                                                                                <td><?php echo $value['item_desc']?></td>
+                                                                                                <td><?php echo $value['item_stat']?></td>
+                                                                                                <td>
+                                                                                                    <form action="includes/deleteUsrPstItms.inc.php" method="POST">
+                                                                                                        <input type="hidden" name="delUseritem" value="<?php echo $value['item_id']?>">
+
+                                                                                                        <button type="submit" name="usrdeleteIt" class='btn btn-danger btn-sm'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> </button>
+                                                                                                    </form>
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                            <?php }
+                                 
+                                 
+                                 ?>
+
+
+                                                                                        </tbody>
+
+
+
+
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                    <?php }
+                        else{
+                            echo " ";
+                        }
+                        
+                    }
+                
+                ?>
+
+
+                                                    <!------------------------------------------------------------------------------to see my footer at place                               -->
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -320,35 +591,144 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <!--    -----------------------------modals ------------------------------------------>
+
+                    <div class="modal fade" id="editallUsrprofile" tabindex="-1" role="dialog" aria-labelledby="editallUsrprofile" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <form action="includes/usrUpdateAll.inc.php" method="POST">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                        <h4 class="modal-title" id="myModalLabel"> Edit Profile Details</h4>
+
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="itemName"> First Name</label>
+                                                <input class="form-control" type="text" name="usrUpFName" placeholder="Enter your new name" required pattern="[A-Za-z]+">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="itemName"> Last Name</label>
+                                                <input class="form-control" type="text" name="usrUpLName" placeholder="Enter your new last name" required pattern="[A-Za-z]+">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="itemName"> Address</label>
+                                            <input class="form-control" type="text" name="usrUpAdd" placeholder="Enter your new address" required pattern="[A-Za-z0-9'\.\-\s\,]">
+                                        </div>
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="itemName">Municipality</label>
+                                                <input class="form-control" type="text" name="usrUpMun" placeholder="Enter your new municipality" required pattern="[A-Za-z0-9'\.\-\s\,]">
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="itemName">Province</label>
+                                                <input class="form-control" type="text" name="usrUpProv" placeholder="Enter your new province" required pattern="[A-Za-z0-9'\.\-\s\,]">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="itemName">Change Pass</label>
+                                            <input class="form-control" type="password" name="usrUpPass" placeholder="Enter new password" required pattern="[A-Za-z 0-9]+">
+                                        </div>
+
+
+                                        <input type="hidden" name="usrSess" value="<?php echo $_SESSION['USER']?>">
+
+
+
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <input type="submit" name="updateAllProfDU" value="Submit">
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--------------------------------------------------------------------->
+
+                    <div class="modal fade" id="editpicUserModal" tabindex="-1" role="dialog" aria-labelledby="editpicUserModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <form action="includes/updatesUsrProfImg.inc.php" method="POST">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                        <h4 class="modal-title" id="myModalLabel">Edit Image</h4>
+
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="form-group">
+                                            <label for="">Choose your profile image</label>
+                                            <input class="form-control" type="file" name="userdditemimage" accept="image/x-png,image/image/jpeg">
+                                        </div>
+
+                                        <input type="hidden" name="useradditemSid" value="<?php echo $_SESSION['USER']?>">
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <input type="submit" name="updateUsrprfleImg" value="Submit">
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php
-    include 'footer.php';
-    ?>
 
-    <script>
-        function myFunction() {
-            var dots = document.getElementById("dots");
-            var moreText = document.getElementById("more");
-            var btnText = document.getElementById("myBtn");
 
-            if (dots.style.display === "none") {
-                dots.style.display = "inline";
-                btnText.innerHTML = "Read more";
-                moreText.style.display = "none";
-            } else {
-                dots.style.display = "none";
-                btnText.innerHTML = "Read less";
-                moreText.style.display = "inline";
-            }
-        }
 
-    </script>
 
+
+    <?php include 'footer.php'?>
+
+    <!-- Latest jQuery form server -->
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+
+    <!-- Bootstrap JS form CDN -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- jQuery sticky menu -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+
+    <!-- jQuery easing -->
+    <script src="js/jquery.easing.1.3.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>

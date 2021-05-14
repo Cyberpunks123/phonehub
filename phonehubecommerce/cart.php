@@ -17,6 +17,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -64,6 +65,7 @@
                    <div class="single-sidebar">
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
+                            <div class="srollable">
                             <div class="scrollable-cart">
                                 
                           
@@ -82,7 +84,7 @@
                         <div class="product-single">
                             <img src="img/<?php echo $val['item_image']?>" class="recent-thumb" alt="">
                         </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_code']?>"> <?php echo $val['item_name'] ; ?> </a></h2>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_id']?>"> <?php echo $val['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
                                 <?php echo number_format($val['item_price']) ?>
@@ -94,9 +96,9 @@
     <?php
    }
    }
-         else{
-       echo "<h4> No Records Found.</h4>";
-             }
+             else{?>
+           <h2><span class="glyphicon glyphicon-warning-sign"></span> Record not found</h2>
+                <?php     }
    }
              else if (!isset($_GET['item_code'])){
                 $itemslist = allitemList($conn,'A');
@@ -106,7 +108,7 @@
                         <div class="product-single">
                             <img src="img/<?php echo $item_code['item_image']?>" class="recent-thumb" alt="">
                         </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
                                 <?php echo number_format($item_code['item_price']) ?>
@@ -123,6 +125,7 @@
    ?>
                  </div>
             </div>
+         </div>
          </div>
 
 <!-- -------------------------------------------------------- -->
@@ -515,16 +518,10 @@
 
                     <div class="product-f-image">
                                   <img src="img/<?php echo $item_code['item_image']?>" alt="">
-                                    <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-
-                                        <a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        
-
-                                    </div>
+                                   
                                 </div>
 
-                                <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_code']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                                <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id']?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
 
                                  <div class="product-carousel-price">
                             <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
@@ -532,6 +529,15 @@
                            </ins>
                         </div>
                        
+                        <div class="product-option-shop">
+                              <a class="add_to_cart_button" 
+                          data-quantity="1" 
+                       data-product_sku="" 
+                        data-product_id="70" 
+                                     rel="nofollow"
+                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $item_code['item_id']; ?>"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+                                   
+                          </div>
                     
                 </div>
              <?php }
@@ -545,14 +551,6 @@
                                
         
                             </div>
-
-
-
-
-
-
-
-
 
                         </div>
                         </div>
