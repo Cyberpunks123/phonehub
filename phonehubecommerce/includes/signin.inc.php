@@ -9,13 +9,11 @@
 		$username = htmlentities($_POST['username']);
 		$firstname = htmlentities($_POST['firstname']);
 		$lastname = htmlentities($_POST['lastname']);
-		$useraddress = htmlentities($_POST['useraddress']);
-		$usermuni = htmlentities($_POST['usermuni']);
-		$userprov = htmlentities($_POST['userprov']);
+		$useraddress = htmlentities($_POST['q']);
 		$usergender = htmlentities($_POST['usergender']);
 		$password = htmlentities($_POST['password']);
 		
-		if (emptyFields($username,$firstname,$lastname,$useraddress,$usermuni,$userprov,$usergender,$password) !== false){
+		if (emptyFields($username,$firstname,$lastname,$useraddress,$usergender,$password) !== false){
 			header("Location: ../signup.php?error=emptyFields");
 			exit();
 		}
@@ -32,11 +30,6 @@
 
 		 else if (invaLName($lastname)  !== false) {
 		 	header("Location: ../signup.php?error=invaLName");
-		 	exit();
-		 }
-
-		 else if (invaAddress($useraddress)  !== false) {
-		 	header("Location: ../signup.php?error=invaAddress");
 		 	exit();
 		 }
 		
@@ -66,8 +59,8 @@
             exit();
         }
         else{
-            $sql = "INSERT INTO `user` (`user_name`,`first_name`,`last_name`,`user_address`,`user_muni`,`user_prov`,`user_gender`,`user_pass`) 
-            VALUES(?,?,?,?,?,?,?,?);";
+            $sql = "INSERT INTO `user` (`user_name`,`first_name`,`last_name`,`user_address`,`user_gender`,`user_pass`) 
+            VALUES(?,?,?,?,?,?);";
     
     $stmt=mysqli_stmt_init($conn);
     
@@ -76,7 +69,7 @@
         exit();
     
     }
-    mysqli_stmt_bind_param($stmt, "ssssssss" ,$username, $firstname, $lastname, $useraddress,$usermuni,$userprov,$usergender, $password);
+    mysqli_stmt_bind_param($stmt, "ssssss" ,$username, $firstname, $lastname, $useraddress,$usergender, $password);
         mysqli_stmt_execute($stmt);
         header("Location: ../accnt.php?signin=success");
          mysqli_stmt_close($stmt);

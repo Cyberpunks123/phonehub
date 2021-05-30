@@ -24,7 +24,7 @@
 	}
 	mysqli_stmt_bind_param($stmt_ins, "sssss", $suppsUpName,$suppsUpMun,$suppsUpProv,$suppsUpPass,$suppSess);
 	mysqli_stmt_execute($stmt_ins);
-	header("location: ../shopface.php?default");
+	header("location: ../shopfacee.php?add=success");
 	}
 
 	

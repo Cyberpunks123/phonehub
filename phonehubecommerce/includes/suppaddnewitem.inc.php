@@ -21,7 +21,7 @@
 	}
 	mysqli_stmt_bind_param($stmt_ins, "sssssss", $suppadditemcategory,$suppadditemname,$suppadditemimage,$suppadditemprice,$suppadditemdesc,$suppadditemcode,$suppadditemSid);
 	mysqli_stmt_execute($stmt_ins);
-	header("location: ../shopface.php?recordman");
+	header("location: ../shopfacee.php?add=success");
 	}
 
 	

@@ -18,11 +18,11 @@
         $resultData = mysqli_stmt_get_result($stmt);
         
         if($resultData === 0){
-            header("location: ../shopface.php?error=Unknown");
+            header("location: ../shopfacee.php?error=Unknown");
             exit();
         }
         else{
-            header("location: ../shopface.php?recordman");
+            header("location: ../shopfacee.php?add=success");
             exit();
         }
     

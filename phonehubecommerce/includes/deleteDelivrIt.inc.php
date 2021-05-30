@@ -1,18 +1,18 @@
 <?php 
-    if(isset($_POST['usrdeleteIt'])) {
+    if(isset($_POST['deleteDel'])) {
         include_once "db_connect.php";
         
-        $delUseritem = $_POST['delUseritem'];
+        $deliverID = $_POST['deliverDEL'];
         
         $err;
-        $sql = "DELETE FROM item WHERE item_id = ?;";
+        $sql = "DELETE FROM orders WHERE order_id = ?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
            echo "Statement Failed";
             exit();
         }
         
-        mysqli_stmt_bind_param($stmt, "s", $delUseritem);
+        mysqli_stmt_bind_param($stmt, "s", $deliverID);
         mysqli_stmt_execute($stmt);
         
         $resultData = mysqli_stmt_get_result($stmt);
@@ -22,7 +22,7 @@
             exit();
         }
         else{
-            header("location: ../userproff.php?posted");
+            header("location: ../userproff.php?add=success");
             exit();
         }
     

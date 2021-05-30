@@ -47,7 +47,7 @@ include_once "function.inc.php";
                  $myshopid = $_SESSION['SUPID'];
 
 
-                  header("location: ../shopface.php?disshop=$myshopid");
+                  header("location: ../shopfacee.php");
         exit();
             }
             else if ($row  == false)

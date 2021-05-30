@@ -2,6 +2,507 @@
     include_once "db_connect.php";
     include_once "function.inc.php";
 
+function getSalesUserCount($conn,$user){
+    $sql_cart_count = "SELECT COUNT(order_id) cartcount
+                        FROM orders o 
+                        JOIN item i 
+                        on i.item_id = o.item_id
+                        WHERE i.user_id = ? ;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+
+//---------------------------------------------
+function getSalesCount($conn,$user){
+    $sql_cart_count = "SELECT COUNT(order_id) cartcount
+                        FROM orders o 
+                        JOIN suppitems s 
+                        on s.supp_item_id = o.item_id
+                        WHERE s.supp_id = ? ;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+
+//-----------------------------------------------
+function getPostPerShop($conn,$user){
+    $sql_cart_count = "SELECT count( supp_item_id) cartcount 
+                        FROM suppitems WHERE supp_id = ?;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+
+//----------------------------------------------
+function salestrackShop($conn, $sales){
+    $err;
+    
+    $sql = "SELECT i.supp_item_name, o.order_date, 
+    o.order_item_price, o.order_qty, 
+    (o.order_item_price * o.order_qty) sales_track 
+    FROM suppitems i 
+    JOIN orders o 
+    on o.item_id = i.supp_item_id 
+    WHERE i.supp_id = ? 
+    ORDER by i.supp_item_name DESC;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        echo "error";
+    }
+    
+    mysqli_stmt_bind_param($stmt, "s", $sales);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    
+    
+    if(!empty($resultData)){
+        
+
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultData)){
+        array_push($arr, $row);
+    }
+    return $arr;
+    }
+    else{
+        return false;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+
+
+//-----------------------------------------------
+function EachofShopItems($conn, $shpit="X"){
+  $err;
+   if($shpit == "X"){
+    $sql = "SELECT * FROM item as i 
+            JOIN category as c
+            on i.cat_id = c.cat_id 
+            JOIN suppliers as s
+            ON i.cat_id = s.supp_id 
+            LIMIT 1;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }
+else {
+        $sql = "SELECT s.supp_item_id, s.supp_item_name, s.supp_item_image,
+                s.supp_item_price,s.supp_item_code, s.supp_item_desc, 
+                
+                c.cat_id, c.cat_desc, su.supp_name, su.supp_id
+                
+                FROM suppitems s
+                JOIN category c
+                ON c.cat_id = s.cat_id
+                JOIN suppliers su
+                ON su.supp_id = s.supp_id
+                WHERE s.supp_item_id = ?;"; 
+        
+         $stmt=mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+     header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+     exit();
+   }
+        mysqli_stmt_bind_param($stmt, "s", $shpit);  
+        
+    }
+    
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+
+
+//-----------------------------------------------
+function getPostPerUser($conn,$user){
+    $sql_cart_count = "SELECT count( item_id) cartcount FROM item WHERE user_id = ?;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+//----------------------------------------------------------
+function getOrdrd($conn,$user){
+    $sql_cart_count = "SELECT count( order_id) cartcount FROM `orders` WHERE order_status = 'D' AND user_id = ?;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+//-----------------------------------------------
+function getProcess($conn,$user){
+    $sql_cart_count = "SELECT count( order_id) cartcount FROM `orders` WHERE order_status = 'O' AND user_id = ?;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+
+//----------------------------------------------------
+function salestrack($conn, $sales){
+    $err;
+    
+    $sql = "SELECT i.item_name, o.order_date, 
+            o.order_item_price, o.order_qty, 
+            (o.order_item_price * o.order_qty) sales_track 
+            FROM item i 
+            JOIN orders o 
+            on o.item_id = i.item_id 
+            WHERE i.user_id = ? 
+            ORDER by i.item_name DESC;";
+    
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        echo "error";
+    }
+    
+    mysqli_stmt_bind_param($stmt, "s", $sales);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    
+    
+    if(!empty($resultData)){
+        
+
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultData)){
+        array_push($arr, $row);
+    }
+    return $arr;
+    }
+    else{
+        return false;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+
+//-----------------------------------------
+
+function displayCartByUserDEL($conn, $userID){
+    $err;
+        $sql = "SELECT * FROM orders 
+            WHERE user_id = ? 
+            AND order_status = 'D'
+            ORDER BY order_id DESC;";
+    
+        $stmt=mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql)){
+            echo "Statement Failed";
+            exit();
+        }
+    
+    mysqli_stmt_bind_param($stmt, "s", $userID);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    
+    if(!empty($resultData)){
+        
+
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultData)){
+        array_push($arr, $row);
+    }
+    return $arr;
+    }
+    else{
+        return false;
+    }
+    
+    mysqli_stmt_close($stmt);
+}
+
+
+//-----------------------------------------
+function getCartSum($conn,$user){
+    $sql_cart_count = "SELECT SUM( order_item_price * order_qty) cartsum FROM `orders` WHERE order_status = 'P' AND user_id = ?;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartsum'];
+    }
+}else{
+    return 0;
+}
+
+}
+
+
+//----------------------------------------------
+function getCartCount($conn,$user){
+    $sql_cart_count = "SELECT count( order_id) cartcount FROM `orders` WHERE order_status = 'P' AND user_id = ?;";
+    $stmt=mysqli_stmt_init($conn);
+
+if (!mysqli_stmt_prepare($stmt, $sql_cart_count)){
+    header("location: ?error=stmtfailed");
+    exit();
+}
+    mysqli_stmt_bind_param($stmt, "s" ,$user);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+if(!empty($resultData)){
+    if($row = mysqli_fetch_assoc($resultData)){
+      return $row['cartcount'];
+    }
+}else{
+    return 0;
+}
+
+}
+
+//-----------------------------------------
+function DisplayEachItemSHOPbythree($conn, $shpItm="X"){
+  $err;
+   if($shpItm == "X"){
+    $sql = "SELECT * FROM suppitems ORDER BY supp_item_id DESC LIMIT 6";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+//-----------------------------------------------
+function DisplayEachItemBythree($conn, $disitem="X"){
+  $err;
+   if($disitem == "X"){
+    $sql = "SELECT * FROM item as i 
+            JOIN category as c
+            on i.cat_id = c.cat_id 
+            JOIN suppliers as s
+            ON i.cat_id = s.supp_id 
+            ORDER BY item_id DESC
+            LIMIT 6;";
+        $stmt=mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("Location: singleproduct.php?error=sqlFailed");
+                exit(); 
+        }          
+
+  }
+  //it will execute the statement 
+   mysqli_stmt_execute($stmt);
+  //get the results of the executed statement and put it into a variable
+   $resultData = mysqli_stmt_get_result($stmt);
+  //declare a container array.
+   $arr=array();
+   while($row = mysqli_fetch_assoc($resultData)){
+       //we will do the transfer of data to another array to test 
+       //if there is a result.
+       array_push($arr,$row);
+   }
+  return $arr;
+
+  mysql_stmt_close($stmt);
+
+}
+
+//--------------------------------------------
+function displayCartByUserOP($conn, $userID){
+    $err;
+        $sql = "SELECT * FROM orders 
+            WHERE user_id = ? 
+            AND order_status = 'O'
+            ORDER BY order_id DESC;";
+    
+        $stmt=mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql)){
+            echo "Statement Failed";
+            exit();
+        }
+    
+    mysqli_stmt_bind_param($stmt, "s", $userID);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    
+    if(!empty($resultData)){
+        
+
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultData)){
+        array_push($arr, $row);
+    }
+    return $arr;
+    }
+    else{
+        return false;
+    }
+    
+    mysqli_stmt_close($stmt);
+}
+
+//------------------------------------------------
+
+function displayCartByUser($conn, $userID){
+    $err;
+        $sql = "SELECT * FROM orders 
+            WHERE user_id = ? 
+            AND order_status = 'P'
+            ORDER BY order_id DESC;";
+    
+        $stmt=mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql)){
+            echo "Statement Failed";
+            exit();
+        }
+    
+    mysqli_stmt_bind_param($stmt, "s", $userID);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    
+    if(!empty($resultData)){
+        
+
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultData)){
+        array_push($arr, $row);
+    }
+    return $arr;
+    }
+    else{
+        return false;
+    }
+    
+    mysqli_stmt_close($stmt);
+}
+//----------------------------------------------------
+
 function DisplayEachItemPerUser($conn, $disitem="X"){
   $err;
    if($disitem == "X"){
@@ -16,7 +517,8 @@ function DisplayEachItemPerUser($conn, $disitem="X"){
           $sql = "SELECT * FROM item as i
           JOIN category as c 
           on i.cat_id = c.cat_id 
-          WHERE user_id = ?;";
+          WHERE user_id = ?
+          ORDER BY item_id DESC;";
 
   $stmt=mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)){
@@ -344,7 +846,7 @@ function DisplayEachItem($conn, $disitem="X"){
             on i.cat_id = c.cat_id 
             JOIN suppliers as s
             ON i.cat_id = s.supp_id 
-            WHERE item_id = 1;";
+            LIMIT 1;";
         $stmt=mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)){
         header("Location: singleproduct.php?error=sqlFailed");
@@ -551,8 +1053,9 @@ function allitemList($conn, $item_stat = "X", $item_code = "all", ){
                 exit;
               }
           }
+//         -------------------------------------------dito pumasok yung sa index tas shop sa pag display-------------
           else {
-             $sql = "SELECT * FROM `item` WHERE item_stat = ?;";
+             $sql = "SELECT * FROM `item` WHERE item_stat = ? ORDER BY item_id DESC;";
               $stmt=mysqli_stmt_init($conn);
               if(!mysqli_stmt_prepare($stmt, $sql)){
                  return false;
@@ -796,7 +1299,7 @@ function usrnametaken ($conn, $username){
             exit();
         }
         else{
-             echo "bubu";
+             echo "Unknown Error";
         }
     }
     mysqli_stmt_close($stmt);
@@ -805,9 +1308,9 @@ function usrnametaken ($conn, $username){
     
 //----------------sign in---------------------//
 
-    function emptyFields($username,$firstname,$lastname,$useraddress,$usermuni,$userprov,$usergender,$password){
+    function emptyFields($username,$firstname,$lastname,$useraddress,$usergender,$password){
         $err;
-        if (empty($username) || empty($firstname) || empty($lastname) || empty($useraddress) || empty($usermuni) || empty($userprov) || empty($usergender) || empty($password)) {
+        if (empty($username) || empty($firstname) || empty($lastname) || empty($useraddress) || empty($usergender) || empty($password)) {
             $err = true;
         }
         else{
@@ -841,17 +1344,6 @@ function usrnametaken ($conn, $username){
      function invaLName($lastname){
     $err;
     if (!preg_match("/^[a-z A-Z .]*$/", $lastname) ) {
-        $err = true;
-    }
-    else{
-        $err = false;
-    }
-    return $err;
-}
-
- function invaAddress($useraddress){
-    $err;
-    if (!preg_match("/^[a-zA-Z 0-9 ,-]*$/", $useraddress) ) {
         $err = true;
     }
     else{

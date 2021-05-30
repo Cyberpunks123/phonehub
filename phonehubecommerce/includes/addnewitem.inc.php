@@ -26,7 +26,7 @@
 	}
 	mysqli_stmt_bind_param($stmt_ins, "sssssss", $additemcategory,$additemname,$additemimage,$additemprice,$additemdesc,$additemcode,$additemsUid);
 	mysqli_stmt_execute($stmt_ins);
-    header("location: ../userprof.php?record");
+    header("location: ../userproff.php?add=success");
 	}
         
 	

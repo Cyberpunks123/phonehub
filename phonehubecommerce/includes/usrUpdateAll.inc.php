@@ -7,16 +7,14 @@
 		$Fname = $_POST['usrUpFName'];
 		$Lname = $_POST['usrUpLName'];
 		$addrss = $_POST['usrUpAdd'];
-		$mun = $_POST['usrUpMun'];
-		$prov = $_POST['usrUpProv'];
 		$passW = $_POST['usrUpPass'];
 		$usrSess = $_POST['usrSess'];
+		$usrtype = $_POST['usertype'];
 	
 
 		$sql_ins = "UPDATE user SET 
                     first_name = ?, last_name = ?,
-                    user_address = ?, user_muni = ?, 
-                    user_prov = ?, user_pass = ?
+                    user_address = ?, user_pass = ?, user_type = ?
             
                     WHERE user_id = ? ;";
 	
@@ -25,9 +23,9 @@
 			echo "Statement Failed";
 			exit();
 	}
-	mysqli_stmt_bind_param($stmt_ins, "sssssss", $Fname,$Lname,$addrss,$mun,$prov,$passW,$usrSess);
+	mysqli_stmt_bind_param($stmt_ins, "ssssss", $Fname,$Lname,$addrss,$passW,$usrtype,$usrSess);
 	mysqli_stmt_execute($stmt_ins);
-	header("location: ../userprof.php?default");
+	header("location: ../userproff.php?add=success");
 	}
 
 	

@@ -1,28 +1,28 @@
-<?php 
-    if(isset($_POST['usrdeleteIt'])) {
+<?php
+    if(isset($_POST['Itmdelete'])) {
         include_once "db_connect.php";
         
-        $delUseritem = $_POST['delUseritem'];
+        $cartitemId = $_POST['cartORid'];
         
         $err;
-        $sql = "DELETE FROM item WHERE item_id = ?;";
+        $sql = "DELETE FROM orders WHERE order_id = ?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
            echo "Statement Failed";
             exit();
         }
         
-        mysqli_stmt_bind_param($stmt, "s", $delUseritem);
+        mysqli_stmt_bind_param($stmt, "s", $cartitemId);
         mysqli_stmt_execute($stmt);
         
         $resultData = mysqli_stmt_get_result($stmt);
         
         if($resultData === 0){
-            header("location: ../userproff.php?error=Unknown");
+            header("location: ../cart.php?error=Unknown");
             exit();
         }
         else{
-            header("location: ../userproff.php?posted");
+            header("location: ../cart.php");
             exit();
         }
     
