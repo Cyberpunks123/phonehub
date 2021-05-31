@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2021 at 07:48 PM
+-- Generation Time: May 31, 2021 at 05:09 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -40,7 +40,9 @@ INSERT INTO `category` (`cat_id`, `cat_desc`) VALUES
 (1, 'Vivo'),
 (2, 'Realme'),
 (3, 'Samsung'),
-(4, 'Iphone');
+(4, 'Iphone'),
+(5, 'HTC'),
+(6, 'Nokia');
 
 -- --------------------------------------------------------
 
@@ -71,7 +73,8 @@ INSERT INTO `item` (`item_id`, `cat_id`, `item_name`, `item_code`, `item_image`,
 (4, 1, 'Vivo Y11', 100004, 'vivo2.jpg', 8000, 'Processor: Qualcomm SDM439 Snapdragon 439, \r\nRAM: 3 GB, \r\nStorage: 32 GB, \r\nDisplay: 6.35 inches, \r\nCamera: 13 MP + 2 MP depth sensor', 'A', 2),
 (5, 3, 'Samsung Galaxy M32', 100005, 'samsung1.jpg', 30000, 'Processor: Mediatek Helio G80, \r\nRAM: 6 GB, 8 GB, \r\nStorage: 64 GB, 128 GB, \r\nDisplay: 6.4 inches,\r\nCamera: Quad Camera, \r\nBattery: Li-Po 6000 mAh', 'A', 2),
 (6, 2, 'Realme Q3 Pro Carniv', 10006, 'realme1.jpg', 11200, 'Processor: Qualcomm SM7250-AC Snapdragon 768G 5G, \r\nRAM: 8 GB, \r\nStorage: 128 GB, \r\nDisplay: 6.43 inches, \r\nCamera: Triple Camera', 'A', 3),
-(7, 1, 'Vivo Y12s 2021', 100007, 'vivo3.jpg', 19000, 'Processor: Qualcomm SDM439 Snapdragon 439,\r\nRAM: 3 GB,\r\nStorage: 32 GB, \r\nDisplay: 6.51 inches', 'A', 3);
+(7, 1, 'Vivo Y12s 2021', 100007, 'vivo3.jpg', 19000, 'Processor: Qualcomm SDM439 Snapdragon 439,\r\nRAM: 3 GB,\r\nStorage: 32 GB, \r\nDisplay: 6.51 inches', 'A', 3),
+(8, 1, 'Vivo Y12s 2021', 101845, 'product-1.jpg', 23445, 'Processor: Qualcomm SDM439 Snapdragon 439\r\nRAM: 3 GB\r\nStorage: 32 GB\r\nDisplay: 6.51 inches', 'A', 4);
 
 -- --------------------------------------------------------
 
@@ -83,6 +86,7 @@ CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
+  `supp_item_id` int(11) NOT NULL,
   `order_item_name` varchar(255) NOT NULL,
   `order_item_code` int(11) NOT NULL,
   `order_item_price` int(11) NOT NULL,
@@ -97,8 +101,18 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `item_id`, `order_item_name`, `order_item_code`, `order_item_price`, `order_item_image`, `order_qty`, `order_net_amt`, `order_date`, `order_status`) VALUES
-(1, 3, 1, 'Vivo Y20s ', 100001, 23000, 'vivo4.jpg', 1, 0, '2021-05-31', 'D');
+INSERT INTO `orders` (`order_id`, `user_id`, `item_id`, `supp_item_id`, `order_item_name`, `order_item_code`, `order_item_price`, `order_item_image`, `order_qty`, `order_net_amt`, `order_date`, `order_status`) VALUES
+(1, 2, 7, 0, 'Vivo Y12s 2021', 100007, 19000, 'vivo3.jpg', 5, 0, '2021-05-31', 'O'),
+(2, 2, 1, 0, 'Vivo Y20s ', 100001, 23000, 'vivo4.jpg', 4, 0, '2021-05-31', 'O'),
+(3, 2, 2, 0, 'Realme C2s', 100002, 10000, 'realme2.jpg', 4, 0, '2021-05-31', 'O'),
+(4, 2, 0, 1, 'Vivo Z5', 1000007, 12000, '', 1, 0, '2021-05-31', 'O'),
+(5, 2, 0, 2, 'Vivo Apex', 10009, 33000, '', 5, 0, '2021-05-31', 'O'),
+(6, 4, 6, 0, 'Realme Q3 Pro Carniv', 10006, 11200, 'realme1.jpg', 5, 0, '2021-05-31', 'O'),
+(7, 4, 6, 0, 'Realme Q3 Pro Carniv', 10006, 11200, 'realme1.jpg', 1, 0, '2021-05-31', 'O'),
+(8, 4, 5, 0, 'Samsung Galaxy M32', 100005, 30000, 'samsung1.jpg', 1, 0, '2021-05-31', 'O'),
+(9, 4, 4, 0, 'Vivo Y11', 100004, 8000, 'vivo2.jpg', 5, 0, '2021-05-31', 'D'),
+(10, 4, 6, 0, 'Realme Q3 Pro Carniv', 10006, 11200, 'realme1.jpg', 3, 0, '2021-05-31', 'O'),
+(11, 4, 0, 10, 'Apple iPhone SE 2', 1000099, 24000, 'iphone4.jpg', 5, 0, '2021-05-31', 'O');
 
 -- --------------------------------------------------------
 
@@ -27065,6 +27079,24 @@ CREATE TABLE `suppitems` (
   `supp_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `suppitems`
+--
+
+INSERT INTO `suppitems` (`supp_item_id`, `cat_id`, `supp_item_name`, `supp_item_code`, `supp_item_image`, `supp_item_price`, `supp_item_desc`, `supp_item_stat`, `supp_id`) VALUES
+(1, 1, 'Vivo Z5', 1000007, 'vivo5.jpg', 12000, 'Processor: Qualcomm SDM712 Snapdragon 712 (10 nm), \r\nRAM: 6 GB, 8 GB, \r\nStorage: 64 GB, 128 GB, 256 GB, \r\nDisplay: 6.38 inches, 99.9 cm2 (~83.3% screen-to-body ratio), \r\nCamera: 48 MP, f/1.8, (wide), 1/2\", 0.8µm, PDAF, \r\nBattery: Non-removable Li-Po 4500 mAh battery', 'A', 1),
+(2, 1, 'Vivo Apex', 10009, 'vivo6.jpg', 33000, 'Processor: Processor (Clock): Octa Core 4x2.8GHz Kryo, \r\nRAM: Memory: 4GB/6GB, LPDDR4x, 1866 MHz, \r\nStorage: 64GB/128GB', 'A', 1),
+(3, 1, 'Vivo Y91C', 1000007, 'vivo.jpg', 12000, 'Processor: MediaTek Helio P22 Octa-core 4x 2.0 GHz\r\nRAM: 2 GB\r\nStorage: 32 GB\r\nDisplay: 6.22 in\r\nCamera: 13 MP\r\nBattery: 4030 mAh, Li-Ion', 'A', 1),
+(4, 2, 'Realme GT Neo Flash', 10000010, 'realme3.jpg', 24099, 'Processor: MediaTek MT6893 Dimensity 1200 5G, \r\nRAM: 8 GB, 12 GB, \r\nStorage: 256 GB, \r\nDisplay: 6.43 inches, \r\nCamera: Triple Camera, \r\nBattery: Li-Po 4500 mAh', 'A', 2),
+(5, 2, 'Realme Q3i 5G', 100000777, 'realme4.jpg', 34000, 'Processor: MediaTek MT6833 Dimensity 700 5G\r\nRAM: 4 GB, 6 GB\r\nStorage: 128 GB\r\nDisplay: 6.5 inches\r\nCamera: Triple Camera\r\nBattery: Li-Po 5000 mAh', 'A', 2),
+(6, 2, 'Realme X7 Pro Ultra', 1000045, 'realme5.jpg', 26990, 'Processor: Mediatek MT6889Z Dimensity 1000+\r\nRAM: 8 GB, 12 GB\r\nStorage: 128 GB, 256 GB\r\nDisplay: 6.55 inches\r\nCamera: Triple Camera\r\nBattery: 4500 mAh', 'A', 2),
+(7, 3, 'Samsung Galaxy F52 5', 1034607, 'samsung2.jpg', 18780, 'Processor: Qualcomm SM7225 Snapdragon 750G 5G, \r\nRAM: 8 GB, \r\nStorage: 128 GB, \r\nDisplay: 6.6 inches, \r\nCamera: Quad Camera, \r\nBattery: Li-Po 4500 mAh', 'A', 3),
+(8, 3, 'Samsung Galaxy Z Fol', 1000778, 'samsung3.jpg', 33556, 'Processor: Qualcomm SM8350 Snapdragon 888 5G, \r\nRAM: 12 GB, 16 GB, \r\nStorage: 256 GB, 512 GB, \r\nDisplay: 7.6 inches, \r\nCamera: Triple Camera', 'A', 3),
+(9, 4, 'Apple iPhone Xs Max', 10000088, 'iphone3.jpg', 44000, 'Processor: Apple A12 Bionic\r\nRAM: 4 GB\r\nStorage: 64 GB, 256 GB, 512 GB\r\nDisplay: 6.5 in, OLED, 1242 x 2688 pixels, 24 bit\r\nCamera: 4032 x 3024 pixels, 3840 x 2160 pixels, 60 fps\r\nBattery: Li-Ion', 'A', 4),
+(10, 4, 'Apple iPhone SE 2', 1000099, 'iphone4.jpg', 24000, 'Quad-core, 2340 MHz, Hurricane and Zephyr, 64-bit, 16 nm\r\nRAM: 2GB\r\nStorage: 128GB\r\nDisplay: 4.0 inches Capacitive, Multi-touch\r\nCamera: 12 megapixels Flash: LED | 5\r\nBattery: 1700 mAh Built-in (Qi) Battery', 'A', 4),
+(11, 5, 'HTC Wildfire E3', 1033507, 'htc1.jpg', 23566, 'Processor: Mediatek MT6762 Helio P22\r\nRAM: 4 GB\r\nStorage: 64 GB, 128 GB\r\nDisplay: 6.52 inches\r\nCamera: Quad Camera\r\nBattery: Li-Po 4000 mAh', 'A', 5),
+(12, 5, 'HTC Desire 20 Plus', 10005677, 'htc2.jpg', 24999, 'Processor: Qualcomm SM7125 Snapdragon\r\nRAM: 6 GB\r\nStorage: 128 GB\r\nDisplay: 6.5 inches\r\nCamera: Quad Camera\r\nBattery: Li-Po 5000 mAh', 'A', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -27087,10 +27119,11 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`supp_id`, `supp_username`, `supp_name`, `supp_image`, `supp_mun`, `supp_prov`, `supp_pass`, `supp_stat`) VALUES
-(1, '@vivo', 'Vivo Shop', '', 'Ligao', 'Albay', 'vivo', 'A'),
-(2, '@realme', 'Realme Store', '', 'Oas', 'Albay', 'realme', 'A'),
-(3, '@samsung', 'Samsung Shop', '', 'Polangui', 'Albay', 'samsung', 'A'),
-(4, '@iphone', 'Iphone Store', '', 'Sorsogon', 'Sorsogon', 'iphone', 'A');
+(1, '@vivo', 'Vivo Shop', 'shpvivo.jpg', 'Ligao', 'Albay', 'vivo', 'A'),
+(2, '@realme', 'Realme Store', 'shprealme.jpg', 'Oas', 'Albay', 'realme', 'A'),
+(3, '@samsung', 'Samsung Shop', 'brand3.png', 'Polangui', 'Albay', 'samsung', 'A'),
+(4, '@iphone', 'Iphone Store', 'shpiphone.jpg', 'Sorsogon', 'Sorsogon', 'iphone', 'A'),
+(5, '@htcshop', 'HTP Phone Shop', 'brand5.png', 'Guinobatan', 'Albay', 'htc', 'A');
 
 -- --------------------------------------------------------
 
@@ -27118,7 +27151,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `user_image`, `user_address`, `user_gender`, `user_pass`, `user_stat`, `user_type`) VALUES
 (1, '@jpmoratalla', 'Jhun Paul', 'Moratalla', 'paul.jpg', 'San Pascual (Nale), OAS, ALBAY', 'M', 'imjp', 'A', 'USER'),
 (2, '@jane123', 'Jane', 'Doe', '', 'Baybay Polong, BINMALEY, PANGASINAN', 'F', '1234', 'A', 'USER'),
-(3, '@jasonbern00', 'Jason', 'Bern', '', 'Parang, BADOC, ILOCOS NORTE', 'M', 'jason', 'A', 'USER');
+(3, '@jasonbern00', 'Jason', 'Bern', '', 'Parang, BADOC, ILOCOS NORTE', 'M', 'jason', 'A', 'USER'),
+(4, '@julss123', 'Jullsss', 'Moratalla', 'human1.jpg', 'Paulba, Ligao City', 'M', '1234', 'A', 'SELLER/USER');
 
 --
 -- Indexes for dumped tables
@@ -27180,19 +27214,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `refcitymun`
@@ -27210,19 +27244,19 @@ ALTER TABLE `refprovince`
 -- AUTO_INCREMENT for table `suppitems`
 --
 ALTER TABLE `suppitems`
-  MODIFY `supp_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supp_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `supp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `supp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
