@@ -33,7 +33,7 @@ function getSalesCount($conn,$user){
     $sql_cart_count = "SELECT COUNT(order_id) cartcount
                         FROM orders o 
                         JOIN suppitems s 
-                        on s.supp_item_id = o.item_id
+                        on s.supp_item_id = o.supp_item_id
                         WHERE s.supp_id = ? ;";
     $stmt=mysqli_stmt_init($conn);
 
@@ -88,7 +88,7 @@ function salestrackShop($conn, $sales){
     (o.order_item_price * o.order_qty) sales_track 
     FROM suppitems i 
     JOIN orders o 
-    on o.item_id = i.supp_item_id 
+    on o.supp_item_id = i.supp_item_id 
     WHERE i.supp_id = ? 
     ORDER by i.supp_item_name DESC;";
     
@@ -844,8 +844,7 @@ function DisplayEachItem($conn, $disitem="X"){
     $sql = "SELECT * FROM item as i 
             JOIN category as c
             on i.cat_id = c.cat_id 
-            JOIN suppliers as s
-            ON i.cat_id = s.supp_id 
+            
             LIMIT 1;";
         $stmt=mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)){
@@ -857,8 +856,7 @@ function DisplayEachItem($conn, $disitem="X"){
   $sql = "SELECT * FROM item as i 
             JOIN category as c
             on i.cat_id = c.cat_id 
-            JOIN suppliers as s
-            ON i.cat_id = s.supp_id 
+             
             WHERE item_id = ?;";
 
   $stmt=mysqli_stmt_init($conn);

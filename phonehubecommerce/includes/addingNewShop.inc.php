@@ -8,6 +8,7 @@
 		$suppsUpMun = $_POST['suppsUpMun'];
 		$suppsUpProv = $_POST['suppsUpProv'];
         $suppsUpPass = $_POST['suppsUpPass'];
+        $suppsUpImg = $_POST['suppUpUsrImg'];
 
     $err;
          $sql = "SELECT * FROM suppliers WHERE `supp_username` = ?; ";
@@ -28,15 +29,15 @@
         }
         else{
               $sql_ins = "INSERT INTO `suppliers`( supp_name, supp_username, 
-                        supp_mun, supp_prov, supp_pass)
-					 VALUES (?,?,?,?,?);";
+                        supp_mun, supp_prov, supp_pass, supp_image)
+					 VALUES (?,?,?,?,?,?);";
 	
 	$stmt_ins = mysqli_stmt_init($conn);
 		if(!mysqli_stmt_prepare($stmt_ins, $sql_ins)) {
 			echo "Statement Failed";
 			exit();
 	}
-	mysqli_stmt_bind_param($stmt_ins, "sssss", $suppsUpName,$suppsUpUsrName,$suppsUpMun,$suppsUpProv,$suppsUpPass);
+	mysqli_stmt_bind_param($stmt_ins, "ssssss", $suppsUpName,$suppsUpUsrName,$suppsUpMun,$suppsUpProv,$suppsUpPass,$suppsUpImg);
 	mysqli_stmt_execute($stmt_ins);
     header("location: ../shop.php?supplier_id");
         }
