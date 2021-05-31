@@ -44,10 +44,9 @@
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">User Navigation </h2>
                         <ul>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Order history</a></li>
-                            <li><a href="#">Vendor contact</a></li>
-                            <li><a href="#">Front page</a></li>
+                            <li><a href="userproff.php?order">My Orders</a></li>
+                            <li><a href="userproff.php?posted">Posted Items</a></li>
+                            <li><a href="userproff.php?sales">Check Sales</a></li>
                         </ul>
                     </div>
                 </div>
@@ -56,11 +55,8 @@
                     <div class="footer-menu">
                         <h2 class="footer-wid-title">Categories</h2>
                         <ul>
-                            <li><a href="#">Mobile Phone</a></li>
-                            <li><a href="#">Gaming </a></li>
-                            <li><a href="#">High Resolution Camera</a></li>
-                            <li><a href="#">High Storage</a></li>
-                            <li><a href="#">Fast Connection</a></li>
+                            <li><a href="shop.php">Brands</a></li>
+                            <li><a href="shop.php?supplier_id">Shops </a></li>
                         </ul>
                     </div>
                 </div>

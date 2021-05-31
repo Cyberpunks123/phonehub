@@ -60,7 +60,7 @@
                     else if ($_GET['error'] == "Usernotfound") {
                         echo ' <div class="alert alert-danger alert-dismissible fade in text-center">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                     <strong>User not found!</strong> 
+                                     <strong>Record not found!</strong> 
                                     </div>';
                                 }
                 }

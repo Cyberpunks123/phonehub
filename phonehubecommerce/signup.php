@@ -1,3 +1,6 @@
+<?php
+    include_once "includes/db_connect.php";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -26,6 +29,19 @@
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    
+       <script type="text/javascript" src="signuptools/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="signuptools/jquery.autocomplete.js"></script>
+    <script>
+        jQuery(function() {
+            $("#search").autocomplete("includes/searchsign.inc.php");
+        });
+
+    </script>
+
+
+
+
 
     <?php 
       include 'header.php';
@@ -95,11 +111,12 @@
 
 
     <div class="account-page">
-        <div class="row">
             <div class="container">
                 <div class="col-sm-7">
                     <img src="img/loginpic.jpg" width="100%">
                 </div>
+                
+                
 
                 <div class="col-sm-5">
                     <div class="signincon">
@@ -120,35 +137,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label> Street / Purok / Zone</label>
-                                <input type="text" class="form-control" name="useraddress" id="size">
-                            </div>
-
-                            <div class="form-group">
-                                <label> Municipality:</label>
-                                <select name="usermuni">
-                                    <option value="">Choose your Municipality</option>
-                                    <option value="Ligao" required>Ligao</option>
-                                    <option value="Guinobatan" required>Guinobatan</option>
-                                    <option value="Polangui" required>Polangui</option>
-                                    <option value="Oas" required>Oas</option>
-                                    <option value="Camalig" required>Camalig</option>
-                                    <option value="Daraga" required>Daraga</option>
-
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label> Province:</label>
-                                <select name="userprov">
-                                    <option value="">Choose your Province</option>
-                                    <option value="Albay" required>Albay</option>
-                                    <option value="Camarines Norte" required>Camarines Norte</option>
-                                    <option value="Camarines Sur" required>Camarines Sur</option>
-                                    <option value="Catanduanes" required>Catanduanes</option>
-                                    <option value="Masbate" required>Masbate</option>
-                                    <option value="Sorsogon" required>Sorsogon</option>
-                                </select>
+                                <label>Address: </label>
+                                <input type="text" name="q" id="search"  class="form-control" >
                             </div>
 
                             <div class="form-group">
@@ -174,10 +164,11 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
     <!-------------------------------------- para lang alam ko ------------------------------------------------ -->
+
+ 
 
 
     <?php 

@@ -37,98 +37,122 @@ session_start();
 
     <div class="topnav" id="myTopnav">
         <div class="container-fluid">
-            <div class="col-md-6 col-xs-4">
+            <div class="col-md-6 col-xs-4 col-lg-6">
                 <?php if (isset($_SESSION['USER'])) {
                      $row['user_id'] = $_SESSION['USER'];?>
 
+                <div class="col-md-3">
+                    <div class="chip">
+                        <?php $arr = DisplayEachUser($conn, $_SESSION['USER']);                         
+                           foreach($arr as $key => $val){ 
+                                if(!empty($val['user_image'])){
+                                     ?>
 
-                <a href="#" class="collapsible" data-toggle="modal" data-target="#CreateShop"><span class="glyphicon glyphicon-home"></span> Create Shop</a>
-                <a href="#" class="collapsible" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-plus-sign"></span> Add Items</a>
-                
-                
-                
-                
-    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+                        <img src="img/<?php echo $val['user_image']?>" width="96" height="96">
 
-                <form action="includes/addnewitem.inc.php" method="POST">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Add New Items</h4>
-
+                        <?php } 
+                      else{ 
+                         ?>
+                        <img src="img/useravatar.png" width="96" height="96">
+                        <?php  } }
+                      ?>
                     </div>
-                    <div class="modal-body">
+                </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="itemName">Item Name</label>
-                                <input class="form-control" type="text" name="additemname" placeholder="Name of Item.." required pattern="[A-Za-z 0-9]+">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="iemPrice">Price</label>
-                                <input class="form-control" type="text" name="additemprice" placeholder="Input item price.." required pattern="[0-9]+">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label for="iemPrice">Itemcode</label>
-                                <input class="form-control" type="text" name="additemcode" placeholder="Input item code.." required pattern="[0-9]+">
-                            </div>
-                        </div>
+                <div class="col-md-9">
+                    <a href="#" class="collapsible" data-toggle="modal" data-target="#CreateShop"><span class="glyphicon glyphicon-home"></span> Create Shop</a>
+                    <a href="#" class="collapsible" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-plus-sign"></span> Add Items</a>
+                </div>
 
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Item image</label>
-                                <input class="form-control" type="file" name="additemimage" required accept="image/x-png,image/image/jpeg">
-                            </div>
-                        </div>
 
-                        <input type="hidden" name="additemsUid" value="<?php echo $_SESSION['USER']?>">
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="itemCat">Category</label>
-                                <select name="additemcategory" class="selectadditem" required>
-                                    <?php 
+
+
+
+
+
+                <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <form action="includes/addnewitem.inc.php" method="POST">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Add New Items</h4>
+
+                                </div>
+                                <div class="modal-body">
+
+
+                                    <div class="form-group">
+                                        <label for="itemName">Item Name</label>
+                                        <input class="form-control" type="text" name="additemname" placeholder="Name of Item.." required pattern="[A-Za-z 0-9]+">
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="iemPrice">Price</label>
+                                            <input class="form-control" type="text" name="additemprice" placeholder="Input item price.." required pattern="[0-9]+">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="iemPrice">Itemcode</label>
+                                            <input class="form-control" type="text" name="additemcode" placeholder="Input item code.." required pattern="[0-9]+">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Item image</label>
+                                            <input class="form-control" type="file" name="additemimage" required accept="image/x-png,image/image/jpeg">
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="additemsUid" value="<?php echo $_SESSION['USER']?>">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="itemCat">Category</label>
+                                            <select name="additemcategory" class="selectadditem" required>
+                                                <?php 
                   $catList = getCategory($conn);
                   foreach($catList as $key => $value){ ?>
-                                    <option value="<?php echo $value['cat_id'];?>"> <?php echo $value['cat_desc'];?></option>
-                                    <?php } 
+                                                <option value="<?php echo $value['cat_id'];?>"> <?php echo $value['cat_desc'];?></option>
+                                                <?php } 
                   ?>
-                                </select>
-                            </div>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="subject">Description</label>
+                                        <textarea id="subject" name="additemdesc" placeholder="Write description of the item.." style="height:200px" required></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <input type="submit" name="addnewItem" value="Submit">
+                                </div>
+
+                            </form>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="subject">Description</label>
-                            <textarea id="subject" name="additemdesc" placeholder="Write description of the item.." style="height:200px" required></textarea>
-                        </div>
-
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <input type="submit" name="addnewItem" value="Submit">
-                    </div>
 
-                </form>
 
-            </div>
 
-        </div>
-    </div>
 
-                
-                
-                
-                
 
 
                 <?php    }
@@ -139,20 +163,23 @@ session_start();
             </div>
 
 
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-6 col-xs-6 col-lg-6">
                 <div class="search-container">
                     <?php
                     if (isset($_SESSION['USER'])) {
                      $row['user_id'] = $_SESSION['USER'];?>
-                    <a href="userprof.php?disuser=<?php echo $row['user_id'];?>"><i class="fa fa-user"></i> My Account</a>
+
+                    <a href="userproff.php"><i class="fa fa-user"></i> My Account</a>
 
                     <a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a>
                     <a href="checkout.php"><span class="glyphicon glyphicon-list-alt"></span> Checkout</a>
                     <a href="includes/logout.inc.php"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
-                    <form action="shop.php" method="GET">
+                    <form class="hdform" action="shop.php" method="GET">
                         <input id="searchbar" name="searchkeys" type="text" placeholder="Search..">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
+
+
 
 
                     <?php    }
@@ -166,7 +193,7 @@ session_start();
 
                         <a href="signup.php"><span class="glyphicon glyphicon-edit"></span> Sign up</a>
 
-                        <form action="shop.php" method="GET">
+                        <form class="hdform" action="shop.php" method="GET">
                             <input id="searchbar" name="searchkeys" type="text" placeholder="Search..">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
@@ -202,11 +229,22 @@ session_start();
                     </div>
                 </div>
 
+
+                <?php if (isset($_SESSION['USER'])) {
+                     $row['user_id'] = $_SESSION['USER'];?>
+
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.php">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.php">Cart - <span class="cart-amunt"><?php echo "Php. " . number_format( getCartSum($conn, $_SESSION['USER']) )?></span> <i class="fa fa-shopping-cart"></i> <span class="product-count">
+                                <?php echo getCartCount($conn,$_SESSION['USER']);?>
+                            </span></a>
                     </div>
                 </div>
+
+                <?php }
+                echo " ";
+                ?>
+
             </div>
         </div>
     </div> <!-- End site branding area -->
@@ -224,11 +262,27 @@ session_start();
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+
+
+                        <?php if (isset($_SESSION['USER'])) {
+                     $row['user_id'] = $_SESSION['USER'];?>
                         <li class="<?php if ($page == 'index')echo 'active';?>"><a href="index.php">Home</a></li>
                         <li class="<?php if ($page == 'shop')echo 'active';?>"><a href="shop.php">Item page</a></li>
                         <li class="<?php if ($page == 'singleproduct')echo 'active';?>"><a href="singleproduct.php">Single product</a></li>
                         <li class="<?php if ($page == 'cart')echo 'active';?>"><a href="cart.php">Cart</a></li>
                         <li class="<?php if ($page == 'checkout')echo 'active';?>"><a href="checkout.php">Checkout</a></li>
+
+                        <?php }
+                        else{ ?>
+
+                        <li class="<?php if ($page == 'index')echo 'active';?>"><a href="index.php">Home</a></li>
+                        <li class="<?php if ($page == 'shop')echo 'active';?>"><a href="shop.php">Item page</a></li>
+                        <li class="<?php if ($page == 'singleproduct')echo 'active';?>"><a href="singleproduct.php">Single product</a></li>
+
+                        <?php }
+                        
+                        ?>
+
                     </ul>
                 </div>
             </div>
@@ -264,28 +318,36 @@ session_start();
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="itemName">Shop Username</label>
-                                <input class="form-control" type="text" name="suppsUpUsrName" placeholder="Enter New Shop Name" required pattern="[A-Za-z @ 0-9]+">
+                                <input class="form-control" type="text" name="suppsUpUsrName" placeholder="Enter Shop Username" required pattern="[A-Za-z @ 0-9]+">
                             </div>
 
                         </div>
+                     
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="itemName">Shop Municipality</label>
-                                <input class="form-control" type="text" name="suppsUpMun" placeholder="Enter New Shop Municipality" required pattern="[A-Za-z ,- 0-9]+">
+                                <input class="form-control" type="text" name="suppsUpMun" placeholder="Enter Shop Municipality" required pattern="[A-Za-z ,- 0-9]+">
                             </div>
 
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="itemName">Shop Province</label>
-                                <input class="form-control" type="text" name="suppsUpProv" placeholder="Enter New Shop Province" required pattern="[A-Za-z ,- 0-9]+">
+                                <input class="form-control" type="text" name="suppsUpProv" placeholder="Enter Shop Province" required pattern="[A-Za-z ,- 0-9]+">
                             </div>
 
+                        </div>
+                        
+                          <div class="form-group">
+                            <div class="form-group">
+                                <label for=""> Shop's Profile Image</label>
+                                <input class="form-control" type="file" name="suppUpUsrImg" required accept="image/x-png,image/image/jpeg">
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="itemName">Enter Password</label>
-                            <input class="form-control" type="password" name="suppsUpPass" placeholder="Enter New Password" required pattern="[A-Za-z 0-9]+">
+                            <input class="form-control" type="password" name="suppsUpPass" placeholder="Enter Password" required pattern="[A-Za-z 0-9]+">
                         </div>
 
 
@@ -306,6 +368,7 @@ session_start();
     <!--   para lang makita ko kung ano na piga edit sa css-->
     <style>
         <?php include "style.css"?>
+
     </style>
 
     <script>
@@ -323,6 +386,7 @@ session_start();
                 }
             });
         }
+
     </script>
 
 
@@ -336,6 +400,7 @@ session_start();
                 x.className = "topnav";
             }
         }
+
     </script>
 </body>
 

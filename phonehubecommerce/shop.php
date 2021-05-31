@@ -36,7 +36,7 @@
     $page = 'shop'; include 'header.php';
     ?>
 
-   <?php
+    <?php
     if(isset($_GET['login'])){
         if($_GET['login'] !== false)
         {
@@ -52,12 +52,7 @@
     
  
     ?>
-    
-    
-    
-    
 
-   
     <div class="product-big-title-area">
         <div class="container">
             <div class="row">
@@ -93,16 +88,16 @@
                                     <a class="dropdown-toggle" id="shopsort" data-toggle="dropdown" href="#">Brand Name
                                         <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                       <?php 
+                                        <?php 
                                         $catList = getCategory($conn);
                                         foreach($catList as $key => $value){ ?>
-                                            <li><a href="shop.php?brandname=<?php echo $value['cat_id'];?>"> <?php echo $value['cat_desc'];?></a></li>
+                                        <li><a href="shop.php?brandname=<?php echo $value['cat_id'];?>"> <?php echo $value['cat_desc'];?></a></li>
                                         <?php } ?>
                                     </ul>
                                 </li>
 
                                 <li><a href="shop.php?supplier_id">Shop</a></li>
-                              
+
                             </ul>
 
                         </div>
@@ -113,11 +108,11 @@
         </div>
     </div>
 
-   
-     <div class="single-product-area">
+
+    <div class="single-product-area">
         <div class="container">
             <div class="row">
-               <?php
+                <?php
 
              
                    $searchkey="";
@@ -129,29 +124,57 @@
                   if(!empty($arr)){
     
       foreach($arr as $key => $item_code){  ?>
-                       <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
                         <div class="product-upper">
                             <img src="img/<?php echo $item_code['item_image']?>" alt="">
                         </div>
                         <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id']?>"> <span class="glyphicon glyphicon-phone"></span> <?php echo $item_code['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
+                            <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
                                 <?php echo number_format($item_code['item_price']) ?>
-                           </ins>
+                            </ins>
                         </div>
 
-                      <div class="product-option-shop">
-                              <a class="add_to_cart_button" 
-                          data-quantity="1" 
-                       data-product_sku="" 
-                        data-product_id="70" 
-                                     rel="nofollow"
-                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $item_code['item_id']; ?>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to cart</a>
+
+                        <?php if(isset($_SESSION['USER'])){ ?>
+                        <div class="product-option-shop">
+
+
+                            <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                <div class="quantity">
+                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                </div>
+                                <input type="hidden" name="itemIds" value="">
+                                <input type="hidden" name="itemId" value="<?php echo $item_code['item_id']?>">
+                                <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                <input type="hidden" name="itemName" value="<?php echo $item_code['item_name']?>">
+                                <input type="hidden" name="itemPrice" value="<?php echo $item_code['item_price']?>">
+                                <input type="hidden" name="itemCode" value="<?php echo $item_code['item_code']?>">
+                                <input type="hidden" name="itemImg" value="<?php echo $item_code['item_image']?>">
+
+
+                                <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                            </form>
+
+
+
                         </div>
+
+                        <?php    }else{?>
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                        </div>
+
+                        <?php }
+
+                    ?>
+
+
                     </div>
                 </div>
-             <?php }
+                <?php }
              
             }
 
@@ -159,7 +182,7 @@
 
 
               else{?>
-           <h1><span class="glyphicon glyphicon-warning-sign"></span> Record not found</h1>
+                <h1><span class="glyphicon glyphicon-warning-sign"></span> Record not found</h1>
                 <?php     }
            }
            
@@ -171,30 +194,57 @@
                   
                   $item_list = getItemListperCategory($conn,$CATEGORY);
                   foreach($item_list as $key => $i){ ?>
-                  <div class="col-md-3 col-sm-6">
-                       <div class="single-shop-product">
-                          <div class="product-upper">
-                              <img src="img/<?php echo $i['item_image']?>" alt="">
-                          </div>
-                          <h2><a href="singleproduct.php?disitem=<?php echo $i['item_id']?>"> <span class="glyphicon glyphicon-phone"></span> <?php echo $i['item_name'] ; ?> </a></h2>
-                          <div class="product-carousel-price">
-                              <ins>  <span class="glyphicon glyphicon-ruble"></span> 
-                                  <?php echo number_format($i['item_price'],2) ; ?>
-                             </ins>
-                          </div>
-  
-                          <div class="product-option-shop">
-                              <a class="add_to_cart_button" 
-                          data-quantity="1" 
-                       data-product_sku="" 
-                        data-product_id="70" 
-                                     rel="nofollow"
-                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $i['item_id']; ?>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to cart</a>
-                                   
-                          </div>
-                      </div>
-                  </div>
-                    
+                <div class="col-md-3 col-xs-6 col-sm-4 col-lg-3">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="img/<?php echo $i['item_image']?>" alt="">
+                        </div>
+                        <h2><a href="singleproduct.php?disitem=<?php echo $i['item_id']?>"> <span class="glyphicon glyphicon-phone"></span> <?php echo $i['item_name'] ; ?> </a></h2>
+                        <div class="product-carousel-price">
+                            <ins> <span class="glyphicon glyphicon-ruble"></span>
+                                <?php echo number_format($i['item_price'],2) ; ?>
+                            </ins>
+                        </div>
+
+
+                        <?php if(isset($_SESSION['USER'])){ ?>
+                        <div class="product-option-shop">
+
+
+                            <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                <div class="quantity">
+                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                </div>
+                                <input type="hidden" name="itemIds" value="">
+                                <input type="hidden" name="itemId" value="<?php echo $i['item_id']?>">
+                                <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                <input type="hidden" name="itemName" value="<?php echo $i['item_name']?>">
+                                <input type="hidden" name="itemPrice" value="<?php echo $i['item_price']?>">
+                                <input type="hidden" name="itemCode" value="<?php echo $i['item_code']?>">
+                                <input type="hidden" name="itemImg" value="<?php echo $i['item_image']?>">
+
+
+                                <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                            </form>
+
+
+
+                        </div>
+
+                        <?php    }else{?>
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                        </div>
+
+                        <?php }
+
+                    ?>
+
+
+                    </div>
+                </div>
+
                 <?php }
                 }  
 
@@ -203,24 +253,24 @@
                 else if(isset($_GET['supplier_id'])) {
                 $supplist = getSuppliers($conn,'A');
                 foreach($supplist as $key => $supp){ ?>
-                       <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-xs-6 col-sm-4 col-lg-3">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                               <img src="img/<?php echo $supp['supp_image']?>" alt="">
+                            <img src="img/<?php echo $supp['supp_image']?>" alt="">
                         </div>
                         <h2><a href="shop.php?shop_id=<?php echo $supp['supp_id']; ?>"> <?php echo $supp['supp_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon-map-marker"></span>
+                            <ins> <span class="glyphicon glyphicon-map-marker"></span>
                                 <?php echo $supp['supp_mun'] . ", " . $supp['supp_prov'] ; ?>
-                           </ins>
+                            </ins>
                         </div>
 
                         <div class="product-option-shop">
-                            <a href="shop.php?shop_id=<?php echo $supp['supp_id']; ?>" class="add_to_cart_button" >Visit Shop</a>
+                            <a href="shop.php?shop_id=<?php echo $supp['supp_id']; ?>" class="add_to_cart_button">Visit Shop</a>
                         </div>
                     </div>
                 </div>
-             <?php }
+                <?php }
             }
 
   // --------------------------------------------- display each store 
@@ -231,30 +281,56 @@
                   
                   $item_list = getItemListperSupplier($conn,$SUPPLIER);
                   foreach($item_list as $key => $i){ ?>
-                  <div class="col-md-3 col-sm-6">
-                       <div class="single-shop-product">
-                          <div class="product-upper">
-                              <img src="img/<?php echo $i['supp_item_image']?>" alt="">
-                          </div>
-                          <h2><a href="singleproduct.php?disitem=<?php echo $item_code['supp_item_id']?>"> <span class="glyphicon glyphicon-phone"></span> <?php echo $i['supp_item_name'] ; ?> </a></h2>
-                          <div class="product-carousel-price">
-                              <ins>  <span class="glyphicon glyphicon-ruble"></span> 
-                                  <?php echo number_format($i['supp_item_price'],2) ; ?>
-                             </ins>
-                          </div>
-  
-                          <div class="product-option-shop">
-                              <a class="add_to_cart_button" 
-                          data-quantity="1" 
-                       data-product_sku="" 
-                        data-product_id="70" 
-                                     rel="nofollow"
-                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $i['supp_item_id']; ?>"><span class="glyphicon glyphicon-shopping-cart"></span>Add to cart</a>
-                                   
-                          </div>
-                      </div>
-                  </div>
-                    
+                <div class="col-md-3 col-xs-6 col-sm-4 col-lg-3">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="img/<?php echo $i['supp_item_image']?>" alt="">
+                        </div>
+                        <h2><a href="singleproduct.php?shpit=<?php echo $i['supp_item_id']?>"> <span class="glyphicon glyphicon-phone"></span> <?php echo $i['supp_item_name'] ; ?> </a></h2>
+                        <div class="product-carousel-price">
+                            <ins> <span class="glyphicon glyphicon-ruble"></span>
+                                <?php echo number_format($i['supp_item_price'],2) ; ?>
+                            </ins>
+                        </div>
+
+                        <?php if(isset($_SESSION['USER'])){ ?>
+                        <div class="product-option-shop">
+
+
+                            <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                <div class="quantity">
+                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                </div>
+                                <input type="hidden" name="itemId" value="">
+                                <input type="hidden" name="itemIds" value="<?php echo $i['supp_item_id']?>">
+                                <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                <input type="hidden" name="itemName" value="<?php echo $i['supp_item_name']?>">
+                                <input type="hidden" name="itemPrice" value="<?php echo $i['supp_item_price']?>">
+                                <input type="hidden" name="itemCode" value="<?php echo $i['supp_item_code']?>">
+                                <input type="hidden" name="itemImg" value="<?php echo $i['supp_item_image']?>">
+
+
+                                <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                            </form>
+
+
+
+                        </div>
+
+                        <?php    }else{?>
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                        </div>
+
+                        <?php }
+
+                    ?>
+
+
+                    </div>
+                </div>
+
                 <?php }
                 }
 
@@ -264,40 +340,111 @@
                     if(!isset($_GET['item_code'])){
                 $itemslist = allitemList($conn,'A');
                 foreach($itemslist as $key => $item_code){ ?>
-                       <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-xs-6 col-sm-4 col-lg-3">
                     <div class="single-shop-product">
                         <div class="product-upper">
                             <img src="img/<?php echo $item_code['item_image']?>" alt="">
                         </div>
                         <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id']?>"> <span class="glyphicon glyphicon-phone"></span> <?php echo $item_code['item_name'] ; ?> </a></h2>
                         <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
+                            <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
                                 <?php echo number_format($item_code['item_price']) ?>
-                           </ins>
+                            </ins>
                         </div>
 
-                      <div class="product-option-shop">
-                              <a class="add_to_cart_button" 
-                          data-quantity="1" 
-                       data-product_sku="" 
-                        data-product_id="70" 
-                                     rel="nofollow"
-                                   href="includes/processaddtocart.php?add_to_cart=<?php echo $item_code['item_id']; ?>"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
-                                   
-                          </div>
+                        <?php if(isset($_SESSION['USER'])){ ?>
+                        <div class="product-option-shop">
+
+
+                            <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                <div class="quantity">
+                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                </div>
+                                <input type="hidden" name="itemIds" value="">
+                                <input type="hidden" name="itemId" value="<?php echo $item_code['item_id']?>">
+                                <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                <input type="hidden" name="itemName" value="<?php echo $item_code['item_name']?>">
+                                <input type="hidden" name="itemPrice" value="<?php echo $item_code['item_price']?>">
+                                <input type="hidden" name="itemCode" value="<?php echo $item_code['item_code']?>">
+                                <input type="hidden" name="itemImg" value="<?php echo $item_code['item_image']?>">
+
+
+                                <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                            </form>
+
+
+
+                        </div>
+
+                        <?php    }else{?>
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                        </div>
+
+                        <?php }
+
+                    ?>
+
                     </div>
                 </div>
-             <?php }
+                <?php }
              
             }
                 }?>
-             
-<!-- -------------------------------------------------the default -->
-                
-            </div> 
-            </div> 
-            </div> 
-            
+
+                <!-- -------------------------------------------------the default -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--    --------------------------------- modals ---------------------------------------------------------------->
+
+    <div class="modal fade" id="popupmodal" tabindex="-1" role="dialog" aria-labelledby="popupmodal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="alert alert-danger">
+                        <strong>Ooooppps! Invalid action.</strong> You must create an account first or log in .. <br> <br>
+
+                        <a href="signup.php">
+                            <h4>Create an account.</h4>
+                        </a>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-md-6"></div>
+                    <a href="accnt.php"> <button class='btn btn-primary btn'> Log in </button></a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!--    ----------------------------------------------------------------------------->
+
+
+
+
     <?php
    //  include 'includes/product.inc.php';
     include 'footer.php';

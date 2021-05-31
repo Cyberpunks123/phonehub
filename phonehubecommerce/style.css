@@ -478,6 +478,11 @@ body {
     position: relative;
 }
 
+.product-f-image img{
+    width: 300px;
+    height: 250px;
+}
+
 .product-hover {
     height: 100%;
     left: 0;
@@ -620,6 +625,11 @@ body {
     display: inline-block;
     margin-left: 15px;
     padding: 1px 10px;
+}
+
+.brand-list img{
+    height: 150px;
+    width: 150px;
 }
 
 .brand-wrapper .owl-nav div {
@@ -1073,7 +1083,7 @@ form.cart {
 }
 
 .product-inner-category {
-    margin-bottom: 30px;
+    margin-top: 20px;
     font-size: 18px;
 }
 
@@ -1545,7 +1555,7 @@ textarea {
     display: inline-block;
     color: #262626;
     text-align: center;
-    padding: 13px 13px;
+    padding: 18px 13px;
     text-decoration: none;
     font-size: 13px;
 
@@ -1558,6 +1568,10 @@ textarea {
 
 .topnav .icon {
     display: none;
+}
+
+.topnav .hdform{
+    padding-top: 5px;
 }
 
 .single-shop-product {
@@ -2114,13 +2128,17 @@ textarea {
 
 /*----------------------------------------------------------*/
 @media screen and (max-width: 768px) {
-    .topnav a:not(:first-child) {
+    .topnav a:not(.chip) {
         display: none;
+    }
+    
+    .topnav .hdform{
+        float: right;
     }
 
     .topnav a.icon {
         float: right;
-        display: block;
+        display: inline-block;
     }
 
     .topnav input {
@@ -2149,7 +2167,12 @@ textarea {
         display: inline-block;
         text-align: left;
     }
+    
+    .single-sidebar{
+        display: none;
+    }
 }
+/*--------------------------------------------------*/
 
 .error {
     background: #f28c8c;
@@ -2174,6 +2197,8 @@ textarea {
     padding: 5px;
     font-size: 20px;
 }
+
+
 
 
 /*-------------------------------------------------------------------------------------*/
@@ -2225,6 +2250,7 @@ textarea {
 /*------------------------------------------------------------*/
 .product-upper img {
     height: 300px;
+    width: 300px;
 }
 
 .product-single img {
@@ -2459,6 +2485,102 @@ textarea {
   height: 50px;
   background-color: #0093E9;
 background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 56%, #4c4cb9 100%);
+}
+/*------------------------------------------*/
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
    
+}
+
+.chip img {
+    float: left;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+.chip p{
+    display: inline-block;
+    
+}
+/*-------------------------------------------------*/
+.ac_results {
+	padding: 0px;
+	border: 1px solid #5a88ca;
+	background-color: #5a88ca;
+
+	overflow: hidden;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	color: #fff;
+	font-family:verdana;
+	/* 
+	if width will be 100% horizontal scrollbar will apear 
+	when scroll mode will be used
+	*/
+	/*width: 100%;*/
+	font-size: 12px;
+	/* 
+	it is very important, if line-height not setted or setted 
+	in relative units scroll will be broken in firefox
+	*/
+	line-height: 16px;
+	overflow: hidden;
 
 }
+
+.ac_loading {
+	background: white url('../images/indicator.gif') right center no-repeat;
+}
+
+.ac_odd {
+	background-color: #5a88ca;
+	color: #ffffff;
+}
+
+.ac_over {
+	background-color: #5a88ca;
+	color: #ffffff;
+}
+
+
+.input_text{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	border:1px solid #5a88ca;
+	padding:2px;
+	width:150px;
+	color:#000;
+	background:white url(../images/search.png) no-repeat 3px 2px;
+	padding-left:17px;
+}
+
+
+
+
+
+
+
+
+
+
+

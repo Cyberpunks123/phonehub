@@ -79,7 +79,7 @@
 
 
     <div class="account-page">
-        <div class="row">
+        
             <div class="container">
                 <div class="col-md-6">
                     <img src="img/loginlogo.jpg" width="100%">
@@ -99,8 +99,6 @@
 
                             <button type="submit" name="login" class="btn btn-primary">Log in</button>
 
-                            <p><a href="">Forgot password?</a></p>
-                            <p><a href="">Do you want to sell online? Click here !</a></p>
                         </form>
                     </div>
                 </div>
@@ -108,7 +106,6 @@
 
 
         </div>
-    </div>
 
 
     <!-------------------------------------- para lang alam ko ------------------------------------------------ -->

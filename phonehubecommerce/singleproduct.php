@@ -50,26 +50,25 @@
     <div class="single-product-area">
         <div class="container">
             <div class="row">
-               
-               
-                <div class="col-md-4">
+
+                <div class="col-md-4 col-sm-4">
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Search Products</h2>
                         <form action="singleproduct.php" method="GET">
-                             <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
-                             <input type="submit" value="Search">
+                            <input id="searchbar" name="searchkey" type="text" placeholder="Search..">
+                            <input type="submit" value="Search">
                         </form>
                     </div>
 
-       <!-- --------------------------------------------              -->
+                    <!--                    ----------------------------------------------->
 
-        <div class="single-sidebar">
+                    <div class="single-sidebar">
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
                             <div class="scrollable">
-                                
-                          
-                 <?php 
+
+
+                                <?php 
                        $searchkey="";
                     if (isset($_GET['searchkey'])){
                  $searchkey=htmlentities($_GET['searchkey']);     
@@ -79,234 +78,151 @@
                   if(!empty($arr)){
     
       foreach($arr as $key => $val){  ?>
-            <div class="col-md-12 col-sm-12">
-                    <div class="single-shop-product">
-                        <div class="product-single">
-                            <img src="img/<?php echo $val['item_image'];?>" class="recent-thumb" alt="">
-                        </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_id'];?>"> <?php echo $val['item_name'] ; ?> </a></h2>
-                        <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
-                                <?php echo number_format($val['item_price']) ?>
-                           </ins>
-                        </div>
 
-                    </div>
-                </div>
-    <?php
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="single-shop-product">
+                                        <div class="product-single">
+                                            <img src="img/<?php echo $val['item_image'];?>" class="recent-thumb" alt="">
+                                        </div>
+                                        <h2><a href="singleproduct.php?disitem=<?php echo $val['item_id'];?>"> <?php echo $val['item_name'] ; ?> </a></h2>
+                                        <div class="product-carousel-price">
+                                            <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
+                                                <?php echo number_format($val['item_price']) ?>
+                                            </ins>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <?php
    }
    }
              else{?>
-           <h2><span class="glyphicon glyphicon-warning-sign"></span> Record not found</h2>
-                <?php     }
+                                <h2><span class="glyphicon glyphicon-warning-sign"></span> Record not found</h2>
+                                <?php     }
    }
              else if (!isset($_GET['item_code'])){
                 $itemslist = allitemList($conn,'A');
                 foreach($itemslist as $key => $item_code){ ?>
-                       <div class="col-md-12 col-sm-12">
-                    <div class="single-shop-product">
-                        <div class="product-single">
-                            <img src="img/<?php echo $item_code['item_image'];?>" class="recent-thumb" alt="">
-                        </div>
-                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id'];?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
-                        <div class="product-carousel-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
-                                <?php echo number_format($item_code['item_price']) ?>
-                           </ins>
-                        </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="single-shop-product">
+                                        <div class="product-single">
+                                            <img src="img/<?php echo $item_code['item_image'];?>" class="recent-thumb" alt="">
+                                        </div>
+                                        <h2><a href="singleproduct.php?disitem=<?php echo $item_code['item_id'];?>"> <?php echo $item_code['item_name'] ; ?> </a></h2>
+                                        <div class="product-carousel-price">
+                                            <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
+                                                <?php echo number_format($item_code['item_price']) ?>
+                                            </ins>
+                                        </div>
 
-                    </div>
-                </div>
+                                    </div>
+                                </div>
 
-             <?php }
+                                <?php }
                 }
    ?>
-                 </div>
-            </div>
-         </div>
-    </div>
-     <!-- end of the side-bar -->
+                            </div>
+                        </div>
+                    </div>
 
 
-<!-- ------------------------------------------------------------------------ -->
-                <div class="col-md-8">
+
+
+
+
+
+
+
+
+                </div>
+                <!-- end of the side-bar -->
+
+
+                <!-- ------------------------content area------------------------------------------------ -->
+
+                <div class="col-md-8 col-sm-8">
                     <div class="product-content-right">
-                         <div class="row">
-                            <!-- <div class="col-sm-6"> -->
-                                
-                    <?php $disitem="";
+                        <div class="row">
+
+                            <?php $disitem="";
                             if (isset($_GET['disitem'])){
                                 $disitem=htmlentities($_GET['disitem']);     
                                 $arr = DisplayEachItem($conn, $disitem);                         
                            
                                 if(!empty($arr)){
                                     foreach($arr as $key => $val){  ?>
-                                        <div class="product-images">
-                                            <div class="product-main-img" align="center">
-                                                <img src="img/<?php echo $val['item_image'];?>" alt="">
-                                            </div>
-                                        </div>
-                    <?php
-                                                                }
-                                                }
-                            else{
-                                echo "<h4> No Records Found.</h4>";
-                                }
-                }
-
-                else{
-                        $disitem="X";
-                            if (!isset($_GET['disitem'])){
-                                $arr = DisplayEachItem($conn, $disitem);                         
-                           
-                                if(!empty($arr)){
-                                    foreach($arr as $key => $val){  ?>
-                  
-                        <div class="product-images">
-                            <div class="product-main-img" align="center"> 
-                                <img src="img/<?php echo $val['item_image'];?>" alt="">
-                            </div>          
-                        </div>
-                   
-                    
-                    <?php
-                                                                }
-                                                }
-                                                            }
-                    } ?>
-                        </div>
-        
-
-<!-- ------------------------ end of the image part  ------------------------------------------------- -->
 
 
 
+                            <div class="product-images">
+                                <div class="product-main-img" align="center">
+                                    <img src="img/<?php echo $val['item_image'];?>" alt="">
+                                </div>
+                            </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-xs-12 col-sm-12 col-md-6">
                                 <div class="product-inner">
-                 <?php
-                    $disitem="";
-                        if (isset($_GET['disitem'])){
-                            $disitem=htmlentities($_GET['disitem']);     
-                                $arr = DisplayEachItem($conn, $disitem);                         
-                                    if(!empty($arr)){
-                                        foreach($arr as $key => $val){  ?>
-                                            <h2 class="product-name"> <?php echo $val['item_name'] ; ?> </h2>
-                        
-                    <div class="product-inner-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
-                                <?php echo number_format($val['item_price']) ?>
-                           </ins>
-                    </div>
 
-                    <form action="" class="cart">
-                        <div class="quantity">
-                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                        </div>
-                                        
-                        <button class="add_to_cart_button" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</button>
-                    </form>
 
-                        <div class="product-inner-category">
-                                        <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a> 
+                                    <h2 class="product-name"> <?php echo $val['item_name'] ; ?> </h2>
 
-                                                <br>
-                                            Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
-                                        </p>
-                        </div>
-                        </div>
-                        </div>
-
-                         <div class="col-sm-6">
-                             <div class="product-inner">
-                        <div role="tabpanel">
-                            <ul class="product-tab" role="tablist">
-                                <li role="presentation" class="active">
-                                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a>
-                                </li>
-                                 <li role="presentation">
-                                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
-                                </li>
-                            </ul>
-                                        
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                <h2>Product Description</h2>
-                                                
-                                    <p> <?php echo $val['item_desc'];?>  </p>
-                            </div>
-                                            
-                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                <h2>Reviews</h2>
-                                    <div class="submit-review">
-                                        <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                        <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                        
-                                        <div class="rating-chooser">
-                                         <p>Your rating</p>
-
-                                            <div class="rating-wrap-post">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Submit"></p>
+                                    <div class="product-inner-price">
+                                        <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
+                                            <?php echo number_format($val['item_price']) ?>
+                                        </ins>
                                     </div>
+
+
+                                    <?php if(isset($_SESSION['USER'])){ ?>
+                                    <div class="product-option-shop">
+
+
+                                        <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                            <div class="quantity">
+                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                            </div>
+                                            <input type="hidden" name="itemIds" value="">
+                                            <input type="hidden" name="itemId" value="<?php echo $val['item_id']?>">
+                                            <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                            <input type="hidden" name="itemName" value="<?php echo $val['item_name']?>">
+                                            <input type="hidden" name="itemPrice" value="<?php echo $val['item_price']?>">
+                                            <input type="hidden" name="itemCode" value="<?php echo $val['item_code']?>">
+                                            <input type="hidden" name="itemImg" value="<?php echo $val['item_image']?>">
+
+
+                                            <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                                        </form>
+
+
+
+                                    </div>
+
+                                    <?php    }else{?>
+                                    <div class="product-option-shop">
+                                        <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                                    </div>
+
+                                    <?php }
+
+                    ?>
+
+                                    <div class="product-inner-category">
+                                        <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a>
+                                        </p>
+                                    </div>
+
+
+
+
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                </div>
-        <?php
-                }
-            }
-        }
 
-        else{
-                $disitem="X";
-                    if (!isset($_GET['disitem'])){
-                        $arr = DisplayEachItem($conn, $disitem);                         
-                           
-                            if(!empty($arr)){
-    
-                                foreach($arr as $key => $val){  ?>
-
-                              <h2 class="product-name"> <?php echo $val['item_name'] ; ?> </h2>
-
-                    <div class="product-inner-price">
-                            <ins>  <span class="glyphicon glyphicon glyphicon-ruble"></span> 
-                                <?php echo number_format($val['item_price']) ?>
-                           </ins>
-                    </div>
-
-                    <form action="" class="cart">
-                        <div class="quantity">
-                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                        </div>
-                                <button class="add_to_cart_button" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</button>
-                    </form>
-
-                        <div class="product-inner-category">
-                                <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a> 
-                                        <br>
-
-                                            Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
-                                </p>
-                            </div>
-                         </div>
-            </div>
-
-
-                        <div class="col-sm-6">
-                            <div class="row">
-                             <div class="product-inner">
-
-                            <div role="tabpanel">
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <div class="product-inner">
+                                    <div role="tabpanel">
                                         <ul class="product-tab" role="tablist">
                                             <li role="presentation" class="active">
                                                 <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a>
@@ -316,62 +232,377 @@
                                             </li>
                                         </ul>
 
-                                <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                        <h2>Product Description</h2>
-                                                
-                                            <p> <?php echo $val['item_desc'];?>  </p>
-                                    </div>
-                                            
-                                    <div role="tabpanel" class="tab-pane fade" id="profile">
-                                        <h2>Reviews</h2>
-                                            <div class="submit-review">
-                                                <p><label for="name">Name</label> <input name="name" type="text"></p>
-                                                <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                
-                                                <div class="rating-chooser">
-                                                <p>Your rating</p>
-                                                    <div class="rating-wrap-post">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                <h2>Product Description</h2>
+
+                                                <p> <?php echo $val['item_desc'];?> </p>
+                                            </div>
+
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <h2>Reviews</h2>
+                                                <div class="submit-review">
+                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
+
+                                                    <div class="rating-chooser">
+                                                        <p>Your rating</p>
+
+                                                        <div class="rating-wrap-post">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                        <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                            <p><input type="submit" value="Submit"></p>
+                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><input type="submit" value="Submit"></p>
                                                 </div>
                                             </div>
+                                        </div>
+
+
+
+
+                                    </div>
                                 </div>
                             </div>
+
+
+
+                            <?php  }
+                                                }
+                                                } 
+                      
+                            
+                             $shpit="";
+                         if (isset($_GET['shpit'])){
+                                $shpit=htmlentities($_GET['shpit']);     
+                                $arr = EachofShopItems($conn, $shpit);                         
+                           
+                                if(!empty($arr)){
+                                    foreach($arr as $key => $val){  ?>
+
+
+
+                            <div class="product-images">
+                                <div class="product-main-img" align="center">
+                                    <img src="img/<?php echo $val['supp_item_image'];?>" alt="">
+                                </div>
                             </div>
+
+                            <div class="col-sm-6">
+                                <div class="product-inner">
+
+
+                                    <h2 class="product-name"> <?php echo $val['supp_item_name'] ; ?> </h2>
+
+                                    <div class="product-inner-price">
+                                        <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
+                                            <?php echo number_format($val['supp_item_price']) ?>
+                                        </ins>
+                                    </div>
+
+
+                                    <?php if(isset($_SESSION['USER'])){ ?>
+                                    <div class="product-option-shop">
+
+
+                                        <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                            <div class="quantity">
+                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                            </div>
+                                            <input type="hidden" name="itemId" value="">
+                                            <input type="hidden" name="itemIds" value="<?php echo $val['supp_item_id']?>">
+                                            <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                            <input type="hidden" name="itemName" value="<?php echo $val['supp_item_name']?>">
+                                            <input type="hidden" name="itemPrice" value="<?php echo $val['supp_item_price']?>">
+                                            <input type="hidden" name="itemCode" value="<?php echo $val['supp_item_code']?>">
+                                            <input type="hidden" name="itemImg" value="<?php echo $val['supp_item_image']?>">
+
+
+                                            <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                                        </form>
+
+
+
+                                    </div>
+
+                                    <?php    }else{?>
+                                    <div class="product-option-shop">
+                                        <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                                    </div>
+
+                                    <?php }
+
+                    ?>
+
+                                    <div class="product-inner-category">
+                                        <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a>
+
+                                            <br>
+                                            Shop: <a href="shop.php?shop_id=<?php echo $val['supp_id'] ; ?>"><?php echo $val['supp_name'];?></a>
+                                        </p>
+                                    </div>
+
+
+
+
+                                </div>
                             </div>
+
+                            <div class="col-sm-6">
+                                <div class="product-inner">
+                                    <div role="tabpanel">
+                                        <ul class="product-tab" role="tablist">
+                                            <li role="presentation" class="active">
+                                                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                <h2>Product Description</h2>
+
+                                                <p> <?php echo $val['supp_item_desc'];?> </p>
+                                            </div>
+
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <h2>Reviews</h2>
+                                                <div class="submit-review">
+                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
+
+                                                    <div class="rating-chooser">
+                                                        <p>Your rating</p>
+
+                                                        <div class="rating-wrap-post">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><input type="submit" value="Submit"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
                             </div>
-                <?php
-                    }
-                }
-            }
-        } ?>
+
+
+
+                            <?php  }
+                                                }
+                                                }
+//                            -------------------------------------------- elsse part
+                                else{ 
+                                
+                                 $disitem="X";
+                            if (!isset($_GET['disitem'])){
+                                $arr = DisplayEachItem($conn, $disitem);                         
+                           
+                                if(!empty($arr)){
+                                    foreach($arr as $key => $val){  ?>
+
+                            <div class="product-images">
+                                <div class="product-main-img" align="center">
+                                    <img src="img/<?php echo $val['item_image'];?>" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="product-inner">
+
+                                    <h2 class="product-name"> <?php echo $val['item_name'] ; ?> </h2>
+
+                                    <div class="product-inner-price">
+                                        <ins> <span class="glyphicon glyphicon glyphicon-ruble"></span>
+                                            <?php echo number_format($val['item_price']) ?>
+                                        </ins>
+                                    </div>
+
+
+                                    <?php if(isset($_SESSION['USER'])){ ?>
+                                    <div class="product-option-shop">
+
+
+                                        <form action="includes/processaddtocart.inc.php" class="cart" method="POST">
+                                            <div class="quantity">
+                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                            </div>
+                                            <input type="hidden" name="itemId" value="<?php echo $val['item_id']?>">
+                                            <input type="hidden" name="itemSess" value="<?php echo $_SESSION['USER']?>">
+                                            <input type="hidden" name="itemName" value="<?php echo $val['item_name']?>">
+                                            <input type="hidden" name="itemPrice" value="<?php echo $val['item_price']?>">
+                                            <input type="hidden" name="itemCode" value="<?php echo $val['item_code']?>">
+                                            <input type="hidden" name="itemImg" value="<?php echo $val['item_image']?>">
+
+
+                                            <button class="add_to_cart_button" type="submit" name="addTocart">Add to cart</button>
+                                        </form>
+
+
+
+                                    </div>
+
+                                    <?php    }else{?>
+                                    <div class="product-option-shop">
+                                        <a class="add_to_cart_button" href="#popupmodal" data-toggle="modal" data-target="#popupmodal"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+
+                                    </div>
+
+                                    <?php }
+
+                    ?>
+
+                                    <div class="product-inner-category">
+                                        <p>Category: <a href="shop.php?brandname=<?php echo $val['cat_id'];?>"><?php echo $val['cat_desc'];?></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                        <div class="product-inner">
+                                            <div role="tabpanel">
+                                                <ul class="product-tab" role="tablist">
+                                                    <li role="presentation" class="active">
+                                                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                        <h2>Product Description</h2>
+
+                                                        <p> <?php echo $val['item_desc'];?> </p>
+                                                    </div>
+
+                                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                        <h2>Reviews</h2>
+                                                        <div class="submit-review">
+                                                            <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                            <p><label for="email">Email</label> <input name="email" type="email"></p>
+
+                                                            <div class="rating-chooser">
+                                                                <p>Your rating</p>
+
+                                                                <div class="rating-wrap-post">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                            <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                            <p><input type="submit" value="Submit"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                            <?php 
+                                        }  
+                                } 
+                            
+                            } 
+                                
+                          }?>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- ------------------------ end of the image part  ------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
             </div>
-               </div>
-               </div>
+        </div>
     </div>
-        
 
-
-<!-- -------------------------------------------------------------------- -->
-                        
-
-                
-            
-     
 
 
     <?php
     include 'footer.php';
     ?>
+
+
+    <!-- -------------------------------------------------------------------- -->
+
+
+    <div class="modal fade" id="popupmodal" tabindex="-1" role="dialog" aria-labelledby="popupmodal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="alert alert-danger">
+                        <strong>Ooooppps! Invalid action.</strong> You must create an account first or log in .. <br> <br>
+
+                        <a href="signup.php">
+                            <h4>Create an account.</h4>
+                        </a>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-md-6"></div>
+                    <a href="accnt.php"> <button class='btn btn-primary btn'> Log in </button></a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
@@ -388,12 +619,12 @@
 
     <!-- Main Script -->
     <script src="js/main.js"></script>
-    
+
     <!--   para lang makita ko kung ano na piga edit sa css-->
     <style>
-    <?php include "style.css" ?>
+        <?php include "style.css"?>
+
     </style>
 </body>
 
 </html>
-
